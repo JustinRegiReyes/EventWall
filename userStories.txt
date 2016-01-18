@@ -1,0 +1,4 @@
+Make tweets appear on web page that follow a hashtag
+
+Check to see how I can obtain a code to use twitter api
+Find technology to track twitter hashtags
