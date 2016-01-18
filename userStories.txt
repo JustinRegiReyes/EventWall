@@ -2,3 +2,16 @@ Make tweets appear on web page that follow a hashtag
 
 Check to see how I can obtain a code to use twitter api
 Find technology to track twitter hashtags
+Figure out database
+	Preferred to search for passed tweets then start streaming new ones
+	Maybe do a fetch of passed tweets then immediately after start stream while connection is alive
+		What if stream is disconnected?
+		Upon reconnect or refresh start the process again?
+			How do you check which one was last shown/already shown?
+		What happens if stream is empty?
+			Replay old fetched tweets?
+		What if Twitter stream finds a new tweet while it is displaying the old tweets?
+			Queue up new tweet then go back to restreaming?
+			How to keep track of last tweet shown of the last "replay?"
+				An array id?
+					Variable can keep track of which index was last shown.
