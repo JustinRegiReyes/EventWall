@@ -9,10 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "bower": "^1.7.2",
+    "express": "^4.13.3",
+    "express-session": "^1.13.0",
+    "nodemon": "^1.8.1",
     "twit": "^2.1.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "morgan": "^1.6.1"
   }
 }
