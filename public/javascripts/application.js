@@ -1,4 +1,4 @@
-var app = angular.module('mediaWall', ['ngResource', 'ngRoute']);
+var app = angular.module('mediaWall', ['ngResource', 'ngRoute', 'mediaWall.controllers', 'mediaWall.services']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
