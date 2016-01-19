@@ -20,6 +20,7 @@ var api = require('./api');
 
 // serve js and css files
 app.use('/static', express.static('public'));
+app.use('/vendor', express.static('bower_components'));
 
 // routes
 app.use(api);
