@@ -15,3 +15,34 @@ Figure out database
 			How to keep track of last tweet shown of the last "replay?"
 				An array id?
 					Variable can keep track of which index was last shown.
+
+
+- User can create an account with a username and password
+- User can sign in 
+	- User can "link" their twitter account to their profile
+	- User can "unlink" their twitter account to their profile
+		- But they can't search twitter feed
+	- User can set a "media feed"(name pending)
+		- User sets a tag that people type in to bring it in to the feed
+			- Picture
+				- Caption
+			- Write a message if they dont have a twitter account
+		- User sees a screen that goes through "media feed"
+			- User can press a key that goes through feed forward
+			- User can press a key that goes through feed backward
+			- User can press a key that pauses the feed
+			- User can press a key that deletes that submission
+				- How can the submission stay deleted if you get tweets
+	- User can review/edit "media feed"
+- "Poster" can go to a url and post to a tag
+	- Do they have to have a twitter account?
+		- Would that cause people to not participate?
+		- What if they don't have a twitter account?
+	- What about gmail?
+		- More people have a gmail account
+		- Adds another layer to keep someone accountable
+		- Would that be asking for too much to have people participate
+	- Post goes into database with googleId
+	- If a post gets deleted add a "strike" to that poster
+		- 3 strikes and that person can't post anymore
+
