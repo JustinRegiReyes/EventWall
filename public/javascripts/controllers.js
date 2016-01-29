@@ -3,20 +3,16 @@ var app = angular.module('mediaWall.controllers', []);
 
 app.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
 	function($scope, $location, $http, $window) {
-	console.log('mainCtrl says hi');
+	console.log('mainCtrl says hi', user);
 	$scope.user = $window.user;
 }]);
 
 app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthService', '$window', 
 	function($scope, $rootScope, $location, AuthService, $window) {
 
-    console.log("logged_in", AuthService.getUserStatus());
-
     $scope.isLoggedIn = function(){
       return AuthService.isLoggedIn()
     }
-
-    // if($window.)
 
     $scope.login = function () {
 
@@ -42,13 +38,15 @@ app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthServ
 
     };
 
+    $scope.getUserStatus = function() {
+    	console.log(AuthService.getUserStatus());
+    }
+
 }]);
 
 app.controller('logoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
 
     $scope.logout = function () {
-
-      console.log("logged_in", AuthService.getUserStatus());
 
       // call logout from service
       AuthService.logout()
@@ -90,5 +88,19 @@ app.controller('registerController',
         });
 
     };
+
+}]);
+
+app.controller('homeController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+
+  	if(AuthService.isLoggedIn() === false) {
+  		$location.path('/login');
+  	}
+
+    $scope.getUserStatus = function() {
+    	console.log(AuthService.getUserStatus());
+    }
 
 }]);
