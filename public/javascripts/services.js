@@ -91,7 +91,7 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
       })
       // handle error
       .error(function (res) {
-        deferred.reject();
+        deferred.reject(res.err);
       });
 
     // return promise object
