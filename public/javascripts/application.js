@@ -18,6 +18,14 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: '/templates/sign-up',
 			controller: 'registerController'
 		})
+		.when('/home', {
+			templateUrl: '/templates/home',
+			controller: 'homeController'
+		})
+		.when('/settings', {
+			templateUrl: '/templates/settings',
+			controller: 'homeController'
+		})
 		.otherwise({redirectTo: '/'});
 
 	$locationProvider.html5Mode({
