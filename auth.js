@@ -95,7 +95,7 @@ auth.get('/auth/twitter',
 );
 
 auth.get('/auth/twitter/callback',
-  passport.authenticate('twitter', {failureRedirect: '/login', failureFlash: 'TESTING123'}),
+  passport.authenticate('twitter', {failureRedirect: '/login', failureFlash: 'No account associated with Twitter account. Log in to connect your Twitter account.'}),
   function(req, res) {
     res.locals.errorFlash = 'test';
     signedInUser = req.user;

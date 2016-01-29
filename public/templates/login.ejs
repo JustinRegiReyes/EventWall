@@ -1,6 +1,9 @@
-<div class="col-sm-4 col-sm-offset-4">
+<div class="col-sm-6 col-sm-offset-3">
   <h1>Login</h2>
-  <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+      <%if(flashMessages.flashError && (flashMessages.flashError.length > 0)) {%>
+        <div class="alert alert-danger text-center"><%= flashMessages.flashError %></div>
+      <% } %>
+      <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
   <form class="form" ng-submit="login()">
     <div class="form-group">
       <label>Username</label>
@@ -15,7 +18,5 @@
       </div>
   </form>
   <a href="/auth/twitter" target="_self" class="btn btn-primary">Login with Twitter OAuth</a>
-  <button ng-click="twitterOAuth()">Login with Twitter OAuth</button>
 </div>
 
-<%= flashMessages.flashError %>
