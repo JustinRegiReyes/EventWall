@@ -30,6 +30,7 @@ exports.templates = function(req, res) {
 
   console.log('app.locals', flashMessages);
   res.render(path.join(templates, filename), {message: 'hello', flashMessages: flashMessages} );
+  flashMessages.flashError = null;
 };
 
 exports.index = function(req, res) {
