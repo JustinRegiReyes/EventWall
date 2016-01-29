@@ -1,7 +1,9 @@
 <div class="col-sm-6 col-sm-offset-3">
   <h1>Login</h2>
       <%if(flashMessages.flashError && (flashMessages.flashError.length > 0)) {%>
-        <div class="alert alert-danger text-center"><%= flashMessages.flashError %></div>
+        <div class="alert alert-danger text-center">
+          No account associated with Twitter account. Log in to connect your Twitter account.
+        </div>
       <% } %>
       <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
   <form class="form" ng-submit="login()">
