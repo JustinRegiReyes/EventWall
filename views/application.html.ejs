@@ -15,11 +15,10 @@
 </head>
 <body ng-controller="mainCtrl">
 	<header ng-include="'/static/templates/navbar.html'"></header>
-	<a href="/auth/twitter" target="_self" class="btn btn-primary">Login with Twitter OAuth</a>
 	<div class="container" ng-view>
 		 
 	</div>
-
+	
 	<!--Embedding The User Object-->
     <script type="text/javascript">
       var user = <%- user ? JSON.stringify(user) : "null" %>;

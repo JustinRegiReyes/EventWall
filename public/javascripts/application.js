@@ -1,13 +1,27 @@
-var app = angular.module('mediaWall', ['ngResource', 'ngRoute', 'mediaWall.controllers', 'mediaWall.services']);
+'use strict';
+
+var app = angular.module('mediaWall', ['ngResource', 'ngRoute', 'mediaWall.services', 'mediaWall.controllers']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: '/static/templates/login.html'
+			templateUrl: '/templates/welcome'
 		})
-		.otherwise('/', {
-			templateUrl: '/static/templates/login.html'
+		.when('/login', {
+			templateUrl: '/templates/login',
+			controller: 'loginController'
 		})
+		.when('/logout', {
+			controller: 'logoutController'
+		})
+		.when('/sign-up', {
+			templateUrl: '/static/templates/sign-up.html',
+			controller: 'registerController'
+		})
+		.when('/test', {
+			templateUrl: '/static/templates/test.html'
+		})
+		.otherwise({redirectTo: '/'});
 
 	$locationProvider.html5Mode({
         enabled: true,

@@ -42,28 +42,6 @@ app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthServ
 
     };
 
-    $scope.twitterOAuth = function() {
-    	// initial values
-      $scope.error = false;
-      $scope.disabled = true;
-
-      // call login from service
-      AuthService.twitterOAuth()
-        // handle success
-        .then(function () {
-          $location.path('/');
-          $scope.disabled = false;
-          $scope.loginForm = {};
-        })
-        // handle error
-        .catch(function () {
-          $scope.error = true;
-          $scope.errorMessage = "Invalid username and/or password";
-          $scope.disabled = false;
-          $scope.loginForm = {};
-        });
-    }
-
 }]);
 
 app.controller('logoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
