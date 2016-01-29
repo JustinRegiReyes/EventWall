@@ -33,6 +33,7 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
       .success(function (res, status) {
         if(status === 200 && res.data){
           user = res.data;
+          $window.user = user;
           deferred.resolve();
         } else {
           user = false;
@@ -84,6 +85,7 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
       .success(function (res, status) {
         if(status === 200 && res.data){
           user = res.data;
+          $window.user = user;
           deferred.resolve();
         } else {
           deferred.reject();
