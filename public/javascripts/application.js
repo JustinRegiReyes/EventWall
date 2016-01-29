@@ -15,11 +15,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			controller: 'logoutController'
 		})
 		.when('/sign-up', {
-			templateUrl: '/static/templates/sign-up.html',
+			templateUrl: '/templates/sign-up',
 			controller: 'registerController'
-		})
-		.when('/test', {
-			templateUrl: '/static/templates/test.html'
 		})
 		.otherwise({redirectTo: '/'});
 
