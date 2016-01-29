@@ -28,7 +28,7 @@ app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthServ
       AuthService.login($scope.loginForm.username, $scope.loginForm.password)
         // handle success
         .then(function () {
-          $location.path('/');
+          $location.path('/home');
           $scope.disabled = false;
           $scope.loginForm = {};
         })
@@ -76,14 +76,15 @@ app.controller('registerController',
       AuthService.register($scope.registerForm.username, $scope.registerForm.password)
         // handle success
         .then(function () {
-          $location.path('/');
+          $location.path('/home');
           $scope.disabled = false;
           $scope.registerForm = {};
         })
         // handle error
-        .catch(function () {
+        .catch(function (res) {
           $scope.error = true;
-          $scope.errorMessage = "Something went wrong!";
+          $scope.errorMessage = res.name === "UserExistsError" ? 
+          "That username is already in use." : "Something has gone wrong. Please try again.";
           $scope.disabled = false;
           $scope.registerForm = {};
         });
