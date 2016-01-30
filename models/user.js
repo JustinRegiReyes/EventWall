@@ -14,7 +14,10 @@ var UserSchema = new Schema({
     sparse: true
   },
   twitterToken: String,
-  twitterSecret: String
+  twitterSecret: String,
+  mediaFeeds: {
+    type: Array
+  }
 });
 
 UserSchema.plugin(passportLocalMongoose);
