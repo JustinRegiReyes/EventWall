@@ -115,7 +115,7 @@ app.controller('settingsController',
     $scope.user = AuthService.getUserStatus();
     console.log($scope.user);
 
-    $scope.twitterLinked = !!$scope.user.twitterId && $scope.user.twitterId.length > 0 ? true : false;
+    $scope.twitterLinked = !!$scope.user && !!$scope.user.twitterId && $scope.user.twitterId.length > 0 ? true : false;
 
     $scope.unlinkTwitter = function () {
 
