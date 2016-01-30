@@ -11,7 +11,8 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
     getUserStatus: getUserStatus,
     login: login,
     logout: logout,
-    register: register
+    register: register,
+    unlinkTwitter: unlinkTwitter
   });
 
   function isLoggedIn() {
@@ -60,6 +61,7 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
     $http.get('/api/user/logout')
       // handle success
       .success(function (res) {
+      	$window.user = null;
         user = null;
         deferred.resolve();
       })
@@ -87,6 +89,34 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
           user = res.data;
           $window.user = user;
           deferred.resolve();
+        } else {
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (res) {
+        deferred.reject(res.err);
+      });
+
+    // return promise object
+    return deferred.promise;
+
+  }
+
+  function unlinkTwitter() {
+
+    // create a new instance of deferred
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.post('/auth/twitter/unlink')
+      // handle success
+      .success(function (res, status) {
+        if(status === 200 && res.data){
+          user = res.data;
+          console.log('unlinkService', user);
+          $window.user = user;
+          deferred.resolve(user);
         } else {
           deferred.reject();
         }
