@@ -3,7 +3,6 @@ var app = angular.module('mediaWall.controllers', []);
 
 app.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
 	function($scope, $location, $http, $window) {
-	console.log('mainCtrl says hi', user);
 	$scope.user = $window.user;
 }]);
 
@@ -38,8 +37,8 @@ app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthServ
 
     };
 
-    $scope.getUserStatus = function() {
-    	console.log(AuthService.getUserStatus());
+    $scope.user = function() {
+    	return AuthService.getUserStatus();
     }
 
 }]);
@@ -102,5 +101,40 @@ app.controller('homeController',
     $scope.getUserStatus = function() {
     	console.log(AuthService.getUserStatus());
     }
+
+}]);
+
+app.controller('settingsController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+
+  	if(AuthService.isLoggedIn() === false) {
+  		$location.path('/login');
+  	}
+
+    $scope.user = AuthService.getUserStatus();
+    console.log($scope.user);
+
+    $scope.twitterLinked = !!$scope.user.twitterId && $scope.user.twitterId.length > 0 ? true : false;
+
+    $scope.unlinkTwitter = function () {
+
+      // call register from service
+      AuthService.unlinkTwitter()
+        // handle success
+        .then(function (data) {
+	    	console.log('data', data);
+	    	$scope.user = data;
+	    	$scope.twitterLinked = false;
+	    	console.log($scope.user);
+          $location.path('/settings');
+        })
+        // handle error
+        .catch(function (res) {
+          $scope.error = true;
+          $scope.errorMessage = "Could not unlink Twitter account. Please try again.";
+        });
+
+    };
 
 }]);

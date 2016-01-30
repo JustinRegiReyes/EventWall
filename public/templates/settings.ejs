@@ -1,3 +1,12 @@
 <h3>Settings</h3>
+<%if(!!flashMessages.duplTwitter && (flashMessages.duplTwitter.length > 0)) {%>
+	<div class="alert alert-danger text-center">
+      <%= flashMessages.duplTwitter %>
+    </div>
+<% } %>
+<div ng-show="twitterLinked">
+	<h5>Your account is currently linked to twitter.</h5>
+	<button ng-click="unlinkTwitter()">Unlink Twitter Account</button>
+</div>
 
-<a href="/auth/twitter" target="_self" class="btn btn-primary">Login with Twitter OAuth</a>
+<a ng-hide="twitterLinked" href="/auth/twitter" target="_self" class="btn btn-primary">Connect account with Twitter</a>

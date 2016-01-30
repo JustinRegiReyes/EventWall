@@ -24,7 +24,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		})
 		.when('/settings', {
 			templateUrl: '/templates/settings',
-			controller: 'homeController'
+			controller: 'settingsController'
 		})
 		.otherwise({redirectTo: '/'});
 
