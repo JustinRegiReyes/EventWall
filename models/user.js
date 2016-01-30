@@ -8,7 +8,11 @@ var UserSchema = new Schema({
     unique: true
   },
   password: String,
-  twitterId: String,
+  twitterId: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
   twitterToken: String,
   twitterSecret: String
 });
