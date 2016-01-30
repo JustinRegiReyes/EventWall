@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
 
 var PosterSchema = new Schema({
   googleId: {
+    type: String,
     unique: true
   },
   posts: {
@@ -29,4 +30,4 @@ PosterSchema.static('findOrCreate', function(new_user, done){
 
 var Poster = mongoose.model('poster', PosterSchema);
 
-module.exports = User;
+module.exports = Poster;
