@@ -1,5 +1,6 @@
 var express = require('express'),
     passport = require('passport'),
+    app = require('.././index.js'),
     User = require('./../models').User;
 
 // signup, users#create
@@ -12,6 +13,9 @@ module.exports.register = function (req, res) {
     // Remove sensitive data before login
     user.hash = undefined;
     user.salt = undefined;
+
+    // Set user into app variable
+    app.locals.user = user;
 
     req.logIn(user, function (err) {
       if (err) {
@@ -39,6 +43,9 @@ module.exports.login = function (req, res, next) {
     user.hash = undefined;
     user.salt = undefined;
 
+    // Set user into app variable for passport strategy authentications to use
+    app.locals.user = user;
+
     req.logIn(user, function (err) {
       if (err) {
         return res.status(500).json({err: 'Could not log in user'});
@@ -53,6 +60,7 @@ module.exports.login = function (req, res, next) {
 
 // signout, sessions#destroy
 module.exports.logout = function (req, res) {
+  app.locals.user = null;
   req.logout();
   res.status(200).json({status: 'Bye!'});
 };
