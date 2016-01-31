@@ -1,6 +1,6 @@
 var app = angular.module('mediaWall.services', []);
 
-app.factory('AuthService', function ($q, $timeout, $http, $window) {
+app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 
   // create user variable
   var user = $window.user || null;
@@ -131,4 +131,44 @@ app.factory('AuthService', function ($q, $timeout, $http, $window) {
 
   }
 
-});
+}]);
+
+app.factory('mediaFeedService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+
+	return({
+		create: create
+	})
+
+	function create(name, hashtag, url, icon, background) {
+
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.post('/api/mediaFeed/create', 
+	    	{
+	    		name: name,
+	    		hashtag: hashtag,
+	    		url: url,
+	    		icon: icon,
+	    		background: background
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          mediaFeed = res.data;
+	          deferred.resolve(mediaFeed);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}	
+
+}]);
