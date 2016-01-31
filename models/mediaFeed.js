@@ -7,7 +7,11 @@ var MediaFeedSchema = new Schema({
     type: Array
   },
   hashtag: String,
-  user: String
+  user: String,
+  name: String,
+  url: String,
+  icon: String,
+  background: String
 });
 
 var mediaFeed = mongoose.model('mediaFeed', MediaFeedSchema);
