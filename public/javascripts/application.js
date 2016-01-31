@@ -26,6 +26,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: '/templates/settings',
 			controller: 'settingsController'
 		})
+		.when('/mediaFeed/create', {
+			templateUrl: '/templates/createMediaFeed',
+			controller: 'mediaFeedController'
+		})
 		.otherwise({redirectTo: '/'});
 
 	$locationProvider.html5Mode({
