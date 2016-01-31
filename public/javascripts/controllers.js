@@ -94,8 +94,8 @@ app.controller('homeController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
-  	if(AuthService.isLoggedIn() === false) {
-  		$location.path('/login');
+	if(AuthService.isLoggedIn() === false) {
+  		$location.path('/');
   	}
 
     $scope.getUserStatus = function() {
@@ -136,5 +136,26 @@ app.controller('settingsController',
         });
 
     };
+
+}]);
+
+app.controller('mediaFeedController',
+  ['$scope', '$location', 'mediaFeedService', 'AuthService',
+  function ($scope, $location, mediaFeedService, AuthService) {
+  	if(AuthService.isLoggedIn() === false) {
+  		$location.path('/login');
+  	}
+
+  	$scope.mediaFeedForm = {};
+
+  	$scope.create = function() {
+  		mediaFeedService.create(
+  			$scope.mediaFeedForm.name,
+  			$scope.mediaFeedForm.hashtag,
+  			$scope.mediaFeedForm.url,
+  			$scope.mediaFeedForm.icon,
+  			$scope.mediaFeedForm.background
+  			);
+  	}
 
 }]);
