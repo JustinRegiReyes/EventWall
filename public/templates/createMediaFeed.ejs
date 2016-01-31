@@ -1,0 +1,35 @@
+<h4 class="text-center">Create a new event to save media memories for!</h4>
+<div class="col-sm-6 col-sm-offset-3">
+  <!-- <div ng-show="error" class="alert alert-danger text-center">{{errorMessage}}</div> -->
+  <form class="form" ng-submit="create()">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" name="username" ng-model="mediaFeedForm.name" required>
+    </div>
+    <div class="form-group">
+      <label>Hashtag</label>
+        <input type="text" class="form-control" name="hashtag" ng-model="mediaFeedForm.hashtag" required>
+      </div>
+      <div>
+    </div>
+    <div class="form-group">
+      <label>Url</label>
+        <input type="text" class="form-control" name="url" ng-model="mediaFeedForm.url" required>
+    </div>
+    <div class="form-group">
+      <label>Icon</label>
+        <input type="text" class="form-control" name="icon" ng-model="mediaFeedForm.icon" required>
+    </div>
+    <div class="form-group">
+      <label>Background</label>
+        <input type="text" class="form-control" name="background" ng-model="mediaFeedForm.background" required>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-default" ng-disabled="disabled">Submit</button>
+    </div>
+  </form>
+
+
+</div>
+
+<!-- name, hashtag, url, icon, background -->
