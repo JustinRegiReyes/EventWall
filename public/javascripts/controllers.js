@@ -149,7 +149,7 @@ app.controller('eventWallController',
   	$scope.eventWallForm = {};
 
   	$scope.create = function() {
-      console.log($scope.eventWallForm);
+      // console.log($scope.eventWallForm);
   		eventWallService.create(
   			$scope.eventWallForm.name,
   			$scope.eventWallForm.hashtag,
