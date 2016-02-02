@@ -13,6 +13,10 @@ var PosterSchema = new Schema({
   strikes: {
     type: Number,
     default: 0
+  },
+  canPost: {
+    type: Boolean,
+    default: true
   }
 });
 
