@@ -1,4 +1,4 @@
-var app = angular.module('mediaWall.services', []);
+var app = angular.module('eventWall.services', []);
 
 app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 
@@ -133,7 +133,7 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
 
 }]);
 
-app.factory('mediaFeedService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 
 	return({
 		create: create
@@ -145,7 +145,7 @@ app.factory('mediaFeedService', ['$q', '$timeout', '$http', '$window', function 
    		var deferred = $q.defer();
 
 		// send a post request to the server
-	    $http.post('/api/mediaFeed/create', 
+	    $http.post('/api/eventWall/create', 
 	    	{
 	    		name: name,
 	    		hashtag: hashtag,
@@ -156,8 +156,8 @@ app.factory('mediaFeedService', ['$q', '$timeout', '$http', '$window', function 
 	      // handle success
 	      .success(function (res, status) {
 	        if(status === 200 && res.data){
-	          mediaFeed = res.data;
-	          deferred.resolve(mediaFeed);
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
 	        } else {
 	          deferred.reject();
 	        }

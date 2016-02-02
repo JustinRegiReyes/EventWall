@@ -1,4 +1,4 @@
-var app = angular.module('mediaWall.controllers', []);
+var app = angular.module('eventWall.controllers', []);
 
 
 app.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
@@ -139,22 +139,22 @@ app.controller('settingsController',
 
 }]);
 
-app.controller('mediaFeedController',
-  ['$scope', '$location', 'mediaFeedService', 'AuthService',
-  function ($scope, $location, mediaFeedService, AuthService) {
+app.controller('eventWallController',
+  ['$scope', '$location', 'eventWallService', 'AuthService',
+  function ($scope, $location, eventWallService, AuthService) {
   	if(AuthService.isLoggedIn() === false) {
   		$location.path('/login');
   	}
 
-  	$scope.mediaFeedForm = {};
+  	$scope.eventWallForm = {};
 
   	$scope.create = function() {
-  		mediaFeedService.create(
-  			$scope.mediaFeedForm.name,
-  			$scope.mediaFeedForm.hashtag,
-  			$scope.mediaFeedForm.url,
-  			$scope.mediaFeedForm.icon,
-  			$scope.mediaFeedForm.background
+  		eventWallService.create(
+  			$scope.eventWallForm.name,
+  			$scope.eventWallForm.hashtag,
+  			$scope.eventWallForm.url,
+  			$scope.eventWallForm.icon,
+  			$scope.eventWallForm.background
   			);
   	}
 

@@ -15,7 +15,7 @@ var UserSchema = new Schema({
   },
   twitterToken: String,
   twitterSecret: String,
-  mediaFeeds: {
+  eventWalls: {
     type: Array
   }
 });

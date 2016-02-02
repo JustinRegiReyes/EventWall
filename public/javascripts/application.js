@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('mediaWall', ['ngResource', 'ngRoute', 'mediaWall.services', 'mediaWall.controllers']);
+var app = angular.module('eventWall', ['ngResource', 'ngRoute', 'eventWall.services', 'eventWall.controllers']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
@@ -27,8 +27,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			controller: 'settingsController'
 		})
 		.when('/mediaFeed/create', {
-			templateUrl: '/templates/createMediaFeed',
-			controller: 'mediaFeedController'
+			templateUrl: '/templates/eventWall-create',
+			controller: 'eventWallController'
 		})
 		.otherwise({redirectTo: '/'});
 

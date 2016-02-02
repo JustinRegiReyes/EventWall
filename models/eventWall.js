@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     User = require('./user.js');
 
-var MediaFeedSchema = new Schema({
+var EventWallSchema = new Schema({
   posts: {
     type: Array
   },
@@ -14,6 +14,6 @@ var MediaFeedSchema = new Schema({
   background: String
 });
 
-var mediaFeed = mongoose.model('mediaFeed', MediaFeedSchema);
+var eventWall = mongoose.model('eventWall', EventWallSchema);
 
-module.exports = mediaFeed;
+module.exports = eventWall;
