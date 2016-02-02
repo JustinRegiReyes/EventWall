@@ -12,6 +12,11 @@
 	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
+    <!--Embedding The User Object-->
+    <script type="text/javascript">
+      var user = <%- user ? JSON.stringify(user) : "null" %>;
+    </script>
+
 </head>
 <body ng-controller="mainCtrl">
 	<header ng-include="'/static/templates/navbar.html'"></header>
@@ -19,10 +24,7 @@
 		 
 	</div>
 	
-	<!--Embedding The User Object-->
-    <script type="text/javascript">
-      var user = <%- user ? JSON.stringify(user) : "null" %>;
-    </script>
+	
 
 	<!-- - - - javascripts - - - -->
 	<script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
