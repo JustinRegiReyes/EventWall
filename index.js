@@ -48,8 +48,6 @@ app.use(api);
 
 app.get('/', function(req, res) {
   // console.log('index.js', req.flash());
-  res.locals.errorFlash = 'test';
-  console.log('RES.LOCALS', res.locals);
   res.render(path.join(views, 'application.html.ejs'), {user: req.user});
 });
 app.get('/templates/:filename', routes.templates);

@@ -26,7 +26,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: '/templates/settings',
 			controller: 'settingsController'
 		})
-		.when('/mediaFeed/create', {
+		.when('/eventWall/create', {
 			templateUrl: '/templates/eventWall-create',
 			controller: 'eventWallController'
 		})
