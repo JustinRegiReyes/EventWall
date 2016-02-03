@@ -18,21 +18,23 @@ Figure out database
 
 
 - User can create an account with a username and password -- Done
+
 - User can sign in -- Done
 	- User can "link" their twitter account to their profile -- Done
 	- User can "unlink" their twitter account to their profile -- Done
-	- User can set a "media feed"(name pending)
+	- User can create an eventWall
 		- User sets a tag that people type in to bring it in to the feed
 			- Picture
 				- Caption
 			- Write a message if they dont have a twitter account
 		- User sees a screen that goes through "media feed"
-			- User can press a key that goes through feed forward
+			-4 User can press a key that goes through feed forward
 			- User can press a key that goes through feed backward
 			- User can press a key that pauses the feed
 			- User can press a key that deletes that submission
 				- How can the submission stay deleted if you get tweets
-	- User can review/edit "media feed"
+	- User can review/edit eventWall
+
 - "Poster" can go to a url and post to a tag
 	- Do they have to have a twitter account?
 		- Would that cause people to not participate?
