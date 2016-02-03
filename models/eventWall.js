@@ -29,6 +29,14 @@ EventWallSchema.methods.addToUser = function(user, cb) {
   })
 };
 
+EventWallSchema.statics.findByUrl = function(url, cb) {
+	this.findOne({url: url}, function(err, eventWall) {
+		if(err) {return cb(err, null)};
+
+		cb(null, eventWall);
+	})
+}
+
 var eventWall = mongoose.model('eventWall', EventWallSchema);
 
 module.exports = eventWall;
