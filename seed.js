@@ -10,3 +10,7 @@ var db = require("./models");
 // 	console.log(eventWalls);
 // 	process.exit();
 // })
+
+// db.EventWall.collection.drop(function() {
+// 	process.exit();
+// })
