@@ -157,6 +157,7 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 	      .success(function (res, status) {
 	        if(status === 200 && res.data){
 	          eventWall = res.data;
+	          $window.user.eventWalls.push(eventWall._id);
 	          deferred.resolve(eventWall);
 	        } else {
 	          deferred.reject();

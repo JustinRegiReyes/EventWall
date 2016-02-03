@@ -156,7 +156,18 @@ app.controller('eventWallController',
   			$scope.eventWallForm.url,
   			$scope.eventWallForm.icon,
   			$scope.eventWallForm.background
-  			);
+  			)
+        // handle success
+        .then(function (data) {
+        
+        $location.path('/home')
+        })
+        // handle error
+        .catch(function (res) {
+          $scope.error = true;
+          $scope.errorMessage = "";
+        });
+
   	}
 
 }]);

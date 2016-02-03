@@ -7,6 +7,7 @@ var express = require('express'),
 	ejs = require('ejs'),
 	flash = require('express-flash'),
 	cookieParser = require('cookie-parser'),
+  db = require('./models'),
 	env = process.env;
 
 // create instance of express
@@ -40,6 +41,21 @@ var views = path.join(process.cwd(), 'views/');
 // serve js and css files
 app.use('/static', express.static('public'));
 app.use('/vendor', express.static('bower_components'));
+
+//session helpers
+app.use(function( req, res, next) {
+
+    //helps save logged in user document
+    //since passport's req.user isn't a document instance
+    req.currentUser = function (cb) {
+        db.User.findOne({_id: req.user._id},
+            function (err, user) {
+                cb(err, user);
+            });
+    };
+
+    next();
+});
 
 
 // routes
