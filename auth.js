@@ -83,11 +83,12 @@ passport.use(new GoogleStrategy({
 
 // Serialize data into the session
 passport.serializeUser(function(user, cb) {
+  // console.log('serializeUser')
   cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
-  // console.log('deserializeUser', obj);
+  // console.log('deserializeUser');
   cb(null, obj);
 });
 
