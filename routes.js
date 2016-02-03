@@ -44,7 +44,7 @@ exports.fallback = function(req, res) {
 	var duplTwitter = req.flash('duplTwitter');
 	var noTwitter = req.flash('noTwitter');
 	
-	console.log('req.user check', req.user);
+	// console.log('fallback', req.params);
 	flashMessages.noTwitter = noTwitter ? noTwitter : null;
 	flashMessages.duplTwitter = duplTwitter ? duplTwitter : null;
   res.render(path.join(views, 'application.html.ejs'), {user: req.user});
