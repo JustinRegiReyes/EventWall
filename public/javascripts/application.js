@@ -30,6 +30,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: '/templates/eventWall-create',
 			controller: 'eventWallController'
 		})
+		//shortened the url by excluding eventWall and just putting feed
+		.when('/feed/:url', {
+			templateUrl: '/templates/eventWall-feed',
+			controller: 'eventWallFeedController'
+		})
 		.otherwise({redirectTo: '/'});
 
 	$locationProvider.html5Mode({

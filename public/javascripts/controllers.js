@@ -153,21 +153,47 @@ app.controller('eventWallController',
   		eventWallService.create(
   			$scope.eventWallForm.name,
   			$scope.eventWallForm.hashtag,
-  			$scope.eventWallForm.url,
+  			$scope.eventWallForm.url.toLowerCase(),
   			$scope.eventWallForm.icon,
   			$scope.eventWallForm.background
   			)
         // handle success
         .then(function (data) {
-        
+        // console.log(data);
         $location.path('/home')
         })
         // handle error
-        .catch(function (res) {
+        .catch(function (err) {
           $scope.error = true;
-          $scope.errorMessage = "";
+          $scope.errorMessage = 'An Event Wall with that Url has already been made.';
         });
 
   	}
+
+}]);
+
+app.controller('eventWallFeedController',
+  ['$scope', '$location', 'eventWallService', 'AuthService',
+  function ($scope, $location, eventWallService, AuthService) {
+    // if(AuthService.isLoggedIn() === false) {
+    //   $location.path('/login');
+    // }
+    var path = $location.path().toLowerCase();
+    var myRegexp = /\/feed\/(.*)/;
+    var url = myRegexp.exec(path)[1];
+    
+    eventWallService.get(url)
+      // handle success
+      .then(function (data) {
+        console.log(data);
+        $scope.eventWall = data;
+      })
+      // handle error
+      .catch(function (error) {
+        console.log(error);
+        $scope.error = true;
+        $scope.errorMessage = error;
+      });
+;
 
 }]);

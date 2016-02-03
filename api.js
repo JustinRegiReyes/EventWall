@@ -12,8 +12,8 @@ api.post('/api/user/register', usersCtrl.register);
 api.post('/api/user/login', usersCtrl.login);
 api.get('/api/user/logout', usersCtrl.logout);
 
-//mediaFeeds
+// eventWall
 api.post('/api/eventWall/create', eventWallCtrl.create);
-
+api.get('/api/eventWall', eventWallCtrl.get);
 
 module.exports = api;
