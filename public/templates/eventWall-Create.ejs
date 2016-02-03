@@ -1,6 +1,7 @@
 <h4 class="text-center">Create a new event to save media memories for!</h4>
+<div ng-show="error" class="alert alert-danger text-center">{{errorMessage}}</div>
 <div class="col-sm-6 col-sm-offset-3">
-  <!-- <div ng-show="error" class="alert alert-danger text-center">{{errorMessage}}</div> -->
+  
   <form class="form" ng-submit="create()">
     <div class="form-group">
       <label>Name</label>
