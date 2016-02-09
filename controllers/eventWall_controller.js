@@ -58,12 +58,13 @@ module.exports.feed = function(req, res) {
 	  timeout_ms:           60*1000
 	})
 
-	T.get('search/tweets', { q: 'lisafoundthejuan OR #the100 -rt', count: 10 , lang: 'en'}, function(err, data, response) {
+	T.get('search/tweets', { q: 'lisafoundthejuan OR #lisafoundthejuan', count: 10}, function(err, data, response) {
 		// console.log('data', data);
 		data.statuses.forEach(function(status) {
 			console.log('---------------');
+			//list the type of post it is for front end organization/styling
 			status.type = 'twitter';
-			console.log(status);
+			// console.log(status);
 		})
 	  return res.status(200).json({data: data.statuses});
 	})
