@@ -1,6 +1,7 @@
 'use strict';
 
-var app = angular.module('eventWall', ['ngResource', 'ngRoute', 'eventWall.services', 'eventWall.controllers']);
+var app = angular.module('eventWall', ['ngResource', 'ngRoute', 'eventWall.services', 'eventWall.controllers', 'eventWall.feed','eventWall.directives']);
+
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
