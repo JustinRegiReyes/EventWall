@@ -10,6 +10,7 @@ app.controller('eventWallFeedController',
     var path = $location.path().toLowerCase();
     var myRegexp = /\/feed\/(.*)/;
     var url = myRegexp.exec(path)[1];
+    $scope.post = "";
     
     eventWallService.get(url)
       // handle success
@@ -33,13 +34,12 @@ app.controller('eventWallFeedController',
       // handle success
         .then(function (data) {
           $scope.posts = data;
+          $scope.post = data[0];
+          // stop loading gif
         })
         // handle error
         .catch(function (error) {
           console.log(error); 
       });
     }
-
-    $scope.post = "";
-
 }]);
