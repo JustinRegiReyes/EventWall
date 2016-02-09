@@ -1,5 +1,17 @@
-{{eventWall.name}}
-<br><br>
-{{eventWall.posts.length}}
+<div data-feed-interface>
+	{{eventWall.name}}
+	<br><br>
+	{{eventWall.posts.length}}
 
-<div ng-show="error">{{errorMessage}}</div>
+
+	<div id="eventWall">
+		<div ng-show="error">{{errorMessage}}</div>
+		<data-show-post></data-show-post>
+	</div>
+	
+
+
+</div>
+
+
+
