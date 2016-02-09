@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
     User = require('./user.js');
 
 var EventWallSchema = new Schema({
+  // an array containing posts made by 'Posters', non tweeters
   posts: {
     type: Array
   },
@@ -14,7 +15,15 @@ var EventWallSchema = new Schema({
   	unique: true
   },
   icon: String,
-  background: String
+  background: String,
+  //an array of tweets that have been banned. containing id and text
+  bannedTweets: {
+  	type: Array
+  },
+  //an array of posts that have been banned. containing id and text
+  bannedPosts: {
+    type: Array
+  }
 });
 
 EventWallSchema.methods.addToUser = function(user, cb) {
