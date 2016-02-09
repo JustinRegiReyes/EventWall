@@ -15,5 +15,6 @@ api.get('/api/user/logout', usersCtrl.logout);
 // eventWall
 api.post('/api/eventWall/create', eventWallCtrl.create);
 api.get('/api/eventWall', eventWallCtrl.get);
+api.get('/api/eventWall/feed', eventWallCtrl.feed);
 
 module.exports = api;
