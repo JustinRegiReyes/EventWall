@@ -172,28 +172,3 @@ app.controller('eventWallController',
 
 }]);
 
-app.controller('eventWallFeedController',
-  ['$scope', '$location', 'eventWallService', 'AuthService',
-  function ($scope, $location, eventWallService, AuthService) {
-    // if(AuthService.isLoggedIn() === false) {
-    //   $location.path('/login');
-    // }
-    var path = $location.path().toLowerCase();
-    var myRegexp = /\/feed\/(.*)/;
-    var url = myRegexp.exec(path)[1];
-    
-    eventWallService.get(url)
-      // handle success
-      .then(function (data) {
-        console.log(data);
-        $scope.eventWall = data;
-      })
-      // handle error
-      .catch(function (error) {
-        console.log(error);
-        $scope.error = true;
-        $scope.errorMessage = error;
-      });
-;
-
-}]);
