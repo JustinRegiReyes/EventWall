@@ -137,7 +137,13 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 
 	return({
 		create: create,
-		get: get
+		get: get,
+		feed: feed,
+		postsInterface: postsInterface,
+		nextPost: nextPost,
+		prevPost: prevPost,
+		appendPost: appendPost,
+		terminateStream: terminateStream
 	})
 
 	function create(name, hashtag, url, icon, background) {
@@ -201,6 +207,73 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 
 	    // return promise object
 	    return deferred.promise;
-	}	
+	}
 
+	function feed(eventWallUrl) {
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.get('/api/eventWall/feed', 
+	    	{
+	    		params: {
+	    			eventWallUrl: eventWallUrl
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
+
+	function postsInterface(posts, lastSeen) {
+		//keep track of posts
+		var tracker = 0;
+		var currentPost = posts[tracker];
+		var nextPost = posts[tracker += 1];
+
+		
+		// if the tracker is not currently on the first post
+		if(tracker > 0) {
+			var previousPost = posts[tracker -= 1];
+		}
+		
+	}
+
+	function nextPost(posts, tracker) {
+		return posts[tracker];
+	}
+
+	function prevPost(posts, tracker) {
+		return posts[tracker];
+	}
+
+	function appendPost(post) {
+		// if tweet call tweetTemplate
+		$('#eventWall').append(tweetTemplate());
+	}
+
+	function tweetTemplate(post) {
+		var template ="";
+		return template;
+	}
+
+	function terminateStream() {
+
+		// send a post request to the server
+	    $http.delete('/api/eventWall/terminate-stream');
+	      
+	}
 }]);

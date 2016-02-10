@@ -1,11 +1,16 @@
 var app = angular.module('eventWall.feed', []);
 
 app.controller('eventWallFeedController',
-  ['$scope', '$location', 'eventWallService', 'AuthService', '$window',
-  function ($scope, $location, eventWallService, AuthService, $window) {
-    // if(AuthService.isLoggedIn() === false) {
-    //   $location.path('/login');
-    // }
+  ['$scope', '$location', 'eventWallService', 
+  'AuthService', '$window', 'socket',
+  function ($scope, $location, eventWallService, AuthService, $window, socket) {
+    $scope.$on('$routeChangeStart', function(next, current) { 
+       eventWallService.terminateStream();
+     });
+
+    $window.addEventListener('unload', function(event) {
+        eventWallService.terminateStream();
+      });
 
     var path = $location.path().toLowerCase();
     var myRegexp = /\/feed\/(.*)/;
@@ -15,7 +20,7 @@ app.controller('eventWallFeedController',
     eventWallService.get(url)
       // handle success
       .then(function (data) {
-        console.log(data);
+        // console.log(data);
         $scope.eventWall = data;
         feed(url);
       })
@@ -42,4 +47,10 @@ app.controller('eventWallFeedController',
           console.log(error); 
       });
     }
+
+    socket.on('tweet', function (data) {
+      console.log('tweet', data);
+    });
+
+    
 }]);
