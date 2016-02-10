@@ -1,9 +1,18 @@
-var express = require('express'),
-    passport = require('passport'),
-    app = require('.././index.js'),
-    User = require('./../models').User,
+var User = require('./../models').User,
 	EventWall = require('./../models').EventWall,
+	io = require('.././index.js').io,
 	Twit = require('twit');
+
+
+var T = new Twit({
+    consumer_key:         'u1AQm3v8qwIOHho9znwgm2SJ8',
+    consumer_secret:      '87ewdo1HQp6yPeNTqYlAm6fXmlBFrAIrRdHBSuOzKuEawgBm0u',
+    access_token:         '2694541230-FqQmbhi0N2hcWlvbAIlnECrCPa7lqL0duNDSHUm',
+    access_token_secret:  'oGcDSQNQfHGWWOYWYxAXFJEVNwDtKwOofb60HvsHMjpjF'
+  });
+
+// make stream variable global so I can start and stop it in different methods
+var stream;
 
 module.exports.create = function(req, res) {
 	var eventWallData = req.body;
@@ -50,15 +59,14 @@ module.exports.feed = function(req, res) {
 	// req.user is user info. Not able to manipulate in DB
 	var user = req.user;
 
-	var T = new Twit({
-	  consumer_key:         'u1AQm3v8qwIOHho9znwgm2SJ8',
-	  consumer_secret:      '87ewdo1HQp6yPeNTqYlAm6fXmlBFrAIrRdHBSuOzKuEawgBm0u',
-	  access_token:         '2694541230-FqQmbhi0N2hcWlvbAIlnECrCPa7lqL0duNDSHUm',
-	  access_token_secret:  'oGcDSQNQfHGWWOYWYxAXFJEVNwDtKwOofb60HvsHMjpjF',
-	  timeout_ms:           60*1000
-	})
 
-	T.get('search/tweets', { q: 'lisafoundthejuan OR #lisafoundthejuan', count: 10}, function(err, data, response) {
+	stream = T.stream('statuses/filter', { track: ['lisafoundthejuan, #lisafoundthejuan', 'the100'], language: "en, und"});
+
+	stream.on('tweet', function (tweet) {
+	  io.emit('tweet', tweet);
+	});
+
+	T.get('search/tweets', { q: 'lisafoundthejuan OR #lisafoundthejuan', count: 10, language: "en, und"}, function(err, data, response) {
 		// console.log('data', data);
 		data.statuses.forEach(function(status) {
 			console.log('---------------');
@@ -69,3 +77,11 @@ module.exports.feed = function(req, res) {
 	  return res.status(200).json({data: data.statuses});
 	})
 }
+
+module.exports.terminateStream = function(req, res) {
+	console.log('stop');
+	// in the event two streams start by accident
+	stream.stop();
+	stream.stop();
+}
+
