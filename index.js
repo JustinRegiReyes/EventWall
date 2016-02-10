@@ -13,6 +13,12 @@ var express = require('express'),
 // create instance of express
 var app = module.exports = express();
 
+//create socket
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+//export socket for us in controllers
+module.exports.io = io;
+
 // set templating engine
 app.set('view engine', 'ejs');
 
@@ -57,7 +63,6 @@ app.use(function( req, res, next) {
     next();
 });
 
-
 // routes
 app.use(auth);
 app.use(api);
@@ -66,9 +71,9 @@ app.get('/', function(req, res) {
   // console.log('index.js', req.flash());
   res.render(path.join(views, 'application.html.ejs'), {user: req.user});
 });
+
 app.get('/templates/:filename', routes.templates);
 app.get('*', routes.fallback);
-
 
 
 // errors
@@ -87,7 +92,9 @@ app.use(function(err, req, res) {
   }));
 });
 
+
+
 // server
-app.listen(port, function() {
+server.listen(port, function() {
 	console.log('There is free food at port ' + port);
 });
