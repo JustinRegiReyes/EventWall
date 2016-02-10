@@ -27,15 +27,20 @@ app.directive('feedInterface', [
           xKey = 88;
 
 	      if (keydownEvent === rightArrow) {
-	        tracker += 1;
-	        scope.$apply(function() {
-	          scope.post = eventWallService.nextPost(scope.posts, tracker);
-	        });
+	      	if(tracker < scope.posts.length - 1) {
+				tracker += 1;
+	        	scope.$apply(function() {
+	         		scope.post = eventWallService.nextPost(scope.posts, tracker);
+	        	});
+	      	}
 	      } else if(keydownEvent === leftArrow) {
-	        tracker -= 1;
-	        scope.$apply(function() {
-	          scope.post = eventWallService.prevPost(scope.posts, tracker);
-	        });
+	      	if(tracker > 0) {
+	      		tracker -= 1;
+	       		scope.$apply(function() {
+	        		scope.post = eventWallService.prevPost(scope.posts, tracker);
+	       		});
+	      	}
+	        
 	      } else if(keydownEvent === xKey) {
 	        console.log('ban');
 	      }
