@@ -29,7 +29,7 @@ exports.templates = function(req, res) {
   var currentUser = req.user;
 
   if(!filename) return;  // might want to change this
-
+  // console.log('templates', currentUser);
   res.render(path.join(templates, filename), {user: currentUser, flashMessages: flashMessages});
   flashMessages.noTwitter = null;
   flashMessages.duplTwitter = null;
@@ -44,7 +44,7 @@ exports.fallback = function(req, res) {
 	var duplTwitter = req.flash('duplTwitter');
 	var noTwitter = req.flash('noTwitter');
 	
-	// console.log('fallback', req.params);
+	// console.log('fallback', req.user);
 	flashMessages.noTwitter = noTwitter ? noTwitter : null;
 	flashMessages.duplTwitter = duplTwitter ? duplTwitter : null;
   res.render(path.join(views, 'application.html.ejs'), {user: req.user});
