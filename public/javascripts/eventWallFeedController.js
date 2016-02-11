@@ -16,6 +16,8 @@ app.controller('eventWallFeedController',
     var myRegexp = /\/feed\/(.*)/;
     var url = myRegexp.exec(path)[1];
     $scope.post = "";
+    $scope.prevPosts = [];
+    $scope.prevTracker = 0;
     
     eventWallService.get(url)
       // handle success
@@ -38,8 +40,10 @@ app.controller('eventWallFeedController',
       eventWallService.feed(url)
       // handle success
         .then(function (data) {
+          $window.posts = data;
           $scope.posts = data;
-          $scope.post = data[0];
+          $scope.tracker = data.length - 2;
+          $scope.post = data[$scope.tracker + 1];
           // stop loading gif
         })
         // handle error
@@ -48,8 +52,8 @@ app.controller('eventWallFeedController',
       });
     }
 
-    socket.on('tweet', function (data) {
-      console.log('tweet', data);
+    socket.on('tweet', function (postData) {
+      $scope.posts.push(postData);
     });
 
     
