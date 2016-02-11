@@ -1,16 +1,10 @@
 <div data-feed-interface>
 	{{eventWall.name}}
-	<br><br>
-	{{eventWall.posts.length}}
-
-
 	<div id="eventWall">
 		<div ng-show="error">{{errorMessage}}</div>
+		{{posts.length}}
 		<data-show-post></data-show-post>
 	</div>
-	
-
-
 </div>
 
 
