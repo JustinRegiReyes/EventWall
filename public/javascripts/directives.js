@@ -12,23 +12,32 @@ app.directive('feedInterface', [
   '$document',
   '$rootScope',
   'eventWallService',
-  function($document, $rootScope, eventWallService) {
+  '$window',
+  function($document, $rootScope, eventWallService, $window) {
     return {
       restrict: 'A',
       scope: true,
       link: function(scope, element, attrs) {
+      	//keydown event values
+      	var rightArrow = 39,
+          leftArrow = 37,
+          xKey = 88,
+          spaceBar = 32,
+          timerTracker = 0;
 
-		
+      	//defines which event we want to trigger
+	    var rightArrowEvent = $.Event('keydown');
+	    rightArrowEvent.which = rightArrow;
+
+	    // every x seconds the right arrow is triggered
+	    var autoPlay = $window.setInterval(function(){
+		  $(document).trigger(rightArrowEvent);
+		}, 3000);
 
       	//binds to the document page and listens for keydown events
         $document.bind('keydown', function(e) {
-          var keydownEvent = e.which,
-          rightArrow = 39,
-          leftArrow = 37,
-          xKey = 88;
-
+        	var keydownEvent = e.which;
           
-
 	      if (keydownEvent === rightArrow) {
 	      	//variable to keep track if we are back where we started if going through previous posts
 	      	var caughtUp = true;
@@ -89,10 +98,21 @@ app.directive('feedInterface', [
 	      	}
 	      } else if(keydownEvent === xKey) {
 	        console.log('ban');
+	      } else if(keydownEvent === spaceBar) {
+	      	timerTracker += 1;
+	      	if(timerTracker % 2 !== 0) {
+	      		$window.clearInterval(autoPlay);
+	      	} else {
+	      		console.log('new timer?');
+	      		autoPlay = $window.setInterval(function(){
+				  $(document).trigger(rightArrowEvent);
+				}, 3000);
+	      	}
 	      }
         });
-      }
+      } //end of function
     };
+    
   }
 ]);
 
