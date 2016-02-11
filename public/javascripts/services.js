@@ -279,5 +279,17 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 }]);
 
 app.factory('PosterService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
-	
+	return {
+		isLoggedIn: isLoggedIn,
+    	getUserStatus: getUserStatus
+    }
+
+	function isLoggedIn() {
+      return !!user;
+  	}
+
+  	function getUserStatus() {
+	  return user;
+  	}
+
 }]);

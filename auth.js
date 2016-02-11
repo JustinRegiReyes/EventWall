@@ -6,7 +6,8 @@ var express = require('express'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
     app = require('./index.js'),
     flash = require('express-flash'),
-    User = require('./models').User;
+    User = require('./models').User,
+    Poster = require('./models').Poster;
 
 var signedInUser;
 var redirectTo;
@@ -22,7 +23,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.use(new TwitterStrategy({
     consumerKey: "u1AQm3v8qwIOHho9znwgm2SJ8", // TWITTER_CONSUMER_KEY
     consumerSecret: "87ewdo1HQp6yPeNTqYlAm6fXmlBFrAIrRdHBSuOzKuEawgBm0u", //TWITTER_CONSUMER_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    callbackURL: "/auth/twitter/callback",
+    proxy: true
   },
   function(twitter_client_token, twitter_client_secret, profile, done) {
     // console.log("**************************");
@@ -70,11 +72,13 @@ passport.use(new TwitterStrategy({
 passport.use(new GoogleStrategy({
     clientID: '1016385464015-of3je8ffm2bstgool36s6u0nrsmjcqnn.apps.googleusercontent.com',
     clientSecret: 'uotcVc_zg6AjhcnSLFHUtOPZ',
-    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+    callbackURL: "/auth/google/callback",
+    proxy: true
   },
   function(accessToken, refreshToken, profile, done) {
     console.log(profile);
-    User.find({username: profile.id}, function (err, user) {
+    Poster.findOrCreate({googleId: profile.id}, function (err, user) {
+      user.username = profile.displayName;
       return done(err, user);
     });
   }
@@ -173,7 +177,8 @@ auth.get('/auth/google/callback',
   passport.authenticate('google', {  failureFlash: 'TESTING123', failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    // console.log(req.user);
+    res.redirect('/post/cats/new/');
   });
 
 module.exports = auth;

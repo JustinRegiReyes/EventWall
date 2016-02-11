@@ -27,8 +27,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: '/templates/settings',
 			controller: 'settingsController'
 		})
-		.when('/eventWall/create', {
-			templateUrl: '/templates/eventWall-create',
+		.when('/eventWall/new', {
+			templateUrl: '/templates/eventWall-new',
 			controller: 'eventWallController'
 		})
 		//shortened the url by excluding eventWall and just putting feed
@@ -38,6 +38,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		})
 		.when('/post/:url', {
 			templateUrl: '/templates/eventWall-post',
+			controller: 'eventWallPostController'
+		})
+		.when('/post/:url/new', {
+			templateUrl: '/templates/eventWall-post-new',
 			controller: 'eventWallPostController'
 		})
 		.otherwise({redirectTo: '/'});
