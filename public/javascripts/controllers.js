@@ -172,3 +172,8 @@ app.controller('eventWallController',
 
 }]);
 
+app.controller('eventWallPostController',
+  ['$scope', '$location', 'eventWallService', 'PosterService',
+  function ($scope, $location, eventWallService, PosterService) {
+    
+}]);

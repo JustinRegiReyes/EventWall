@@ -277,3 +277,7 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 	      
 	}
 }]);
+
+app.factory('PosterService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+	
+}]);
