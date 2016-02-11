@@ -61,41 +61,57 @@ module.exports.feed = function(req, res) {
 	var posts = [];
 	var myRegexp = /https:\/\//i;
 
-
-	stream = T.stream('statuses/filter', { track: ['lisafoundthejuan, #lisafoundthejuan, -https://t.co/, cat'], language: "en, und"});
-
-	stream.on('tweet', function (tweet) {
-		var match = tweet.text.match(myRegexp); 
-		//keep track if stream is still on or not
-		console.log(tweet);
-		if(match === null) {
-			io.emit('tweet', tweet);
+	EventWall.findByUrl(eventWallUrl, function(err, eventWall) {
+		if(err) {
+			return res.status(500).json({err: 'An error has occured. Please refresh the page.'});
 		}
-	});
 
-	T.get('search/tweets', { q: 'lisafoundthejuan OR #lisafoundthejuan, -https, -http', count: 10, language: "en, und"}, function(err, data, response) {
-		// console.log('data', data);
-		data.statuses.forEach(function(status) {
-			var match = status.text.match(myRegexp); 
-			
+		if(eventWall === null) {
+			return res.status(404).json({err: 'An event with this Url does not exist.'});
+		}
+
+		//quickfix for advanced OR queries
+		var streamQuery = eventWall.hashtag.split('OR').join(',');
+
+		stream = T.stream('statuses/filter', { track: [streamQuery]}); //, language: "en, und"
+
+		stream.on('tweet', function (tweet) {
+			var match = tweet.text.match(myRegexp); 
+			//keep track if stream is still on or not
+			console.log('tweet');
 			if(match === null) {
-				console.log('---------------');
-				//list the type of post it is for front end organization/styling
-				status.type = 'twitter';
-				// console.log(status);
-				posts.push(status);
+				io.emit('tweet', tweet);
 			}
+		});
 
-			posts.reverse();
-			
-		})
-	  return res.status(200).json({data: posts});
-	})
+		T.get('search/tweets', { q: eventWall.hashtag, count: 100}, function(err, data, response) { //, language: "en, und"
+			console.log('DATA', data.statuses.length);
+			data.statuses.forEach(function(status) {
+				var match = status.text.match(myRegexp); 
+				
+				if(match === null) {
+					// console.log('---------------');
+					//list the type of post it is for front end organization/styling
+					status.type = 'twitter';
+					// console.log(status);
+					posts.push(status);
+				}
+
+				posts.reverse();
+				
+			})
+		  return res.status(200).json({data: posts});
+		});
+	});
 }
 
 module.exports.terminateStream = function(req, res) {
 	console.log('stop');
 	// in the event two streams start by accident
+	stream.stop();
+	stream.stop();
+	stream.stop();
+	stream.stop();
 	stream.stop();
 	stream.stop();
 }
