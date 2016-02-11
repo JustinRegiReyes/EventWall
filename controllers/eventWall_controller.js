@@ -58,23 +58,38 @@ module.exports.feed = function(req, res) {
 	var eventWallUrl = req.query.eventWallUrl;
 	// req.user is user info. Not able to manipulate in DB
 	var user = req.user;
+	var posts = [];
+	var myRegexp = /https:\/\//i;
 
 
-	stream = T.stream('statuses/filter', { track: ['lisafoundthejuan, #lisafoundthejuan', 'the100'], language: "en, und"});
+	stream = T.stream('statuses/filter', { track: ['lisafoundthejuan, #lisafoundthejuan, -https://t.co/, cat'], language: "en, und"});
 
 	stream.on('tweet', function (tweet) {
-	  io.emit('tweet', tweet);
+		var match = tweet.text.match(myRegexp); 
+		//keep track if stream is still on or not
+		console.log(tweet);
+		if(match === null) {
+			io.emit('tweet', tweet);
+		}
 	});
 
-	T.get('search/tweets', { q: 'lisafoundthejuan OR #lisafoundthejuan', count: 10, language: "en, und"}, function(err, data, response) {
+	T.get('search/tweets', { q: 'lisafoundthejuan OR #lisafoundthejuan, -https, -http', count: 10, language: "en, und"}, function(err, data, response) {
 		// console.log('data', data);
 		data.statuses.forEach(function(status) {
-			console.log('---------------');
-			//list the type of post it is for front end organization/styling
-			status.type = 'twitter';
-			// console.log(status);
+			var match = status.text.match(myRegexp); 
+			
+			if(match === null) {
+				console.log('---------------');
+				//list the type of post it is for front end organization/styling
+				status.type = 'twitter';
+				// console.log(status);
+				posts.push(status);
+			}
+
+			posts.reverse();
+			
 		})
-	  return res.status(200).json({data: data.statuses});
+	  return res.status(200).json({data: posts});
 	})
 }
 
