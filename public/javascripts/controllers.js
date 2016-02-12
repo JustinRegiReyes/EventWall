@@ -93,6 +93,11 @@ app.controller('registerController',
 app.controller('homeController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
+    var user = AuthService.getUserStatus();
+
+    if(AuthService.isLoggedIn() === true && user.googleId !== undefined) {
+      $location.path('/eventWall/find/post');
+    }
 
 	if(AuthService.isLoggedIn() === false) {
   		$location.path('/');
@@ -139,12 +144,16 @@ app.controller('settingsController',
 
 }]);
 
-app.controller('eventWallController',
+app.controller('eventWallCreateController',
   ['$scope', '$location', 'eventWallService', 'AuthService',
   function ($scope, $location, eventWallService, AuthService) {
   	if(AuthService.isLoggedIn() === false) {
   		$location.path('/login');
   	}
+
+    // Instantiate Uploadcare Widgets
+    var widgets = uploadcare.initialize('#my-form');
+    var widgets = uploadcare.initialize();
 
   	$scope.eventWallForm = {};
 
@@ -221,7 +230,6 @@ app.controller('eventWallPostController',
 
     // Instantiate Uploadcare Widgets
     var widgets = uploadcare.initialize('#my-form');
-    //widgets; // [widget1, widget2, multipleWidget1, ...]
     var widgets = uploadcare.initialize();
 
     $scope.post = function() {
