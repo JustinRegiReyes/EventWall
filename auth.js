@@ -76,9 +76,10 @@ passport.use(new GoogleStrategy({
     proxy: true
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
+    // console.log(profile);
     Poster.findOrCreate({googleId: profile.id}, function (err, user) {
       user.username = profile.displayName;
+      // console.log('googleAuth', user);
       return done(err, user);
     });
   }

@@ -73,16 +73,7 @@ module.exports.feed = function(req, res) {
 		//quickfix for advanced OR queries
 		var streamQuery = eventWall.hashtag.split('OR').join(',');
 
-		stream = T.stream('statuses/filter', { track: [streamQuery]}); //, language: "en, und"
-
-		stream.on('tweet', function (tweet) {
-			var match = tweet.text.match(myRegexp); 
-			//keep track if stream is still on or not
-			console.log('tweet');
-			if(match === null) {
-				io.emit('tweet', tweet);
-			}
-		});
+		
 
 		T.get('search/tweets', { q: eventWall.hashtag, count: 100}, function(err, data, response) { //, language: "en, und"
 			console.log('DATA', data.statuses.length);
@@ -100,6 +91,19 @@ module.exports.feed = function(req, res) {
 				posts.reverse();
 				
 			})
+
+			//define stream
+			stream = T.stream('statuses/filter', { track: [streamQuery]}); //, language: "en, und"
+
+			stream.on('tweet', function (tweet) {
+				var match = tweet.text.match(myRegexp); 
+				//keep track if stream is still on or not
+				console.log('tweet');
+				if(match === null) {
+					io.emit('tweet', tweet);
+				}
+			});
+
 		  return res.status(200).json({data: posts});
 		});
 	});
@@ -114,5 +118,30 @@ module.exports.terminateStream = function(req, res) {
 	stream.stop();
 	stream.stop();
 	stream.stop();
+}
+
+module.exports.postToWall = function(req, res) {
+	var url = req.body.url,
+		message = req.body.message,
+		picture = req.body.picture,
+		date = new Date();
+
+	req.currentPoster(function(err, poster) {
+		//type is equal to post to help differentiate between tweet and post when merging
+		var post = {message: message, picture: picture, poster: poster, type: post, date: date};
+		// console.log(poster);
+		poster.posts.push(post);
+		poster.save(function(err, user) {
+			EventWall.update({url: url}, {$push: {posts: post}}, function(err, eventWall) {
+				io.emit(url, message);
+				return res.status(200);
+			});
+		});
+	});
+
+	
+	
+	// console.log(req.body);
+
 }
 
