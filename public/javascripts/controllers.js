@@ -159,12 +159,17 @@ app.controller('eventWallCreateController',
 
   	$scope.create = function() {
       // console.log($scope.eventWallForm);
+      var icon = $('#eventWallIcon').val();
+      var hashtagicon = $('#eventWallHashtagIcon').val();
+      var background = $('#eventWallBackground').val();
+      // console.log(icon, hashtagicon, background);
   		eventWallService.create(
   			$scope.eventWallForm.name,
   			$scope.eventWallForm.hashtag,
   			$scope.eventWallForm.url.toLowerCase(),
-  			$scope.eventWallForm.icon,
-  			$scope.eventWallForm.background
+  			icon,
+        hashtagicon,
+  			background
   			)
         // handle success
         .then(function (data) {
@@ -176,7 +181,6 @@ app.controller('eventWallCreateController',
           $scope.error = true;
           $scope.errorMessage = 'An Event Wall with that Url has already been made.';
         });
-
   	}
 
 }]);

@@ -24,6 +24,8 @@ app.controller('eventWallFeedController',
       .then(function (data) {
         // console.log(data);
         $scope.eventWall = data;
+        $window.eventWallTest = data;
+        // console.log($window.eventWall);
         feed(url);
       })
       // handle error

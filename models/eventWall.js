@@ -16,6 +16,7 @@ var EventWallSchema = new Schema({
   },
   icon: String,
   background: String,
+  hashtagicon: String,
   //an array of tweets that have been banned. containing id and text
   bannedTweets: {
   	type: Array

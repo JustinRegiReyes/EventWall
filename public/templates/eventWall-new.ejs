@@ -18,13 +18,25 @@
         <input type="text" class="form-control" name="url" ng-model="eventWallForm.url" required>
     </div>
     <div class="form-group">
-      <label>Icon</label>
-        <input type="text" class="form-control" name="icon" ng-model="eventWallForm.icon" required>
+      <label>Icon</label><br>
+      <input id="eventWallIcon" type="hidden" role="uploadcare-uploader"
+       data-crop="1:1"
+       data-images-only="true" />
     </div>
     <div class="form-group">
-      <label>Background</label>
-        <input type="text" class="form-control" name="background" ng-model="eventWallForm.background" required>
+      <label>Hashtag Icon</label><br>
+      <input id="eventWallHashtagIcon" type="hidden" role="uploadcare-uploader"
+      data-crop="free"
+       data-images-only="true"/>
     </div>
+    <div class="form-group">
+      <label>Background</label><br>
+      <div>1920x1080 is the optimal background size.</div>
+      <input id="eventWallBackground" type="hidden" role="uploadcare-uploader"
+       data-crop=""
+       data-images-only="true"/>
+    </div>
+    
     <div>
         <button type="submit" class="btn btn-default" ng-disabled="disabled">Submit</button>
     </div>

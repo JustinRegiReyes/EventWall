@@ -147,7 +147,7 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 		exists: exists
 	})
 
-	function create(name, hashtag, url, icon, background) {
+	function create(name, hashtag, url, icon, hashtagicon, background) {
 
 		// create a new instance of deferred
    		var deferred = $q.defer();
@@ -159,6 +159,7 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 	    		hashtag: hashtag,
 	    		url: url,
 	    		icon: icon,
+	    		hashtagicon: hashtagicon,
 	    		background: background
 	    	})
 	      // handle success
