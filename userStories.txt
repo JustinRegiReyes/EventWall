@@ -27,8 +27,8 @@ Figure out database
 			- Picture
 				- Caption
 			- Write a message if they dont have a twitter account
-		- User sees a screen that goes through "media feed"
-			-4 User can press a key that goes through feed forward
+		- User sees a screen that goes through "feed"
+			- User can press a key that goes through feed forward
 			- User can press a key that goes through feed backward
 			- User can press a key that pauses the feed
 			- User can press a key that deletes that submission
@@ -47,3 +47,42 @@ Figure out database
 	- If a post gets deleted add a "strike" to that poster
 		- 3 strikes and that person can't post anymore
 
+
+
+
+take tweets, run them against "seen posts" and "seen tweets" and it shows if it hasn't been seen yet
+
+How do you reset all posts seen?
+
+What if you just keep track of the last seen one?
+
+Take all tweets searched, listen for a stream, add them in current tweets, get posts made by gmailers every minute?
+
+How can gmailers posts be added in instantaneously?
+
+
+banned tweets should get pushed in its entirety for context for when a user wants to unban it. And then check its Id in the function.
+
+// in backend eventWall feed controller?
+function bannedTweetCheck() {
+	// filter out banned tweets upon checking incoming get tweets
+}
+
+function timer() {
+	// after a 3 seconds, call nextPost?
+}
+
+function banPost() {
+	//call nextPost
+
+	//checks to see if current post is a tweet or a gmail post
+
+	// if gmail post
+		// remove from posts array in eventWall schema
+	// if tweet
+		//adds current post to ban list
+}
+
+find a way to have class be recognized as a tweetPost or a gmail post
+
+find a way for users to post to that feed

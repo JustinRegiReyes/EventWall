@@ -177,9 +177,13 @@ auth.get('/auth/google',
 auth.get('/auth/google/callback', 
   passport.authenticate('google', {  failureFlash: 'TESTING123', failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect home.
-    // console.log(req.user);
-    res.redirect('/post/cats/new/');
+    // regex to find where to redirect user
+    var reg = /\/post\/(.*)/;
+    var referer = req.headers.referer;
+
+    // redirect user to '/post/:url/new/'
+    var redirect = referer.match(reg)[0] + '/new/';
+    res.redirect(redirect);
   });
 
 module.exports = auth;

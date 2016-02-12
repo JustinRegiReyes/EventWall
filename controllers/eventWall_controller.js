@@ -1,5 +1,6 @@
 var User = require('./../models').User,
 	EventWall = require('./../models').EventWall,
+	Poster = require('./../models').Poster,
 	io = require('.././index.js').io,
 	Twit = require('twit');
 
@@ -73,8 +74,6 @@ module.exports.feed = function(req, res) {
 		//quickfix for advanced OR queries
 		var streamQuery = eventWall.hashtag.split('OR').join(',');
 
-		
-
 		T.get('search/tweets', { q: eventWall.hashtag, count: 100}, function(err, data, response) { //, language: "en, und"
 			console.log('DATA', data.statuses.length);
 			data.statuses.forEach(function(status) {
@@ -84,13 +83,16 @@ module.exports.feed = function(req, res) {
 					// console.log('---------------');
 					//list the type of post it is for front end organization/styling
 					status.type = 'twitter';
-					// console.log(status);
+					console.log('string date', status.created_at, status.text);
+					//changing string value created_at date into Date obj for bubbleSort comparison
+					status.created_at = toDate(status.created_at);
+					console.log('changed to date', status.created_at, status.text);
 					posts.push(status);
 				}
-
-				posts.reverse();
-				
 			})
+
+			// combination of tweets and posts posted to the eventWall
+			var eventWallPosts = bubbleSort(eventWall.posts.concat(posts));
 
 			//define stream
 			stream = T.stream('statuses/filter', { track: [streamQuery]}); //, language: "en, und"
@@ -103,8 +105,11 @@ module.exports.feed = function(req, res) {
 					io.emit('tweet', tweet);
 				}
 			});
+			eventWallPosts.forEach(function(post) {
+				console.log('final date', post.created_at, post.text);
+			})
 
-		  return res.status(200).json({data: posts});
+		  return res.status(200).json({data: eventWallPosts});
 		});
 	});
 }
@@ -122,26 +127,50 @@ module.exports.terminateStream = function(req, res) {
 
 module.exports.postToWall = function(req, res) {
 	var url = req.body.url,
-		message = req.body.message,
+		text = req.body.text,
 		picture = req.body.picture,
 		date = new Date();
 
-	req.currentPoster(function(err, poster) {
-		//type is equal to post to help differentiate between tweet and post when merging
-		var post = {message: message, picture: picture, poster: poster, type: post, date: date};
-		// console.log(poster);
-		poster.posts.push(post);
-		poster.save(function(err, user) {
+	var poster = req.user;
+	//type is equal to post to help differentiate between tweet and post when merging
+	var post = {text: text, picture: picture, type: 'site', created_at: date};
+		console.log(post.created_at);
+	// console.log(poster);
+	Poster.update({googleId: poster.googleId}, {$push: {posts: post}},
+		function(err, updatedPoster) {
+			if(err) {return console.log(err);}
+			post.poster = {
+				username: poster.username, 
+				_id: poster._id
+			},
 			EventWall.update({url: url}, {$push: {posts: post}}, function(err, eventWall) {
-				io.emit(url, message);
-				return res.status(200);
+				if(err) {return console.log(err);}
+				console.log('savedEventWall', eventWall);
+				io.emit(url, post);
+				// console.log('successful post to Event Wall');
+				return res.status(200).json({data: 'success'});
 			});
-		});
 	});
-
-	
-	
-	// console.log(req.body);
-
 }
+
+// used to sort out the concatted eventWall posts and tweets
+function bubbleSort(arr){
+   var len = arr.length;
+   for (var i = len-1; i>=0; i--){
+     for(var j = 1; j<=i; j++){
+       if(arr[j-1].created_at>arr[j].created_at){
+           var temp = arr[j-1];
+           arr[j-1] = arr[j];
+           arr[j] = temp;
+        }
+     }
+   }
+   return arr;
+}
+
+//taking string dates and turning them into Date objects for comparison for bubbleSort
+function toDate(date) {
+	return new Date(date);
+}
+
 

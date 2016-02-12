@@ -56,5 +56,14 @@ app.controller('eventWallFeedController',
       $scope.posts.push(postData);
     });
 
+    socket.on(url, function (postData) {
+      // console.log(postData);
+      if($scope.posts.length === 0) {
+          $scope.post = postData;
+          $scope.tracker = 1;
+      }
+      $scope.posts.push(postData);
+    });
+
     
 }]);

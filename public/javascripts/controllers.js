@@ -173,7 +173,29 @@ app.controller('eventWallController',
 }]);
 
 app.controller('eventWallPostController',
-  ['$scope', '$location', 'eventWallService', 'PosterService',
-  function ($scope, $location, eventWallService, PosterService) {
+  ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
+  function ($scope, $location, eventWallService, PosterService, AuthService) {
+    $scope.post = function() {
+      var user = AuthService.getUserStatus();
+      var text = $('#messageTextArea').val();
+      var picture = $('#postPicture').val();
+      var reg = /post\/(.*?)\//;
+      var url = $location.path().match(reg)[1];
+      // console.log(url);
+      PosterService.post(
+        text,
+        user.username,
+        url,
+        picture
+        )
+        // handle success
+        .then(function (data) {
+          $location.path('/feed/post/success');
+        })
+        // handle error
+        .catch(function (err) {
+          console.log('error');
+        });
 
+    }
 }]);

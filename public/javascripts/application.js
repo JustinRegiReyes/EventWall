@@ -44,6 +44,9 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			templateUrl: '/templates/eventWall-post-new',
 			controller: 'eventWallPostController'
 		})
+		.when('/feed/post/success', {
+			templateUrl: '/templates/eventWall-post-success'
+		})
 		.otherwise({redirectTo: '/'});
 
 	$locationProvider.html5Mode({

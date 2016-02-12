@@ -280,16 +280,37 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 
 app.factory('PosterService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 	return {
-		isLoggedIn: isLoggedIn,
-    	getUserStatus: getUserStatus
+		post: post
     }
 
-	function isLoggedIn() {
-      return !!user;
-  	}
+  	function post(text, username, url, picture) {
 
-  	function getUserStatus() {
-	  return user;
-  	}
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.post('/api/eventWall/feed/create', 
+	    	{
+	    		text: text,
+	    		username: username,
+	    		url,
+	    		picture: picture
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          deferred.resolve(res.data);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	      deferred.reject(res);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
 
 }]);
