@@ -177,11 +177,12 @@ app.controller('eventWallPostAuthController',
   function ($scope, $location, eventWallService, PosterService, AuthService) {
       var reg = /\/post\/(.*)/;
       var url = $location.path().match(reg)[1];
+      $scope.url = url;
       // console.log(redirect);
     eventWallService.exists(url)
     // handle success
       .then(function (data) {
-      
+        $scope.eventWall = data;
       })
       // handle error
       .catch(function (err) {
@@ -191,8 +192,9 @@ app.controller('eventWallPostAuthController',
 
     //if there is not a user they are asked to log in via gmail
     var user = AuthService.getUserStatus();
+    $scope.isLoggedIn = AuthService.isLoggedIn()
     
-    if(AuthService.isLoggedIn() && user.type !== 'poster') {
+    if(AuthService.isLoggedIn() && user.googleId === null) {
       $scope.error = true;
       $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
     }
@@ -211,10 +213,16 @@ app.controller('eventWallPostController',
       $location.path(redirect);
     }
 
-    if(user && user.type !== 'poster') {
+    if(user && user.googleId === null) {
+      // console.log(user.googleId);
       $scope.error = true;
       $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
     }
+
+    // Instantiate Uploadcare Widgets
+    var widgets = uploadcare.initialize('#my-form');
+    //widgets; // [widget1, widget2, multipleWidget1, ...]
+    var widgets = uploadcare.initialize();
 
     $scope.post = function() {
 

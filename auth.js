@@ -77,11 +77,10 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     // console.log(profile);
-    Poster.findOrCreate({googleId: profile.id}, function (err, user) {
-      user.username = profile.displayName;
-      user.type = 'poster';
-      // console.log('googleAuth', user);
-      return done(err, user);
+    Poster.findOrCreate({googleId: profile.id}, function (err, poster) {
+      poster.username = profile.displayName;
+      // console.log('googleAuth', poster);
+      return done(err, poster);
     });
   }
 ));
