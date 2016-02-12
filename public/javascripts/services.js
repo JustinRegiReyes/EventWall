@@ -12,7 +12,8 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
     login: login,
     logout: logout,
     register: register,
-    unlinkTwitter: unlinkTwitter
+    unlinkTwitter: unlinkTwitter,
+    canBan: canBan
   });
 
   function isLoggedIn() {
@@ -129,6 +130,18 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
     // return promise object
     return deferred.promise;
 
+  }
+
+  function canBan(eventWallId) {
+  	var user = getUserStatus();
+  	console.log(user.eventWalls);
+  	var canBan = false
+  	user.eventWalls.forEach(function(eventWall) {
+  		if(eventWall === eventWallId) {
+  			canBan = true;
+  		}
+  	});
+  	return canBan;
   }
 
 }]);

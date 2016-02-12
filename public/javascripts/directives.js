@@ -1,19 +1,12 @@
 var app = angular.module('eventWall.directives', []);
 
-// app.directive('helloWorld', function() {
-//   return {
-//       restrict: 'AE',
-//       replace: 'true',
-//       template: '<h3>Hello World!!</h3>'
-//   };
-// });
-
 app.directive('feedInterface', [
   '$document',
   '$rootScope',
   'eventWallService',
   '$window',
-  function($document, $rootScope, eventWallService, $window) {
+  'AuthService',
+  function($document, $rootScope, eventWallService, $window, AuthService) {
     return {
       restrict: 'A',
       scope: true,
@@ -32,7 +25,10 @@ app.directive('feedInterface', [
 	    // every x seconds the right arrow is triggered
 	    var autoPlay = $window.setInterval(function(){
 		  $(document).trigger(rightArrowEvent);
+		  console.log(scope.post);
 		}, 3000);
+
+
 
       	//binds to the document page and listens for keydown events
         $document.bind('keydown', function(e) {
@@ -47,40 +43,49 @@ app.directive('feedInterface', [
 	      	if(scope.prevTracker > 0) {
 	      		scope.prevTracker -= 1;
 	      		caughtUp = false;
-	      		console.log('not caughtUp');
+	      		// console.log('not caughtUp');
 	      		if(scope.prevTracker === 0) {
 	      			justCaughtUp = true;
-	      			// scope.tracker += 1;
 	      		}
 	      	}
 	      	// console.log(scope.tracker);
 	      	if(caughtUp && scope.tracker > 0) {
-	      		scope.$apply(function() {
-	      			scope.prevPosts.unshift(scope.post);
-	      		});
-	      		scope.$apply(function() {
-	      			scope.post = scope.posts[scope.tracker];
-	      		});
-	      		scope.tracker -= 1; 
-	      		// console.log(scope.prevPosts);
+	      		if(scope.posts[scope.tracker].banned === undefined) {
+	      			scope.$apply(function() {
+		      			scope.prevPosts.unshift(scope.post);
+		      		});
+		      		scope.$apply(function() {
+		      			scope.post = scope.posts[scope.tracker];
+		      		});
+		      		scope.tracker -= 1;
+	      		} else {
+	      			console.log('banned post');
+	      			scope.tracker -= 1;
+	      		}
 	      	} else if(caughtUp && scope.tracker === 0) {
-	      		scope.$apply(function() {
-	      			scope.prevPosts.unshift(scope.post);
-	      		});
-	      		scope.$apply(function() {
-	      			scope.post = scope.posts[scope.tracker];
-	      		});
-	      		scope.tracker = scope.posts.length - 1;
-	      		// console.log('added qwe');
-	      		// scope.posts.push({text: 'qwe'});
+	      		if(scope.posts[scope.tracker].banned === undefined) {
+		      		scope.$apply(function() {
+		      			scope.prevPosts.unshift(scope.post);
+		      		});
+		      		scope.$apply(function() {
+		      			scope.post = scope.posts[scope.tracker];
+		      		});
+		      		scope.tracker = scope.posts.length - 1;
+		      	} else {
+		      		console.log('banned post');
+		      		scope.tracker = scope.posts.length - 1;
+		      	}
 	      	}
 
 	      	if(caughtUp === false) {
 	      		if(justCaughtUp) {
-	      			scope.$apply(function() {
-		      			// console.log('justCaughtUp');
-		      			scope.post = scope.posts[scope.tracker + 1];
-	      			});
+	      			if(scope.posts[scope.tracker + 1] && scope.posts[scope.tracker + 1].banned === undefined) {
+		      			scope.$apply(function() {
+			      			scope.post = scope.posts[scope.tracker + 1];
+		      			});
+		      		} else {
+		      			console.log('justCaughtUp banned post')
+		      		}
 	      		} else {
 	      			scope.$apply(function() {
 		      			scope.post = scope.prevPosts[scope.prevTracker - 1];
@@ -88,16 +93,24 @@ app.directive('feedInterface', [
 	      		}
 	      		
 	      	}
+	      	//if there are posts to hit leftarrow to view
 	      } else if(keydownEvent === leftArrow && scope.prevPosts.length > 0) {
+	      	// if the previous tracker is less than the amount of posts we can go back
+	      	// so we do not shuffle through undefined indexes
 	      	if(scope.prevTracker < scope.prevPosts.length) {
-	      		scope.$apply(function() {
-	      			console.log(scope.prevTracker);
-	      			scope.post = scope.prevPosts[scope.prevTracker];
-	      		});
-	      		scope.prevTracker += 1;
+	      		if(scope.prevPosts[scope.prevTracker].banned === undefined) {
+	      			scope.$apply(function() {
+		      			scope.post = scope.prevPosts[scope.prevTracker];
+		      		});
+		      		scope.prevTracker += 1;
+	      		} else {
+	      			console.log('banned previous');
+	      			scope.prevTracker += 1;
+	      		}
 	      	}
-	      } else if(keydownEvent === xKey) {
-	        console.log('ban');
+	      } else if((keydownEvent === xKey) && scope.canBan) {
+	        scope.post.banned = true;
+	        $(document).trigger(rightArrowEvent);
 	      } else if(keydownEvent === spaceBar) {
 	      	timerTracker += 1;
 	      	if(timerTracker % 2 !== 0) {
@@ -106,6 +119,7 @@ app.directive('feedInterface', [
 	      		console.log('new timer?');
 	      		autoPlay = $window.setInterval(function(){
 				  $(document).trigger(rightArrowEvent);
+				  console.log(scope.post);
 				}, 3000);
 	      	}
 	      }
