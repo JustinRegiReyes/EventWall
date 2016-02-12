@@ -60,6 +60,13 @@ app.use(function( req, res, next) {
             });
     };
 
+    req.currentPoster = function (cb) {
+        db.Poster.findOne({_id: req.user._id},
+            function (err, user) {
+                cb(err, user);
+            });
+    };
+
     next();
 });
 
