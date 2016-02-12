@@ -1,1 +1,3 @@
-<a href="/auth/google" target="_self" class="btn btn-primary">Log in with Google</a>
+<div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+
+<a ng-hide="error" href="/auth/google" target="_self" class="btn btn-primary">Log in with Google</a>

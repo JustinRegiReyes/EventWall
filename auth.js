@@ -79,6 +79,7 @@ passport.use(new GoogleStrategy({
     // console.log(profile);
     Poster.findOrCreate({googleId: profile.id}, function (err, user) {
       user.username = profile.displayName;
+      user.type = 'poster';
       // console.log('googleAuth', user);
       return done(err, user);
     });

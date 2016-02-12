@@ -153,6 +153,23 @@ module.exports.postToWall = function(req, res) {
 	});
 }
 
+module.exports.exists = function(req, res) {
+	var url = req.query.eventWallUrl;
+
+	EventWall.findOne({url: url}, function(err, eventWall) {
+		if(err) {
+			return console.log(err);
+		}
+		if(eventWall === null) {
+			return res.status(404).json({err: 'Event Wall with this url does not exist.'})
+		}
+		return res.status(200).json({data: eventWall});
+	});
+}
+
+
+// HELPER FUNCTIONS
+
 // used to sort out the concatted eventWall posts and tweets
 function bubbleSort(arr){
    var len = arr.length;

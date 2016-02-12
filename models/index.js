@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/media_memories');
+mongoose.connect( process.env.MONGOLAB_URI ||
+                  process.env.MONGOHQ_URL || 
+                  'mongodb://localhost/eventWall');
 
 module.exports = {
   User: require('./user'),

@@ -18,5 +18,6 @@ api.get('/api/eventWall', eventWallCtrl.get);
 api.get('/api/eventWall/feed', eventWallCtrl.feed);
 api.post('/api/eventWall/feed/create', eventWallCtrl.postToWall);
 api.delete('/api/eventWall/terminate-stream', eventWallCtrl.terminateStream);
+api.get('/api/eventWall/exists', eventWallCtrl.exists);
 
 module.exports = api;

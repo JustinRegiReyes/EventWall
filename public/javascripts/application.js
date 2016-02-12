@@ -38,7 +38,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		})
 		.when('/post/:url', {
 			templateUrl: '/templates/eventWall-post',
-			controller: 'eventWallPostController'
+			controller: 'eventWallPostAuthController'
 		})
 		.when('/post/:url/new', {
 			templateUrl: '/templates/eventWall-post-new',

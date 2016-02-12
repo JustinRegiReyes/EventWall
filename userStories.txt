@@ -83,6 +83,3 @@ function banPost() {
 		//adds current post to ban list
 }
 
-find a way to have class be recognized as a tweetPost or a gmail post
-
-find a way for users to post to that feed

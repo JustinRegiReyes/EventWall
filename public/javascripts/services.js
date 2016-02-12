@@ -143,7 +143,8 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 		nextPost: nextPost,
 		prevPost: prevPost,
 		appendPost: appendPost,
-		terminateStream: terminateStream
+		terminateStream: terminateStream,
+		exists: exists
 	})
 
 	function create(name, hashtag, url, icon, background) {
@@ -271,10 +272,37 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 	}
 
 	function terminateStream() {
+		// send a post request to the server
+	    $http.delete('/api/eventWall/terminate-stream'); 
+	}
+
+	function exists(eventWallUrl) {
+		// create a new instance of deferred
+   		var deferred = $q.defer();
 
 		// send a post request to the server
-	    $http.delete('/api/eventWall/terminate-stream');
-	      
+	    $http.get('/api/eventWall/exists', 
+	    	{
+	    		params: {
+	    			eventWallUrl: eventWallUrl
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject('err');
+	      });
+
+	    // return promise object
+	    return deferred.promise;
 	}
 }]);
 

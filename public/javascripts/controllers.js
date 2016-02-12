@@ -172,11 +172,53 @@ app.controller('eventWallController',
 
 }]);
 
+app.controller('eventWallPostAuthController',
+  ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
+  function ($scope, $location, eventWallService, PosterService, AuthService) {
+      var reg = /\/post\/(.*)/;
+      var url = $location.path().match(reg)[1];
+      // console.log(redirect);
+    eventWallService.exists(url)
+    // handle success
+      .then(function (data) {
+      
+      })
+      // handle error
+      .catch(function (err) {
+        $scope.error = true;
+        $scope.errorMessage = 'An Event Wall with that Url does not exist';
+      });
+
+    //if there is not a user they are asked to log in via gmail
+    var user = AuthService.getUserStatus();
+    
+    if(AuthService.isLoggedIn() && user.type !== 'poster') {
+      $scope.error = true;
+      $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
+    }
+
+}]);
+
 app.controller('eventWallPostController',
   ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
   function ($scope, $location, eventWallService, PosterService, AuthService) {
+    //if there is not a user they are asked to log in via gmail
+    var user = AuthService.getUserStatus();
+    
+    if(user === null) {
+      var reg = /\/post\/(.*?)\//;
+      var redirect = $location.path().match(reg)[0];
+      $location.path(redirect);
+    }
+
+    if(user && user.type !== 'poster') {
+      $scope.error = true;
+      $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
+    }
+
     $scope.post = function() {
-      var user = AuthService.getUserStatus();
+
+      
       var text = $('#messageTextArea').val();
       var picture = $('#postPicture').val();
       var reg = /post\/(.*?)\//;
