@@ -25,7 +25,7 @@ app.directive('feedInterface', [
 	    // every x seconds the right arrow is triggered
 	    var autoPlay = $window.setInterval(function(){
 		  $(document).trigger(rightArrowEvent);
-		  console.log(scope.post);
+		  // console.log(scope.post);
 		}, 3000);
 
 
@@ -119,7 +119,7 @@ app.directive('feedInterface', [
 	      		console.log('new timer?');
 	      		autoPlay = $window.setInterval(function(){
 				  $(document).trigger(rightArrowEvent);
-				  console.log(scope.post);
+				  // console.log(scope.post);
 				}, 3000);
 	      	}
 	      }
