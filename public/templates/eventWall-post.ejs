@@ -1,8 +1,8 @@
 <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
 
-<a ng-hide="error || isLoggedIn" href="/auth/google" target="_self" class="btn btn-primary">Log in with Google</a>
+<a ng-hide="error" href="/auth/google" target="_self" class="btn btn-primary">Log in with Google</a>
 
-<div ng-show="isLoggedIn">
+<div ng-show="!!user.googleId">
 	You are already logged in via Google. <br><br>
 
 	<a class="text-center" href="/post/{{eventWall.url}}/new/">

@@ -205,9 +205,12 @@ app.controller('eventWallPostAuthController',
 
     //if there is not a user they are asked to log in via gmail
     var user = AuthService.getUserStatus();
-    $scope.isLoggedIn = AuthService.isLoggedIn()
+
+
+
+    $scope.user = user;
     
-    if(AuthService.isLoggedIn() && user.googleId === null) {
+    if(AuthService.isLoggedIn() && user.googleId === undefined) {
       $scope.error = true;
       $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
     }

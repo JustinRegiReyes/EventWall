@@ -25,10 +25,11 @@ app.controller('eventWallFeedController',
         // console.log(data);
         $scope.eventWall = data;
         $window.eventWallTest = data;
+        var user = AuthService.getUserStatus();
 
         // checks if the User that is logged in is the creator of the event wall
         // if so they can ban posts
-        if(AuthService.isLoggedIn()) {
+        if(user && (user.googleId === undefined)) {
           $scope.canBan = AuthService.canBan($scope.eventWall._id);
         }
         // console.log($window.eventWall);
