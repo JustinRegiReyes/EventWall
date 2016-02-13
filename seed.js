@@ -24,10 +24,10 @@ var post = {text: 'test3'};
 // 	});
 // });
 
-// db.EventWall.findOne({url: 'lisafoundthejuan'}, function(err, eventWall) {
-// 	console.log(eventWall);
-// 	process.exit();
-// });
+db.EventWall.findOne({url: 'lisafoundthejuan'}, function(err, eventWall) {
+	console.log(eventWall);
+	process.exit();
+});
 
 // 	console.log(eventWalls);
 // 	process.exit();

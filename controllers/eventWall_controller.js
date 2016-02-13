@@ -124,11 +124,14 @@ module.exports.postToWall = function(req, res) {
 	var url = req.body.url,
 		text = req.body.text,
 		picture = req.body.picture,
-		date = new Date();
+		date = new Date(),
+		id1 = Math.floor(Math.random()*900000000) + 100000,
+		id2 = Math.floor(Math.random()*900000000) + 100000
+		id = id1 + id2;
 
 	var poster = req.user;
 	//type is equal to post to help differentiate between tweet and post when merging
-	var post = {text: text, picture: picture, type: 'site', created_at: date};
+	var post = {text: text, picture: picture, type: 'site', created_at: date, id: id};
 	Poster.update({googleId: poster.googleId}, {$push: {posts: post}},
 		function(err, updatedPoster) {
 			if(err) {return console.log(err);}
@@ -174,8 +177,6 @@ module.exports.banTweet = function(req, res) {
 	 function(err, eventWall) {
 	 	return res.status(200).json({data: 'Succesfully banned tweet'});
 	});
-
-	
 }
 
 module.exports.banSitePost = function(req, res) {
