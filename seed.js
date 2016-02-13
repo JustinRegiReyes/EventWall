@@ -15,19 +15,19 @@ var post = {text: 'test3'};
 // 	});
 // });
 
-// db.EventWall.update({url: 'j'}, {posts: new Array},
-// function(err, eventWall) {
-// 	db.EventWall.findOne({url: 'j'}, function(err, eventWall) {
-// 		if(err) {return console.log(err)}	
-// 		console.log(eventWall);
-// 		process.exit();
-// 	});
-// });
-
-db.EventWall.findOne({url: 'lisafoundthejuan'}, function(err, eventWall) {
-	console.log(eventWall);
-	process.exit();
+db.EventWall.update({url: 'lisafoundthejuan'}, {bannedPosts: new Array},
+function(err, eventWall) {
+	db.EventWall.findOne({url: 'lisafoundthejuan'}, function(err, neweventWall) {
+		if(err) {return console.log(err)}	
+		console.log(neweventWall);
+		process.exit();
+	});
 });
+
+// db.EventWall.findOne({url: 'lisafoundthejuan'}, function(err, eventWall) {
+// 	console.log(eventWall);
+// 	process.exit();
+// });
 
 // 	console.log(eventWalls);
 // 	process.exit();

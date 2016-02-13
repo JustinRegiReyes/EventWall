@@ -24,11 +24,11 @@ module.exports.create = function(req, res) {
 
 		EventWall.create(eventWallData, function(err, eventWall) {
 			if(err) { console.log(err); return res.status(500).json({err: err})}
-			console.log(eventWall);
+			// console.log(eventWall);
 			// console.log('userLoggedIn?', !!req.user);
 			eventWall.addToUser(user, function(user) {
 				req.login(user, function(err) {
-					console.log('updated logged in user!');
+					// console.log('updated logged in user!');
 					res.status(200).json({data: eventWall});
 				})
 			});
@@ -39,7 +39,7 @@ module.exports.create = function(req, res) {
 
 module.exports.get = function(req, res) {
 	var eventWallUrl = req.query.eventWallUrl;
-	console.log('eventWallUrl', eventWallUrl);
+	// console.log('eventWallUrl', eventWallUrl);
 
 	EventWall.findByUrl(eventWallUrl, function(err, eventWall) {
 		if(err) {
@@ -75,10 +75,9 @@ module.exports.feed = function(req, res) {
 		var streamQuery = eventWall.hashtag.split('OR').join(',');
 
 		T.get('search/tweets', { q: eventWall.hashtag, count: 100}, function(err, data, response) { //, language: "en, und"
-			console.log('DATA', data.statuses.length);
+			console.log(data.statuses.length);
 			data.statuses.forEach(function(status) {
 				var match = status.text.match(myRegexp); 
-				
 				if(match === null) {
 					// console.log('---------------');
 					//list the type of post it is for front end organization/styling
@@ -91,6 +90,29 @@ module.exports.feed = function(req, res) {
 
 			// combination of tweets and posts posted to the eventWall
 			var eventWallPosts = bubbleSort(eventWall.posts.concat(posts));
+			console.log(eventWallPosts.length);
+			var filteredEventWallPosts = [];
+			//filtering banned tweets and posts
+			//if there is a match banned is switched to true
+			eventWallPosts.forEach(function(unfilteredPost) {
+				var banned = false;
+				eventWall.bannedTweets.forEach(function(bannedTweet) {
+					if(bannedTweet.id === unfilteredPost.id) {
+						banned = true;
+					}
+				});
+				eventWall.bannedPosts.forEach(function(bannedSitePost) {
+					if(bannedSitePost.id === unfilteredPost.id) {
+						banned = true;
+					}
+				});
+
+				//if the post makes it through the bannedTweet and bannedPosts
+				if(banned === false) {
+					// push the now filtered post into the filtedPosts
+					filteredEventWallPosts.push(unfilteredPost);
+				}
+			});
 
 			//define stream
 			stream = T.stream('statuses/filter', { track: [streamQuery]}); //, language: "en, und"
@@ -100,11 +122,12 @@ module.exports.feed = function(req, res) {
 				//keep track if stream is still on or not
 				console.log('tweet');
 				if(match === null) {
+					console.log('tweet emitted')
 					io.emit('tweet', tweet);
 				}
 			});
 
-		  return res.status(200).json({data: eventWallPosts});
+		  return res.status(200).json({data: filteredEventWallPosts});
 		});
 	});
 }

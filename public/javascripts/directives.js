@@ -26,7 +26,7 @@ app.directive('feedInterface', [
 	    var autoPlay = $window.setInterval(function(){
 		  $(document).trigger(rightArrowEvent);
 		  // console.log(scope.post);
-		}, 3000);
+		}, 5000);
 
 
 
@@ -108,7 +108,7 @@ app.directive('feedInterface', [
 	      			scope.prevTracker += 1;
 	      		}
 	      	}
-	      } else if((keydownEvent === xKey)) {
+	      } else if((keydownEvent === xKey) && scope.canBan) {
 	        scope.post.banned = true;
 	        eventWallService.banPost(scope.post, scope.eventWall.url);
 	        $(document).trigger(rightArrowEvent);
@@ -122,7 +122,7 @@ app.directive('feedInterface', [
 	      		autoPlay = $window.setInterval(function(){
 				  $(document).trigger(rightArrowEvent);
 				  // console.log(scope.post);
-				}, 3000);
+				}, 5000);
 	      	}
 	      }
         });

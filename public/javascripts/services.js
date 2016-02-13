@@ -134,7 +134,6 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
 
   function canBan(eventWallId) {
   	var user = getUserStatus();
-  	console.log(user.eventWalls);
   	var canBan = false
   	user.eventWalls.forEach(function(eventWall) {
   		if(eventWall === eventWallId) {
