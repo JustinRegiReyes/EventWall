@@ -83,10 +83,8 @@ module.exports.feed = function(req, res) {
 					// console.log('---------------');
 					//list the type of post it is for front end organization/styling
 					status.type = 'twitter';
-					console.log('string date', status.created_at, status.text);
 					//changing string value created_at date into Date obj for bubbleSort comparison
 					status.created_at = toDate(status.created_at);
-					console.log('changed to date', status.created_at, status.text);
 					posts.push(status);
 				}
 			})
@@ -105,9 +103,6 @@ module.exports.feed = function(req, res) {
 					io.emit('tweet', tweet);
 				}
 			});
-			eventWallPosts.forEach(function(post) {
-				console.log('final date', post.created_at, post.text);
-			})
 
 		  return res.status(200).json({data: eventWallPosts});
 		});
@@ -134,15 +129,14 @@ module.exports.postToWall = function(req, res) {
 	var poster = req.user;
 	//type is equal to post to help differentiate between tweet and post when merging
 	var post = {text: text, picture: picture, type: 'site', created_at: date};
-		console.log(post.created_at);
-	// console.log(poster);
 	Poster.update({googleId: poster.googleId}, {$push: {posts: post}},
 		function(err, updatedPoster) {
 			if(err) {return console.log(err);}
 			post.poster = {
 				username: poster.username, 
 				_id: poster._id
-			},
+			};
+
 			EventWall.update({url: url}, {$push: {posts: post}}, function(err, eventWall) {
 				if(err) {return console.log(err);}
 				console.log('savedEventWall', eventWall);
@@ -164,6 +158,33 @@ module.exports.exists = function(req, res) {
 			return res.status(404).json({err: 'Event Wall with this url does not exist.'})
 		}
 		return res.status(200).json({data: eventWall});
+	});
+}
+
+
+module.exports.banTweet = function(req, res) {
+	var post = req.body.post;
+	var tweet = {};
+	tweet.id = post.id;
+	tweet.text = post.text;
+	tweet.screen_name = post.user.screen_name;
+	var url = req.body.url;
+
+	EventWall.update({url: url}, {$push: {bannedTweets: tweet}},
+	 function(err, eventWall) {
+	 	return res.status(200).json({data: 'Succesfully banned tweet'});
+	});
+
+	
+}
+
+module.exports.banSitePost = function(req, res) {
+	var post = req.body.post;
+	var url = req.body.url;
+
+	EventWall.update({url: url}, {$push: {bannedPosts: post}},
+	 function(err, eventWall) {
+	 	return res.status(200).json({data: 'Succesfully banned site post'});
 	});
 }
 

@@ -19,5 +19,7 @@ api.get('/api/eventWall/feed', eventWallCtrl.feed);
 api.post('/api/eventWall/feed/create', eventWallCtrl.postToWall);
 api.delete('/api/eventWall/terminate-stream', eventWallCtrl.terminateStream);
 api.get('/api/eventWall/exists', eventWallCtrl.exists);
+api.post('/api/eventWall/ban/tweet', eventWallCtrl.banTweet);
+api.post('/api/eventWall/ban/sitepost', eventWallCtrl.banSitePost);
 
 module.exports = api;

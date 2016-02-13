@@ -157,7 +157,8 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 		prevPost: prevPost,
 		appendPost: appendPost,
 		terminateStream: terminateStream,
-		exists: exists
+		exists: exists,
+		banPost: banPost
 	})
 
 	function create(name, hashtag, url, icon, hashtagicon, background) {
@@ -317,6 +318,46 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 
 	    // return promise object
 	    return deferred.promise;
+	}
+
+	function banPost(post, url) {
+		if(post.type === 'twitter') {
+			// send a post request to the server
+		    $http.post('/api/eventWall/ban/tweet', 
+		    	{
+		    		post: post,
+		    		url: url
+		    	})
+		      // handle success
+		      .success(function (res, status) {
+		        if(status === 200 && res.data) {
+		          console.log(res.data);
+		        }
+		      })
+		      // handle error
+		      .error(function (res) {
+		        console.log('ban error');
+		      });
+		}
+
+		if(post.type === 'site') {
+			// send a post request to the server
+		    $http.post('/api/eventWall/ban/sitepost', 
+		    	{
+		    		post: post,
+		    		url: url
+		    	})
+		      // handle success
+		      .success(function (res, status) {
+		        if(status === 200 && res.data){
+		          console.log(res.data);
+		        }
+		      })
+		      // handle error
+		      .error(function (res) {
+		        console.log('ban error');
+		      });
+		}
 	}
 }]);
 

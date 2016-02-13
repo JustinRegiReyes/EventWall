@@ -108,9 +108,11 @@ app.directive('feedInterface', [
 	      			scope.prevTracker += 1;
 	      		}
 	      	}
-	      } else if((keydownEvent === xKey) && scope.canBan) {
+	      } else if((keydownEvent === xKey)) {
 	        scope.post.banned = true;
+	        eventWallService.banPost(scope.post, scope.eventWall.url);
 	        $(document).trigger(rightArrowEvent);
+
 	      } else if(keydownEvent === spaceBar) {
 	      	timerTracker += 1;
 	      	if(timerTracker % 2 !== 0) {
