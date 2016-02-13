@@ -4,6 +4,14 @@ var app = angular.module('eventWall.controllers', []);
 app.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
 	function($scope, $location, $http, $window) {
 	$scope.user = $window.user;
+  var myRegexp = /feed(.*?)/;
+  var match = $location.path().match(myRegexp);
+
+  if(match && match[0] === 'feed') {
+    $scope.hideNav = true;
+  }
+
+  
 }]);
 
 app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthService', '$window', 
@@ -94,18 +102,32 @@ app.controller('homeController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
     var user = AuthService.getUserStatus();
+    $scope.user = user;
+
 
     if(AuthService.isLoggedIn() === true && user.googleId !== undefined) {
       $location.path('/eventWall/find/post');
     }
 
-	if(AuthService.isLoggedIn() === false) {
-  		$location.path('/');
-  	}
-
-    $scope.getUserStatus = function() {
-    	console.log(AuthService.getUserStatus());
+    if(AuthService.isLoggedIn() === false) {
+      $location.path('/');
     }
+
+    if(AuthService.isLoggedIn() === true) {
+      AuthService.getEventWalls(user.eventWalls)
+      // handle success
+        .then(function (data) {
+          $scope.user.eventWalls = data;
+        })
+        // handle error
+        .catch(function (res) {
+          $scope.error = true;
+          $scope.errorMessage = "Could not unlink Twitter account. Please try again.";
+        });
+    }
+    
+
+    
 
 }]);
 

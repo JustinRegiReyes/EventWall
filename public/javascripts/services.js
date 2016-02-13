@@ -13,7 +13,8 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
     logout: logout,
     register: register,
     unlinkTwitter: unlinkTwitter,
-    canBan: canBan
+    canBan: canBan,
+    getEventWalls: getEventWalls
   });
 
   function isLoggedIn() {
@@ -141,6 +142,35 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
   		}
   	});
   	return canBan;
+  }
+
+  function getEventWalls(eventWallIds) {
+  		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.get('/api/user/eventWalls', 
+	    	{
+	    		params: {
+	    			eventWallIds: eventWallIds
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
   }
 
 }]);

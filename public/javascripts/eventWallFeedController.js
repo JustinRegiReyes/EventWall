@@ -71,7 +71,7 @@ app.controller('eventWallFeedController',
           $scope.post = postData;
           $scope.tracker = 1;
       }
-      console.log(postData);
+      // console.log(postData);
       $scope.posts.push(postData);
     });
 

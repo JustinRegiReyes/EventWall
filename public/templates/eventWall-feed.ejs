@@ -1,11 +1,19 @@
 <div data-feed-interface>
-	{{eventWall.name}}
-	<div id="eventWall">
-		<div ng-show="error">{{errorMessage}}</div>
-		{{posts.length}}
-		<data-show-post></data-show-post>
+	<div id="eventWallFeed">
+		<div class="text-center" ng-show="error">{{errorMessage}}</div>
+		<div class="feedPost"> 
+        	<div ng-if="!!post.picture === false" class="{{post.type}}Post feedContent">
+        		{{post.text}}
+        	</div>
+        	<div ng-if="!!post.picture === true" class="picturePost feedContent">
+        		<div>
+        			{{post.text}}
+        		</div>
+        		<div>
+        			<img class="feed-picture" ng-src="{{post.picture}}">
+        		</div>
+        	</div>
+        </div>
+		<span class="feed-name">{{eventWall.name}}</span>
 	</div>
 </div>
-
-
-

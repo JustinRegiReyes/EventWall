@@ -1,0 +1,100 @@
+html, body {
+	height: 100%;
+}
+
+/*home.ejs*/
+
+#yourEW {
+	margin-top: 3px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.eventWall-list {
+	margin: 10px 0;
+    background-color: #EFEFEF;
+    border-radius: 5px;
+    padding: 20px 0px;
+}
+
+.eventWall-list:hover {
+	background-color: #D4D4D4;
+}
+
+.eventWall-list a:hover{
+    text-decoration: none;
+}
+
+.eventWall-list a{
+    color: black;
+}
+
+@media screen and (max-width: 768px) {
+	#yourEW {
+	    font-size: 18px;
+	}
+}
+
+
+/*eventWall-feed.ejs*/
+
+#eventWallFeed {
+	height: 100vh;
+	width: 100vw;
+	/*background: red;*/
+	position: relative;
+	display: table; 
+	margin: 0 auto;
+}
+
+.feed-name {
+	font-size: 20px;
+	font-weight: 200;
+	position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.feedPost {
+	height: 100%;
+    display: table-cell;   
+    vertical-align: middle;
+    padding-bottom: 50px;
+}
+
+.feedContent {
+	height: 300px;
+	width: 700px;
+	margin: 0 auto;
+}
+
+
+.twitterPost {
+	background: blue;
+}
+
+.sitePost {
+	background: green;
+}
+
+.picturePost {
+	background: red;
+}
+
+.feed-picture {
+	height: 200px;
+	width: 200px;
+}
+
+/*helper classes*/
+.float-right {
+	float: right;
+}
+
+.float-left {
+	float: left;
+}
+
+.display-block {
+	display: block;
+}

@@ -136,8 +136,8 @@ app.directive('showPost', function() {
         return {
             restrict: 'AE',
             replace: 'true',
-            template: '<div class="{{post.type}}Post">' + 
-            			'{{post.text}}' +
-            		  '</div>'
+            template: '<div class="feedPost">' + 
+            			'<div class="{{post.type}}Post feedContent">{{post.text}}' +
+            		  '</div></div>'
         };
 });

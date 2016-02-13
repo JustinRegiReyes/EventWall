@@ -212,6 +212,17 @@ module.exports.banSitePost = function(req, res) {
 	});
 }
 
+module.exports.userCreated = function(req, res) {
+	var eventWallIds = req.query.eventWallIds;
+
+	EventWall.find({_id: {$in: eventWallIds}},
+		function(err, eventWalls) {
+			if(err) { return res.status(500);}
+
+			return res.status(200).json({data: eventWalls});
+		})
+}
+
 
 // HELPER FUNCTIONS
 

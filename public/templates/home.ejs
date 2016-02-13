@@ -1,2 +1,19 @@
-<h3>Home page!</h3>
-<a href="/eventWall/new"><button class="btn btn-default">Create New Event</button></a>
+<div class="col-sm-12">
+		<span id="yourEW" class="float-left">Your Event Walls</span>
+		<a class="float-right" href="/eventWall/new"><button class="btn btn-default text-right">Create Event Wall</button></a>
+</div>
+<br>
+<hr>
+<div class="container">
+	<div class="row">
+		<div class="eventWall-list" ng-repeat="eventWall in user.eventWalls">
+			<a href="/feed/{{eventWall.url}}"><div>
+				<h5 class="text-center">{{eventWall.name}}</h5>
+				<span class="display-block text-center">{{eventWall.hashtag}}</span>
+			</div></a>
+			
+		</div>
+	</div>
+</div>
+
+

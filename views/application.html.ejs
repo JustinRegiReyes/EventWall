@@ -11,6 +11,8 @@
 	<!-- - - - stylesheets - - - -->
 	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/application.css">
 
     <!--Embedding The User Object-->
     <script type="text/javascript">
@@ -19,8 +21,8 @@
 
 </head>
 <body ng-controller="mainCtrl">
-	<header ng-include="'/static/templates/navbar.html'"></header>
-	<div class="container" ng-view>
+	<header ng-hide="hideNav" ng-include="'/static/templates/navbar.html'"></header>
+	<div ng-view>
 		 
 	</div>
 
