@@ -30704,3 +30704,1028 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 
 })(window, window.angular);
+
+'use strict';
+
+var app = angular.module('eventWall', ['ngResource', 'ngRoute', 'eventWall.services', 'eventWall.controllers', 'eventWall.feed','eventWall.directives', 'eventWall.socket']);
+
+
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	$routeProvider
+		.when('/', {
+			templateUrl: '/templates/welcome'
+		})
+		.when('/login', {
+			templateUrl: '/templates/login',
+			controller: 'loginController'
+		})
+		.when('/logout', {
+			controller: 'logoutController'
+		})
+		.when('/sign-up', {
+			templateUrl: '/templates/sign-up',
+			controller: 'registerController'
+		})
+		.when('/home', {
+			templateUrl: '/templates/home',
+			controller: 'homeController'
+		})
+		.when('/settings', {
+			templateUrl: '/templates/settings',
+			controller: 'settingsController'
+		})
+		.when('/eventWall/new', {
+			templateUrl: '/templates/eventWall-new',
+			controller: 'eventWallCreateController'
+		})
+		//shortened the url by excluding eventWall and just putting feed
+		.when('/feed/:url', {
+			templateUrl: '/templates/eventWall-feed',
+			controller: 'eventWallFeedController'
+		})
+		.when('/post/:url', {
+			templateUrl: '/templates/eventWall-post',
+			controller: 'eventWallPostAuthController'
+		})
+		.when('/post/:url/new', {
+			templateUrl: '/templates/eventWall-post-new',
+			controller: 'eventWallPostController'
+		})
+		.when('/feed/post/success', {
+			templateUrl: '/templates/eventWall-post-success'
+		})
+		.when('/eventWall/find/post', {
+			templateUrl: '/templates/eventWall-post-find'
+		})
+		.otherwise({redirectTo: '/'});
+
+	$locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+}]);
+var appServMod = angular.module('eventWall.services', []);
+
+appServMod.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+
+  // create user variable
+  var user = $window.user || null;
+
+  // return available functions for use in controllers
+  return ({
+    isLoggedIn: isLoggedIn,
+    getUserStatus: getUserStatus,
+    login: login,
+    logout: logout,
+    register: register,
+    unlinkTwitter: unlinkTwitter,
+    canBan: canBan,
+    getEventWalls: getEventWalls
+  });
+
+  function isLoggedIn() {
+      return !!user;
+  }
+
+  function getUserStatus() {
+    return user;
+  }
+
+  function login(username, password) {
+
+    // create a new instance of deferred
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.post('/api/user/login', {username: username, password: password})
+      // handle success
+      .success(function (res, status) {
+        if(status === 200 && res.data){
+          user = res.data;
+          $window.user = user;
+          deferred.resolve();
+        } else {
+          user = false;
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (res) {
+        user = null;
+        deferred.reject();
+      });
+
+    // return promise object
+    return deferred.promise;
+
+  }
+
+  function logout() {
+
+    // create a new instance of deferred
+    var deferred = $q.defer();
+
+    // send a get request to the server
+    $http.get('/api/user/logout')
+      // handle success
+      .success(function (res) {
+      	$window.user = null;
+        user = null;
+        deferred.resolve();
+      })
+      // handle error
+      .error(function (res) {
+        user = null;
+        deferred.reject();
+      });
+
+    // return promise object
+    return deferred.promise;
+
+  }
+
+  function register(username, password) {
+
+    // create a new instance of deferred
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.post('/api/user/register', {username: username, password: password})
+      // handle success
+      .success(function (res, status) {
+        if(status === 200 && res.data){
+          user = res.data;
+          $window.user = user;
+          deferred.resolve();
+        } else {
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (res) {
+        deferred.reject(res.err);
+      });
+
+    // return promise object
+    return deferred.promise;
+
+  }
+
+  function unlinkTwitter() {
+
+    // create a new instance of deferred
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.post('/auth/twitter/unlink')
+      // handle success
+      .success(function (res, status) {
+        if(status === 200 && res.data){
+          user = res.data;
+          console.log('unlinkService', user);
+          $window.user = user;
+          deferred.resolve(user);
+        } else {
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (res) {
+        deferred.reject(res.err);
+      });
+
+    // return promise object
+    return deferred.promise;
+
+  }
+
+  function canBan(eventWallId) {
+  	var user = getUserStatus();
+  	var canBan = false
+  	user.eventWalls.forEach(function(eventWall) {
+  		if(eventWall === eventWallId) {
+  			canBan = true;
+  		}
+  	});
+  	return canBan;
+  }
+
+  function getEventWalls(eventWallIds) {
+  		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.get('/api/user/eventWalls', 
+	    	{
+	    		params: {
+	    			eventWallIds: eventWallIds
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+  }
+
+}]);
+
+appServMod.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+
+	return({
+		create: create,
+		get: get,
+		feed: feed,
+		postsInterface: postsInterface,
+		nextPost: nextPost,
+		prevPost: prevPost,
+		appendPost: appendPost,
+		terminateStream: terminateStream,
+		exists: exists,
+		banPost: banPost
+	})
+
+	function create(name, hashtag, url, icon, hashtagicon, background) {
+
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.post('/api/eventWall/create', 
+	    	{
+	    		name: name,
+	    		hashtag: hashtag,
+	    		url: url,
+	    		icon: icon,
+	    		hashtagicon: hashtagicon,
+	    		background: background
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          $window.user.eventWalls.push(eventWall._id);
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
+
+	function get(eventWallUrl) {
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+   		console.log(eventWallUrl);
+		// send a post request to the server
+	    $http.get('/api/eventWall/', 
+	    	{
+	    		params: {
+	    			eventWallUrl: eventWallUrl
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
+
+	function feed(eventWallUrl) {
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.get('/api/eventWall/feed', 
+	    	{
+	    		params: {
+	    			eventWallUrl: eventWallUrl
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject(res.err);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
+
+	function postsInterface(posts, lastSeen) {
+		//keep track of posts
+		var tracker = 0;
+		var currentPost = posts[tracker];
+		var nextPost = posts[tracker += 1];
+
+		
+		// if the tracker is not currently on the first post
+		if(tracker > 0) {
+			var previousPost = posts[tracker -= 1];
+		}
+		
+	}
+
+	function nextPost(posts, tracker) {
+		return posts[tracker];
+	}
+
+	function prevPost(posts, tracker) {
+		return posts[tracker];
+	}
+
+	function appendPost(post) {
+		// if tweet call tweetTemplate
+		$('#eventWall').append(tweetTemplate());
+	}
+
+	function tweetTemplate(post) {
+		var template ="";
+		return template;
+	}
+
+	function terminateStream() {
+		// send a post request to the server
+	    $http.delete('/api/eventWall/terminate-stream'); 
+	}
+
+	function exists(eventWallUrl) {
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.get('/api/eventWall/exists', 
+	    	{
+	    		params: {
+	    			eventWallUrl: eventWallUrl
+	    		}
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          eventWall = res.data;
+	          deferred.resolve(eventWall);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	        deferred.reject('err');
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
+
+	function banPost(post, url) {
+		if(post.type === 'twitter') {
+			// send a post request to the server
+		    $http.post('/api/eventWall/ban/tweet', 
+		    	{
+		    		post: post,
+		    		url: url
+		    	})
+		      // handle success
+		      .success(function (res, status) {
+		        if(status === 200 && res.data) {
+		          console.log(res.data);
+		        }
+		      })
+		      // handle error
+		      .error(function (res) {
+		        console.log('ban error');
+		      });
+		}
+
+		if(post.type === 'site') {
+			// send a post request to the server
+		    $http.post('/api/eventWall/ban/sitepost', 
+		    	{
+		    		post: post,
+		    		url: url
+		    	})
+		      // handle success
+		      .success(function (res, status) {
+		        if(status === 200 && res.data){
+		          console.log(res.data);
+		        }
+		      })
+		      // handle error
+		      .error(function (res) {
+		        console.log('ban error');
+		      });
+		}
+	}
+}]);
+
+appServMod.factory('PosterService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+	return {
+		post: post
+    }
+
+  	function post(text, username, url, picture) {
+
+		// create a new instance of deferred
+   		var deferred = $q.defer();
+
+		// send a post request to the server
+	    $http.post('/api/eventWall/feed/create', 
+	    	{
+	    		text: text,
+	    		username: username,
+	    		url,
+	    		picture: picture
+	    	})
+	      // handle success
+	      .success(function (res, status) {
+	        if(status === 200 && res.data){
+	          deferred.resolve(res.data);
+	        } else {
+	          deferred.reject();
+	        }
+	      })
+	      // handle error
+	      .error(function (res) {
+	      deferred.reject(res);
+	      });
+
+	    // return promise object
+	    return deferred.promise;
+	}
+
+}]);
+var appCtrlMod = angular.module('eventWall.controllers', []);
+
+
+appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
+	function($scope, $location, $http, $window) {
+	$scope.user = $window.user;
+  var myRegexp = /feed(.*?)/;
+  var match = $location.path().match(myRegexp);
+
+  if(match && match[0] === 'feed') {
+    $scope.hideNav = true;
+  }
+
+  console.log('test');
+  
+}]);
+
+appCtrlMod.controller('loginController',['$scope', '$rootScope', '$location', 'AuthService', '$window', 
+	function($scope, $rootScope, $location, AuthService, $window) {
+
+    $scope.isLoggedIn = function(){
+      return AuthService.isLoggedIn()
+    }
+
+    $scope.login = function () {
+
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call login from service
+      AuthService.login($scope.loginForm.username, $scope.loginForm.password)
+        // handle success
+        .then(function () {
+          $location.path('/home');
+          $scope.disabled = false;
+          $scope.loginForm = {};
+        })
+        // handle error
+        .catch(function () {
+          $scope.error = true;
+          $scope.errorMessage = "Invalid username and/or password";
+          $scope.disabled = false;
+          $scope.loginForm = {};
+        });
+
+    };
+
+    $scope.user = function() {
+    	return AuthService.getUserStatus();
+    }
+
+}]);
+
+appCtrlMod.controller('logoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
+
+    $scope.logout = function () {
+
+      // call logout from service
+      AuthService.logout()
+        .then(function () {
+          $location.path('/login');
+        });
+
+    };
+
+}]);
+
+appCtrlMod.controller('registerController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+
+    console.log(AuthService.getUserStatus());
+
+    $scope.register = function () {
+
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call register from service
+      AuthService.register($scope.registerForm.username, $scope.registerForm.password)
+        // handle success
+        .then(function () {
+          $location.path('/home');
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        })
+        // handle error
+        .catch(function (res) {
+          $scope.error = true;
+          $scope.errorMessage = res.name === "UserExistsError" ? 
+          "That username is already in use." : "Something has gone wrong. Please try again.";
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        });
+
+    };
+
+}]);
+
+appCtrlMod.controller('homeController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+    var user = AuthService.getUserStatus();
+    $scope.user = user;
+
+
+    if(AuthService.isLoggedIn() === true && user.googleId !== undefined) {
+      $location.path('/eventWall/find/post');
+    }
+
+    if(AuthService.isLoggedIn() === false) {
+      $location.path('/');
+    }
+
+    if(AuthService.isLoggedIn() === true) {
+      AuthService.getEventWalls(user.eventWalls)
+      // handle success
+        .then(function (data) {
+          $scope.user.eventWalls = data;
+        })
+        // handle error
+        .catch(function (res) {
+          $scope.error = true;
+          $scope.errorMessage = "Could not unlink Twitter account. Please try again.";
+        });
+    }
+    
+
+    
+
+}]);
+
+appCtrlMod.controller('settingsController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+
+  	if(AuthService.isLoggedIn() === false) {
+  		$location.path('/login');
+  	}
+
+    $scope.user = AuthService.getUserStatus();
+    console.log($scope.user);
+
+    $scope.twitterLinked = !!$scope.user && !!$scope.user.twitterId && $scope.user.twitterId.length > 0 ? true : false;
+
+    $scope.unlinkTwitter = function () {
+
+      // call register from service
+      AuthService.unlinkTwitter()
+        // handle success
+        .then(function (data) {
+	    	console.log('data', data);
+	    	$scope.user = data;
+	    	$scope.twitterLinked = false;
+	    	console.log($scope.user);
+          $location.path('/settings');
+        })
+        // handle error
+        .catch(function (res) {
+          $scope.error = true;
+          $scope.errorMessage = "Could not unlink Twitter account. Please try again.";
+        });
+
+    };
+
+}]);
+
+appCtrlMod.controller('eventWallCreateController',
+  ['$scope', '$location', 'eventWallService', 'AuthService',
+  function ($scope, $location, eventWallService, AuthService) {
+  	if(AuthService.isLoggedIn() === false) {
+  		$location.path('/login');
+  	}
+
+    // Instantiate Uploadcare Widgets
+    var widgets = uploadcare.initialize('#my-form');
+    var widgets = uploadcare.initialize();
+
+  	$scope.eventWallForm = {};
+
+  	$scope.create = function() {
+      // console.log($scope.eventWallForm);
+      var icon = $('#eventWallIcon').val();
+      var hashtagicon = $('#eventWallHashtagIcon').val();
+      var background = $('#eventWallBackground').val();
+      // console.log(icon, hashtagicon, background);
+  		eventWallService.create(
+  			$scope.eventWallForm.name,
+  			$scope.eventWallForm.hashtag,
+  			$scope.eventWallForm.url.toLowerCase(),
+  			icon,
+        hashtagicon,
+  			background
+  			)
+        // handle success
+        .then(function (data) {
+        // console.log(data);
+        $location.path('/home')
+        })
+        // handle error
+        .catch(function (err) {
+          $scope.error = true;
+          $scope.errorMessage = 'An Event Wall with that Url has already been made.';
+        });
+  	}
+
+}]);
+
+appCtrlMod.controller('eventWallPostAuthController',
+  ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
+  function ($scope, $location, eventWallService, PosterService, AuthService) {
+      var reg = /\/post\/(.*)/;
+      var url = $location.path().match(reg)[1];
+      $scope.url = url;
+      // console.log(redirect);
+    eventWallService.exists(url)
+    // handle success
+      .then(function (data) {
+        $scope.eventWall = data;
+      })
+      // handle error
+      .catch(function (err) {
+        $scope.error = true;
+        $scope.errorMessage = 'An Event Wall with that Url does not exist';
+      });
+
+    //if there is not a user they are asked to log in via gmail
+    var user = AuthService.getUserStatus();
+
+
+
+    $scope.user = user;
+    
+    if(AuthService.isLoggedIn() && user.googleId === undefined) {
+      $scope.error = true;
+      $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
+    }
+
+}]);
+
+appCtrlMod.controller('eventWallPostController',
+  ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
+  function ($scope, $location, eventWallService, PosterService, AuthService) {
+    //if there is not a user they are asked to log in via gmail
+    var user = AuthService.getUserStatus();
+    
+    if(user === null) {
+      var reg = /\/post\/(.*?)\//;
+      var redirect = $location.path().match(reg)[0];
+      $location.path(redirect);
+    }
+
+    if(user && user.googleId === null) {
+      // console.log(user.googleId);
+      $scope.error = true;
+      $scope.errorMessage = "Please log out of your account to post to an Event Wall. Then, post via Google."
+    }
+
+    // Instantiate Uploadcare Widgets
+    var widgets = uploadcare.initialize('#my-form');
+    var widgets = uploadcare.initialize();
+
+    $scope.post = function() {
+
+      
+      var text = $('#messageTextArea').val();
+      var picture = $('#postPicture').val();
+      var reg = /post\/(.*?)\//;
+      var url = $location.path().match(reg)[1];
+      // console.log(url);
+      PosterService.post(
+        text,
+        user.username,
+        url,
+        picture
+        )
+        // handle success
+        .then(function (data) {
+          $location.path('/feed/post/success');
+        })
+        // handle error
+        .catch(function (err) {
+          console.log('error');
+        });
+
+    }
+}]);
+
+var appFeedMod = angular.module('eventWall.feed', []);
+
+appFeedMod.controller('eventWallFeedController',
+  ['$scope', '$location', 'eventWallService', 
+  'AuthService', '$window', 'socket',
+  function ($scope, $location, eventWallService, AuthService, $window, socket) {
+    $scope.$on('$routeChangeStart', function(next, current) { 
+       eventWallService.terminateStream();
+     });
+
+    $window.addEventListener('unload', function(event) {
+        eventWallService.terminateStream();
+      });
+
+    var path = $location.path().toLowerCase();
+    var myRegexp = /\/feed\/(.*)/;
+    var url = myRegexp.exec(path)[1];
+    $scope.post = "";
+    $scope.prevPosts = [];
+    $scope.prevTracker = 0;
+    
+    eventWallService.get(url)
+      // handle success
+      .then(function (data) {
+        // console.log(data);
+        $scope.eventWall = data;
+        $window.eventWallTest = data;
+        var user = AuthService.getUserStatus();
+
+        // checks if the User that is logged in is the creator of the event wall
+        // if so they can ban posts
+        if(user && (user.googleId === undefined)) {
+          $scope.canBan = AuthService.canBan($scope.eventWall._id);
+        }
+        // console.log($window.eventWall);
+        feed(url);
+      })
+      // handle error
+      .catch(function (error) {
+        console.log(error);
+        $scope.error = true;
+        $scope.errorMessage = error;
+    });
+
+
+    // calls feed function of eventWallService
+    // assigns $scope.posts to data.statuses
+    function feed(url) {
+      eventWallService.feed(url)
+      // handle success
+        .then(function (data) {
+          $window.posts = data;
+          $scope.posts = data;
+          $scope.tracker = data.length - 2;
+          $scope.post = data[$scope.tracker + 1];
+          // stop loading gif
+        })
+        // handle error
+        .catch(function (error) {
+          console.log(error); 
+      });
+    }
+
+    socket.on('tweet', function (postData) {
+      $scope.posts.push(postData);
+    });
+
+    socket.on(url, function (postData) {
+      // console.log(postData);
+      if($scope.posts.length === 0) {
+          $scope.post = postData;
+          $scope.tracker = 1;
+      }
+      // console.log(postData);
+      $scope.posts.push(postData);
+    });
+
+    
+}]);
+var appDirMod = angular.module('eventWall.directives', []);
+
+appDirMod.directive('feedInterface', [
+  '$document',
+  '$rootScope',
+  'eventWallService',
+  '$window',
+  'AuthService',
+  function($document, $rootScope, eventWallService, $window, AuthService) {
+    return {
+      restrict: 'A',
+      scope: true,
+      link: function(scope, element, attrs) {
+      	//keydown event values
+      	var rightArrow = 39,
+          leftArrow = 37,
+          xKey = 88,
+          spaceBar = 32,
+          timerTracker = 0;
+
+      	//defines which event we want to trigger
+	    var rightArrowEvent = $.Event('keydown');
+	    rightArrowEvent.which = rightArrow;
+
+	    // every x seconds the right arrow is triggered
+	    var autoPlay = $window.setInterval(function(){
+		  $(document).trigger(rightArrowEvent);
+		  // console.log(scope.post);
+		}, 5000);
+
+
+
+      	//binds to the document page and listens for keydown events
+        $document.bind('keydown', function(e) {
+        	var keydownEvent = e.which;
+          
+	      if (keydownEvent === rightArrow) {
+	      	//variable to keep track if we are back where we started if going through previous posts
+	      	var caughtUp = true;
+	      	// to keep track of instance when we are about to enter queue of posts that arent previousPosts
+	      	// TODO: Find a way to make this more efficient. But for the life of me, me right now can't figure it out
+	      	var justCaughtUp = false;
+	      	if(scope.prevTracker > 0) {
+	      		scope.prevTracker -= 1;
+	      		caughtUp = false;
+	      		// console.log('not caughtUp');
+	      		if(scope.prevTracker === 0) {
+	      			justCaughtUp = true;
+	      		}
+	      	}
+	      	// console.log(scope.tracker);
+	      	if(caughtUp && scope.tracker > 0) {
+	      		if(scope.posts[scope.tracker].banned === undefined) {
+	      			scope.$apply(function() {
+		      			scope.prevPosts.unshift(scope.post);
+		      		});
+		      		scope.$apply(function() {
+		      			scope.post = scope.posts[scope.tracker];
+		      		});
+		      		scope.tracker -= 1;
+	      		} else {
+	      			console.log('banned post');
+	      			scope.tracker -= 1;
+	      		}
+	      	} else if(caughtUp && scope.tracker === 0) {
+	      		if(scope.posts[scope.tracker].banned === undefined) {
+		      		scope.$apply(function() {
+		      			scope.prevPosts.unshift(scope.post);
+		      		});
+		      		scope.$apply(function() {
+		      			scope.post = scope.posts[scope.tracker];
+		      		});
+		      		scope.tracker = scope.posts.length - 1;
+		      	} else {
+		      		console.log('banned post');
+		      		scope.tracker = scope.posts.length - 1;
+		      	}
+	      	}
+
+	      	if(caughtUp === false) {
+	      		if(justCaughtUp) {
+	      			if(scope.posts[scope.tracker + 1] && scope.posts[scope.tracker + 1].banned === undefined) {
+		      			scope.$apply(function() {
+			      			scope.post = scope.posts[scope.tracker + 1];
+		      			});
+		      		} else {
+		      			console.log('justCaughtUp banned post')
+		      		}
+	      		} else {
+	      			scope.$apply(function() {
+		      			scope.post = scope.prevPosts[scope.prevTracker - 1];
+		      		});
+	      		}
+	      		
+	      	}
+	      	//if there are posts to hit leftarrow to view
+	      } else if(keydownEvent === leftArrow && scope.prevPosts.length > 0) {
+	      	// if the previous tracker is less than the amount of posts we can go back
+	      	// so we do not shuffle through undefined indexes
+	      	if(scope.prevTracker < scope.prevPosts.length) {
+	      		if(scope.prevPosts[scope.prevTracker].banned === undefined) {
+	      			scope.$apply(function() {
+		      			scope.post = scope.prevPosts[scope.prevTracker];
+		      		});
+		      		scope.prevTracker += 1;
+	      		} else {
+	      			console.log('banned previous');
+	      			scope.prevTracker += 1;
+	      		}
+	      	}
+	      } else if((keydownEvent === xKey) && scope.canBan) {
+	        scope.post.banned = true;
+	        eventWallService.banPost(scope.post, scope.eventWall.url);
+	        $(document).trigger(rightArrowEvent);
+
+	      } else if(keydownEvent === spaceBar) {
+	      	timerTracker += 1;
+	      	if(timerTracker % 2 !== 0) {
+	      		$window.clearInterval(autoPlay);
+	      	} else {
+	      		console.log('new timer?');
+	      		autoPlay = $window.setInterval(function(){
+				  $(document).trigger(rightArrowEvent);
+				  // console.log(scope.post);
+				}, 5000);
+	      	}
+	      }
+        });
+      } //end of function
+    };
+    
+  }
+]);
+
+appDirMod.directive('showPost', function() {
+        return {
+            restrict: 'AE',
+            replace: 'true',
+            template: '<div class="feedPost">' + 
+            			'<div class="{{post.type}}Post feedContent">{{post.text}}' +
+            		  '</div></div>'
+        };
+});
+var appSocketMod = angular.module('eventWall.socket', []);
+
+appSocketMod.factory('socket', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {  
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
+});

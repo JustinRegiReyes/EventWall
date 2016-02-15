@@ -11,6 +11,7 @@ appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window',
     $scope.hideNav = true;
   }
 
+  console.log('test');
   
 }]);
 

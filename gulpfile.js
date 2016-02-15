@@ -11,7 +11,13 @@ gulp.task("concatScripts", function() {
 		'bower_components/bootstrap/dist/js/bootstrap.min.js',
 		'bower_components/angular/angular.js',
 		'bower_components/angular-resource/angular-resource.js',
-		'bower_components/angular-route/angular-route.js'
+		'bower_components/angular-route/angular-route.js',
+		'public/javascripts/application.js',
+		'public/javascripts/services.js',
+		'public/javascripts/controllers.js',
+		'public/javascripts/eventWallFeedController.js',
+		'public/javascripts/directives.js',
+		'public/javascripts/factories.js'
 		])
 	.pipe(concat("dependencies.js"))
 	.pipe(gulp.dest("dependencies"));
