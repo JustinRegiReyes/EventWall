@@ -47,6 +47,7 @@ var views = path.join(process.cwd(), 'views/');
 // serve js and css files
 app.use('/static', express.static('public'));
 app.use('/vendor', express.static('bower_components'));
+app.use('/dependencies', express.static('dependencies'));
 
 //session helpers
 app.use(function( req, res, next) {
