@@ -405,7 +405,7 @@ appServMod.factory('PosterService', ['$q', '$timeout', '$http', '$window', funct
 	    	{
 	    		text: text,
 	    		username: username,
-	    		url,
+	    		url: url,
 	    		picture: picture
 	    	})
 	      // handle success

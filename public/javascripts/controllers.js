@@ -10,8 +10,6 @@ appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window',
   if(match && match[0] === 'feed') {
     $scope.hideNav = true;
   }
-
-  console.log('test');
   
 }]);
 

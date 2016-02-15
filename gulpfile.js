@@ -3,7 +3,9 @@
 var gulp = require("gulp"),
 concat = require('gulp-concat'),
 uglify = require('gulp-uglify'),
-rename = require('gulp-rename');
+rename = require('gulp-rename'),
+maps = require('gulp-sourcemaps'),
+gutil = require('gulp-util');
 
 gulp.task("concatScripts", function() {
 	gulp.src([
@@ -12,22 +14,24 @@ gulp.task("concatScripts", function() {
 		'bower_components/angular/angular.js',
 		'bower_components/angular-resource/angular-resource.js',
 		'bower_components/angular-route/angular-route.js',
-		'public/javascripts/application.js',
+		'public/javascripts/angularApp.js',
 		'public/javascripts/services.js',
 		'public/javascripts/controllers.js',
 		'public/javascripts/eventWallFeedController.js',
 		'public/javascripts/directives.js',
 		'public/javascripts/factories.js'
 		])
-	.pipe(concat("dependencies.js"))
-	.pipe(gulp.dest("dependencies"));
+	.pipe(maps.init())
+	.pipe(concat("app.js"))
+	.pipe(maps.write('./'))
+	.pipe(gulp.dest("public/javascripts"));
 });
 
-gulp.task('minifyScripts', function() {
-	gulp.src(['dependencies/dependencies.js'])
-	.pipe(uglify())
-	.pipe(rename('dependencies.min.js'))
-	.pipe(gulp.dest('dependencies'));
+gulp.task('minifyScripts', ["concatScripts"], function() {
+	gulp.src("public/javascripts/app.js")
+	.pipe(uglify().on('error', gutil.log))
+	.pipe(rename('app.min.js'))
+	.pipe(gulp.dest("public/javascripts"));
 });
 
 gulp.task("default", ["hello"], function() {
