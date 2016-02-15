@@ -1,7 +1,7 @@
-var app = angular.module('eventWall.controllers', []);
+var appCtrlMod = angular.module('eventWall.controllers', []);
 
 
-app.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
+appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
 	function($scope, $location, $http, $window) {
 	$scope.user = $window.user;
   var myRegexp = /feed(.*?)/;
@@ -14,7 +14,7 @@ app.controller('mainCtrl', ['$scope', '$location', '$http', '$window',
   
 }]);
 
-app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthService', '$window', 
+appCtrlMod.controller('loginController',['$scope', '$rootScope', '$location', 'AuthService', '$window', 
 	function($scope, $rootScope, $location, AuthService, $window) {
 
     $scope.isLoggedIn = function(){
@@ -51,7 +51,7 @@ app.controller('loginController',['$scope', '$rootScope', '$location', 'AuthServ
 
 }]);
 
-app.controller('logoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
+appCtrlMod.controller('logoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
 
     $scope.logout = function () {
 
@@ -65,7 +65,7 @@ app.controller('logoutController', ['$scope', '$location', 'AuthService', functi
 
 }]);
 
-app.controller('registerController',
+appCtrlMod.controller('registerController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
@@ -98,7 +98,7 @@ app.controller('registerController',
 
 }]);
 
-app.controller('homeController',
+appCtrlMod.controller('homeController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
     var user = AuthService.getUserStatus();
@@ -131,7 +131,7 @@ app.controller('homeController',
 
 }]);
 
-app.controller('settingsController',
+appCtrlMod.controller('settingsController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
@@ -166,7 +166,7 @@ app.controller('settingsController',
 
 }]);
 
-app.controller('eventWallCreateController',
+appCtrlMod.controller('eventWallCreateController',
   ['$scope', '$location', 'eventWallService', 'AuthService',
   function ($scope, $location, eventWallService, AuthService) {
   	if(AuthService.isLoggedIn() === false) {
@@ -207,7 +207,7 @@ app.controller('eventWallCreateController',
 
 }]);
 
-app.controller('eventWallPostAuthController',
+appCtrlMod.controller('eventWallPostAuthController',
   ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
   function ($scope, $location, eventWallService, PosterService, AuthService) {
       var reg = /\/post\/(.*)/;
@@ -239,7 +239,7 @@ app.controller('eventWallPostAuthController',
 
 }]);
 
-app.controller('eventWallPostController',
+appCtrlMod.controller('eventWallPostController',
   ['$scope', '$location', 'eventWallService', 'PosterService', 'AuthService',
   function ($scope, $location, eventWallService, PosterService, AuthService) {
     //if there is not a user they are asked to log in via gmail

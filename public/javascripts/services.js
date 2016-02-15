@@ -1,6 +1,6 @@
-var app = angular.module('eventWall.services', []);
+var appServMod = angular.module('eventWall.services', []);
 
-app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+appServMod.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 
   // create user variable
   var user = $window.user || null;
@@ -175,7 +175,7 @@ app.factory('AuthService', ['$q', '$timeout', '$http', '$window', function ($q, 
 
 }]);
 
-app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+appServMod.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 
 	return({
 		create: create,
@@ -390,7 +390,7 @@ app.factory('eventWallService', ['$q', '$timeout', '$http', '$window', function 
 	}
 }]);
 
-app.factory('PosterService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
+appServMod.factory('PosterService', ['$q', '$timeout', '$http', '$window', function ($q, $timeout, $http, $window) {
 	return {
 		post: post
     }

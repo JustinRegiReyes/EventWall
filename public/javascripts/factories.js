@@ -1,6 +1,6 @@
-var app = angular.module('eventWall.factories', []);
+var appSocketMod = angular.module('eventWall.socket', []);
 
-app.factory('socket', function ($rootScope) {
+appSocketMod.factory('socket', function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {

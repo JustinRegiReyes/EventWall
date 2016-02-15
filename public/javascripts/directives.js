@@ -1,6 +1,6 @@
-var app = angular.module('eventWall.directives', []);
+var appDirMod = angular.module('eventWall.directives', []);
 
-app.directive('feedInterface', [
+appDirMod.directive('feedInterface', [
   '$document',
   '$rootScope',
   'eventWallService',
@@ -132,7 +132,7 @@ app.directive('feedInterface', [
   }
 ]);
 
-app.directive('showPost', function() {
+appDirMod.directive('showPost', function() {
         return {
             restrict: 'AE',
             replace: 'true',

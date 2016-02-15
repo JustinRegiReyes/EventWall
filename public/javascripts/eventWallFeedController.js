@@ -1,6 +1,6 @@
-var app = angular.module('eventWall.feed', []);
+var appFeedMod = angular.module('eventWall.feed', []);
 
-app.controller('eventWallFeedController',
+appFeedMod.controller('eventWallFeedController',
   ['$scope', '$location', 'eventWallService', 
   'AuthService', '$window', 'socket',
   function ($scope, $location, eventWallService, AuthService, $window, socket) {
