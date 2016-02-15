@@ -1,0 +1,46 @@
+#eventWallFeed {
+	height: 100vh;
+	width: 100vw;
+	position: relative;
+	display: table; 
+	margin: 0 auto;
+}
+
+.feed-name {
+	font-size: 20px;
+	font-weight: 200;
+	position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.feedPost {
+	height: 100%;
+    display: table-cell;   
+    vertical-align: middle;
+    padding-bottom: 50px;
+}
+
+.feedContent {
+	height: 300px;
+	width: 700px;
+	margin: 0 auto;
+}
+
+
+.twitterPost {
+	background: blue;
+}
+
+.sitePost {
+	background: green;
+}
+
+.picturePost {
+	background: red;
+}
+
+.feed-picture {
+	height: 200px;
+	width: 200px;
+}

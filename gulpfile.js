@@ -1,11 +1,12 @@
 'use strict';
 
 var gulp = require("gulp"),
-concat = require('gulp-concat'),
-uglify = require('gulp-uglify'),
-rename = require('gulp-rename'),
-maps = require('gulp-sourcemaps'),
-gutil = require('gulp-util');
+	concat = require('gulp-concat'),
+	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename'),
+	maps = require('gulp-sourcemaps'),
+	gutil = require('gulp-util'),
+	sass = require('gulp-sass');
 
 gulp.task("concatScripts", function() {
 	gulp.src([
@@ -32,6 +33,14 @@ gulp.task('minifyScripts', ["concatScripts"], function() {
 	.pipe(uglify().on('error', gutil.log))
 	.pipe(rename('app.min.js'))
 	.pipe(gulp.dest("public/javascripts"));
+});
+
+gulp.task('compileSass', function() {
+  return gulp.src("public/stylesheets/scss/application.scss")
+      .pipe(maps.init())
+      .pipe(sass())
+      .pipe(maps.write('./'))
+      .pipe(gulp.dest('public/stylesheets/css'));
 });
 
 gulp.task("default", ["hello"], function() {
