@@ -1,7 +1,9 @@
 'use strict';
 
 var gulp = require("gulp"),
-concat = require('gulp-concat');
+concat = require('gulp-concat'),
+uglify = require('gulp-uglify'),
+rename = require('gulp-rename');
 
 gulp.task("concatScripts", function() {
 	gulp.src([
@@ -12,7 +14,14 @@ gulp.task("concatScripts", function() {
 		'bower_components/angular-route/angular-route.js'
 		])
 	.pipe(concat("dependencies.js"))
-	.pipe(gulp.dest("vendor"));
+	.pipe(gulp.dest("dependencies"));
+});
+
+gulp.task('minifyScripts', function() {
+	gulp.src(['dependencies/dependencies.js'])
+	.pipe(uglify())
+	.pipe(rename('dependencies.min.js'))
+	.pipe(gulp.dest('dependencies'));
 });
 
 gulp.task("default", ["hello"], function() {
