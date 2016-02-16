@@ -8,7 +8,8 @@ var gulp = require("gulp"),
 	gutil = require('gulp-util'),
 	sass = require('gulp-sass'),
 	livereload = require('gulp-livereload'),
-	nodemon = require('gulp-nodemon');
+	nodemon = require('gulp-nodemon'),
+	autoprefixer = require('gulp-autoprefixer');
 
 gulp.task("concatScripts", function() {
 	return gulp.src([
@@ -48,17 +49,27 @@ gulp.task('minifyScripts', ["concatScripts"], function() {
 
 gulp.task('compileSass', function() {
   return gulp.src("public/stylesheets/scss/application.scss")
-      .pipe(maps.init())
       .pipe(sass())
-      .pipe(maps.write('./'))
-      .pipe(gulp.dest('public/stylesheets/css'))
-      .pipe(livereload());
+      .pipe(gulp.dest('public/stylesheets/css'));
+});
+
+gulp.task('autoprefix', ['compileSass'], function () {
+	return gulp.src('public/stylesheets/css/application.css')
+		.pipe(maps.init())
+		.pipe(autoprefixer({
+			browsers: ['last 3 versions'],
+			cascade: false
+		}))
+		.pipe(rename('prefix-app.css'))
+		.pipe(maps.write('./'))
+		.pipe(gulp.dest('public/stylesheets/css'))
+		.pipe(livereload());
 });
 
 gulp.task('watch', function() {
 	
 
-	gulp.watch('public/stylesheets/scss/**/*.scss', ['compileSass']);
+	gulp.watch('public/stylesheets/scss/**/*.scss', ['autoprefix']);
 	gulp.watch('public/javascripts/controllers.js', ['minifyScripts']);
 	gulp.watch('public/templates/**.ejs')
 	.on('change', function(event) {
