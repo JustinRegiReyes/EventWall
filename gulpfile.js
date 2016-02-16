@@ -6,10 +6,12 @@ var gulp = require("gulp"),
 	rename = require('gulp-rename'),
 	maps = require('gulp-sourcemaps'),
 	gutil = require('gulp-util'),
-	sass = require('gulp-sass');
+	sass = require('gulp-sass'),
+	livereload = require('gulp-livereload'),
+	nodemon = require('gulp-nodemon');
 
 gulp.task("concatScripts", function() {
-	gulp.src([
+	return gulp.src([
 		'bower_components/jquery/dist/jquery.min.js',
 		'bower_components/bootstrap/dist/js/bootstrap.min.js',
 		'bower_components/angular/angular.js',
@@ -25,14 +27,23 @@ gulp.task("concatScripts", function() {
 	.pipe(maps.init())
 	.pipe(concat("app.js"))
 	.pipe(maps.write('./'))
-	.pipe(gulp.dest("public/javascripts"));
+	.pipe(gulp.dest("public/javascripts/application"));
 });
 
 gulp.task('minifyScripts', ["concatScripts"], function() {
-	gulp.src("public/javascripts/app.js")
+	return gulp.src("public/javascripts/application/app.js")
 	.pipe(uglify().on('error', gutil.log))
 	.pipe(rename('app.min.js'))
-	.pipe(gulp.dest("public/javascripts"));
+	.pipe(gulp.dest("public/javascripts/application"))
+	.on('end', function() {
+		setTimeout(delayedReload, 3000);
+	});
+
+	function delayedReload() {
+		gulp.src('index.js')
+			.pipe(livereload());
+		console.log('delayedReload');
+	}
 });
 
 gulp.task('compileSass', function() {
@@ -40,7 +51,36 @@ gulp.task('compileSass', function() {
       .pipe(maps.init())
       .pipe(sass())
       .pipe(maps.write('./'))
-      .pipe(gulp.dest('public/stylesheets/css'));
+      .pipe(gulp.dest('public/stylesheets/css'))
+      .pipe(livereload());
+});
+
+gulp.task('watch', function() {
+	
+
+	gulp.watch('public/stylesheets/scss/**/*.scss', ['compileSass']);
+	gulp.watch('public/javascripts/controllers.js', ['minifyScripts']);
+	gulp.watch('public/templates/**.ejs')
+	.on('change', function(event) {
+		gulp.src('index.js')
+			.pipe(livereload());
+	});
+	
+});
+
+gulp.task('nodemon', ['watch'], function() {
+	livereload.listen();
+
+	
+
+	nodemon({
+		// the script to run the app
+		script: 'index.js',
+		ext: 'js' 
+	}).on('restart', function(){
+		// when the app has restarted, run livereload.
+		// setTimeout(delayedReload, 3000);
+	});
 });
 
 gulp.task("default", ["hello"], function() {

@@ -31198,10 +31198,11 @@ var appCtrlMod = angular.module('eventWall.controllers', []);
 appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
 	function($scope, $location, $http, $window) {
 	$scope.user = $window.user;
-  var myRegexp = /feed(.*?)/;
-  var match = $location.path().match(myRegexp);
+  var feedRegexp = /feed(.*?)/;
+  var match = $location.path().match(feedRegexp);
+  var path = $location.path();
 
-  if(match && match[0] === 'feed') {
+  if((match && match[0] === 'feed') || (path === '/')) {
     $scope.hideNav = true;
   }
   

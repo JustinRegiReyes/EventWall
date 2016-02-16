@@ -23,7 +23,7 @@ module.exports.io = io;
 app.set('view engine', 'ejs');
 
 // server port
-var port = (process.env.PORT || 3000);
+var port = (process.env.PORT || 4000);
 
 // require routes
 var api = require('./api');
