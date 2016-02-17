@@ -132,12 +132,17 @@ appDirMod.directive('feedInterface', [
   }
 ]);
 
-appDirMod.directive('showPost', function() {
+appDirMod.directive('showPost', [
+	'$document',
+  '$rootScope',
+  '$window', 
+  function($document, $rootScope, $window) {
         return {
             restrict: 'AE',
             replace: 'true',
+            scope: true,
             template: '<div class="feedPost">' + 
             			'<div class="{{post.type}}Post feedContent">{{post.text}}' +
             		  '</div></div>'
         };
-});
+}]);

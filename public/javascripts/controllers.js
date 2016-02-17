@@ -1,18 +1,36 @@
 var appCtrlMod = angular.module('eventWall.controllers', []);
 
 
-appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 
-	function($scope, $location, $http, $window) {
-	$scope.user = $window.user;
-  var feedRegexp = /feed(.*?)/;
-  var match = $location.path().match(feedRegexp);
-  var path = $location.path();
-
-  if((match && match[0] === 'feed') || (path === '/')) {
-    $scope.hideNav = true;
-  }
+appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 'AuthService',
+  function($scope, $location, $http, $window, AuthService) {
+  $scope.user = $window.user;
+  $scope.isLoggedIn = AuthService.isLoggedIn();
   
+
 }]);
+
+appCtrlMod.controller('navCtrl', ['$scope', '$location', '$http', '$window', 'AuthService', 'NavService',
+  function($scope, $location, $http, $window, AuthService, NavService) {
+
+    $scope.hideNav = function() {
+      return NavService.hideNav();
+    }
+
+}]);
+
+appCtrlMod.controller('welcomeCtrl', ['$scope', '$location', '$http', '$window', 'AuthService',
+  function($scope, $location, $http, $window, AuthService) {
+
+    
+
+}]);
+
+
+
+
+
+
+
 
 appCtrlMod.controller('loginController',['$scope', '$rootScope', '$location', 'AuthService', '$window', 
 	function($scope, $rootScope, $location, AuthService, $window) {

@@ -426,3 +426,25 @@ appServMod.factory('PosterService', ['$q', '$timeout', '$http', '$window', funct
 	}
 
 }]);
+
+appServMod.factory('NavService', ['$q', '$timeout', '$http', '$window', '$location', function ($q, $timeout, $http, $window, $location) {
+
+	return ({
+		hideNav: hideNav
+	})
+
+	function hideNav() {
+		var feedRegexp = /feed(.*?)/;
+		var match = $location.path().match(feedRegexp);
+		var path = $location.path();
+
+		if((match && match[0] === 'feed') || (path === '/') || (path === '/login') || (path === '/sign-up')) {
+          // console.log('triggeredHide');
+          return true;
+	    } else {
+	      // console.log('triggeredShow');
+	      return false;
+	    }
+	}
+
+}]);

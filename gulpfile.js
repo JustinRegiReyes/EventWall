@@ -20,9 +20,9 @@ gulp.task("concatScripts", function() {
 		'bower_components/angular-route/angular-route.js',
 		'public/javascripts/angularApp.js',
 		'public/javascripts/services.js',
+		'public/javascripts/directives.js',
 		'public/javascripts/controllers.js',
 		'public/javascripts/eventWallFeedController.js',
-		'public/javascripts/directives.js',
 		'public/javascripts/factories.js'
 		])
 	.pipe(maps.init())
@@ -33,8 +33,10 @@ gulp.task("concatScripts", function() {
 
 gulp.task('minifyScripts', ["concatScripts"], function() {
 	return gulp.src("public/javascripts/application/app.js")
+	.pipe(maps.init())
 	.pipe(uglify().on('error', gutil.log))
 	.pipe(rename('app.min.js'))
+	.pipe(maps.write('./'))
 	.pipe(gulp.dest("public/javascripts/application"))
 	.on('end', function() {
 		setTimeout(delayedReload, 3000);
@@ -70,7 +72,7 @@ gulp.task('watch', function() {
 	
 
 	gulp.watch('public/stylesheets/scss/**/*.scss', ['autoprefix']);
-	gulp.watch('public/javascripts/controllers.js', ['minifyScripts']);
+	gulp.watch('public/javascripts/**.js', ['minifyScripts']);
 	gulp.watch('public/templates/**.ejs')
 	.on('change', function(event) {
 		gulp.src('index.js')

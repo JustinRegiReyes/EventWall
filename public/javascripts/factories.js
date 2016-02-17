@@ -1,6 +1,8 @@
 var appSocketMod = angular.module('eventWall.socket', []);
 
-appSocketMod.factory('socket', function ($rootScope) {
+appSocketMod.factory('socket', [
+  '$rootScope', 
+  function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {
@@ -22,4 +24,4 @@ appSocketMod.factory('socket', function ($rootScope) {
       })
     }
   };
-});
+}]);
