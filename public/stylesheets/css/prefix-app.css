@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:500,400);
 html, body {
   height: 100%; }
 
@@ -49,7 +50,113 @@ html, body {
       .headline h2 {
         font-size: 40px; } }
 
-/* Customize the text color and shadow color and to optimize text legibility. */
+#about-section div.row {
+  margin: 60px 0; }
+  #about-section div.row.col-sm-4.col-sm-offset-1 {
+    margin-right: 30px; }
+  #about-section div.row h1 {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
+    font-family: "Roboto", serif;
+    letter-spacing: 0.015em; }
+    @media screen and (max-width: 768px) {
+      #about-section div.row h1 {
+        font-size: 20px; } }
+
+#about-section .about h2 {
+  font-family: "Roboto", serif;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 25px; }
+
+#about-section .about p {
+  font-family: Helvetica;
+  text-align: center; }
+
+#about-section .about address {
+  margin-left: 20px;
+  font-size: 1.1em; }
+
+#marketing-points {
+  background: red;
+  min-height: 400px;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  background: green; }
+  #marketing-points div.row {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: inherit; }
+    #marketing-points div.row div.circle-container div.circle-col .point-circle {
+      width: 275px;
+      height: 275px;
+      position: relative;
+      text-align: center;
+      margin: 0 auto; }
+      #marketing-points div.row div.circle-container div.circle-col .point-circle:after {
+        display: block;
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        background-color: #ddd;
+        content: ""; }
+      #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; }
+        #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper {
+          display: table;
+          width: 100%;
+          height: 100%; }
+          #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content {
+            display: table-cell;
+            padding: 1em;
+            vertical-align: middle;
+            height: 250px; }
+            #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content h2 {
+              text-align: center;
+              margin: 0 auto 10px; }
+            #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content p {
+              display: block;
+              height: 125px;
+              width: 190px;
+              margin: 0 auto; }
+    @media screen and (max-width: 1000px) {
+      #marketing-points div.row div.circle-container div.circle-col {
+        width: 100%;
+        margin: 20px auto; }
+        #marketing-points div.row div.circle-container div.circle-col .point-circle {
+          width: 250px;
+          height: 250px; }
+          #marketing-points div.row div.circle-container div.circle-col .point-circle:after {
+            display: block;
+            padding-bottom: 100%;
+            width: 100%;
+            border-radius: 50%;
+            content: ""; }
+          #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content h2 {
+            font-size: 25px;
+            margin: 0 auto 15px; } }
+    @media screen and (min-width: 1200px) {
+      #marketing-points div.row div.circle-container div.circle-col.col-lg-3:first-child {
+        margin-left: 12%; } }
+
+#contact-info {
+  width: 100%; }
+  #contact-info .container {
+    text-align: center; }
+    #contact-info .container h1 {
+      font-size: 60px;
+      font-family: "Roboto", serif;
+      margin: 30px auto; }
+
 .tagline {
   text-shadow: 0 0 10px #000;
   color: #fff; }
@@ -58,7 +165,8 @@ html, body {
   margin: 0 auto; }
 
 footer {
-  margin: 50px 0; }
+  margin: 50px 0;
+  background: red; }
 
 #eventWallFeed {
   height: 100vh;

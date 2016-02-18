@@ -31369,7 +31369,7 @@ appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 'A
   function($scope, $location, $http, $window, AuthService) {
   $scope.user = $window.user;
   $scope.isLoggedIn = AuthService.isLoggedIn();
-  
+
 
 }]);
 
