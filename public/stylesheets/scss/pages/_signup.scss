@@ -1,0 +1,44 @@
+#signup {
+	height: 100vh;
+	width: 100vw;
+	background: linear-gradient(rgba(0, 0, 0, .40), rgba(0, 0, 0, .40)), $gameBlue; //add image
+	div.container {
+		height: inherit;
+		#register-form {
+			background: white;
+		    max-width: 615px;
+		    padding: 35px;
+		    margin: 0 auto;
+		    border-radius: 10px;
+			@include vertical-align();
+			h1 {
+				font-family: $headerFont;
+			    text-align: center;
+			    font-size: 2.1em;
+			    font-weight: 500;
+				@media screen and (max-width: 320px) {
+					font-size: 2em;
+				}
+			}
+			form {
+				margin: 0 auto;
+				height: 200px;
+				max-width: 400px;
+				padding-top: 20px;
+				input {
+				    margin-bottom: 10px;
+				}
+				button {
+					display: block;
+				    margin-left: 80px;
+				    margin-right: auto;
+				    color: white;
+				    background: $gameBlue;
+				    border: none;
+			        width: 80px;
+    				height: 36px;
+				}
+			}
+		}
+	}
+}
