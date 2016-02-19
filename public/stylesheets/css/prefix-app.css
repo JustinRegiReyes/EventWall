@@ -3,6 +3,25 @@
 html, body {
   height: 100%; }
 
+.form-wrapper {
+  background: white;
+  max-width: 615px;
+  padding: 35px;
+  margin: 0 auto;
+  border-radius: 10px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.authtemplate {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), #3299BB; }
+  .authtemplate div.container {
+    height: inherit; }
+
 form {
   text-align: center; }
   form label {
@@ -226,46 +245,36 @@ footer {
   height: 200px;
   width: 200px; }
 
-#signup {
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), #3299BB; }
-  #signup div.container {
-    height: inherit; }
-    #signup div.container #register-form {
-      background: white;
-      max-width: 615px;
-      padding: 35px;
-      margin: 0 auto;
-      border-radius: 10px;
-      position: relative;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%); }
-      #signup div.container #register-form h1 {
-        font-family: "Roboto", serif;
-        text-align: center;
-        font-size: 2.1em;
-        font-weight: 500; }
-        @media screen and (max-width: 320px) {
-          #signup div.container #register-form h1 {
-            font-size: 2em; } }
-      #signup div.container #register-form form {
-        margin: 0 auto;
-        height: 200px;
-        max-width: 400px;
-        padding-top: 20px; }
-        #signup div.container #register-form form input {
-          margin-bottom: 10px; }
-        #signup div.container #register-form form button {
-          display: block;
-          margin-left: 80px;
-          margin-right: auto;
-          color: white;
-          background: #3299BB;
-          border: none;
-          width: 80px;
-          height: 36px; }
+#signup div.container #register-form h1 {
+  font-family: "Roboto", serif;
+  text-align: center;
+  font-size: 2.1em;
+  font-weight: 500; }
+  @media screen and (max-width: 768px) {
+    #signup div.container #register-form h1 {
+      font-size: 2.5em; } }
+  @media screen and (max-width: 374px) {
+    #signup div.container #register-form h1 {
+      font-size: 1.6em; } }
+
+#signup div.container #register-form form {
+  margin: 0 auto;
+  height: 200px;
+  max-width: 400px;
+  padding-top: 20px; }
+  #signup div.container #register-form form input {
+    margin-bottom: 10px; }
+  #signup div.container #register-form form button {
+    display: block;
+    margin-left: 80px;
+    margin-right: auto;
+    color: white;
+    background: #3299BB;
+    border: none;
+    width: 80px;
+    height: 36px; }
+    @media screen and (max-width: 768px) {
+      #signup div.container #register-form form button {
+        margin-left: 0; } }
 
 /*# sourceMappingURL=prefix-app.css.map */

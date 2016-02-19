@@ -1,24 +1,28 @@
-<div class="col-sm-6 col-sm-offset-3">
-  <h1>Login</h2>
-      <%if(!!flashMessages.noTwitter && (flashMessages.noTwitter.length > 0)) {%>
-        <div class="alert alert-danger text-center">
-          <%= flashMessages.noTwitter %>
-        </div>
-      <% } %>
-      <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-  <form class="form" ng-submit="login()">
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-        <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
+<div id="login" class="authtemplate">
+  <div class="container">
+      <div class="form-wrapper">
+          <h1>Login</h2>
+        <%if(!!flashMessages.noTwitter && (flashMessages.noTwitter.length > 0)) {%>
+          <div class="alert alert-danger text-center">
+            <%= flashMessages.noTwitter %>
+          </div>
+        <% } %>
+        <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+        <form class="form" ng-submit="login()">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+              <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
+            </div>
+        </form>
+        <a href="/auth/twitter" target="_self" class="btn btn-primary">Log in with Twitter</a>
       </div>
-      <div>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
-      </div>
-  </form>
-  <a href="/auth/twitter" target="_self" class="btn btn-primary">Log in with Twitter</a>
+  </div>
 </div>
 
