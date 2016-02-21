@@ -22,12 +22,27 @@ html, body {
   .authtemplate div.container {
     height: inherit; }
 
-form {
-  text-align: center; }
-  form label {
+div.form-wrapper.page-form h1 {
+  font-family: "Roboto", serif;
+  text-align: center;
+  font-size: 2.1em;
+  font-weight: 500; }
+  @media screen and (max-width: 768px) {
+    div.form-wrapper.page-form h1 {
+      font-size: 2.5em; } }
+  @media screen and (max-width: 425px) {
+    div.form-wrapper.page-form h1 {
+      font-size: 1.5em; } }
+
+div.form-wrapper.page-form form {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 400px;
+  padding-top: 20px; }
+  div.form-wrapper.page-form form label {
     min-width: 20px;
     color: #FF9900; }
-  form input {
+  div.form-wrapper.page-form form input {
     font-family: "Hind", Helvetica, sans-serif;
     border: none;
     background-color: #E9E9E9;
@@ -36,10 +51,56 @@ form {
     height: 30px;
     border-radius: 3px;
     padding-left: 10px;
-    font-size: 16px; }
-  form textarea:focus, form input:focus {
+    font-size: 16px;
+    margin-bottom: 10px; }
+    @media screen and (max-width: 768px) {
+      div.form-wrapper.page-form form input {
+        width: 175px; } }
+  div.form-wrapper.page-form form textarea:focus, div.form-wrapper.page-form form input:focus {
     outline-color: #3299BB;
     background-color: white; }
+  @media screen and (max-width: 768px) {
+    div.form-wrapper.page-form form div.button-wrapper {
+      width: 200px;
+      margin: 0 auto; } }
+  div.form-wrapper.page-form form div.button-wrapper button {
+    display: block;
+    margin-left: 80px;
+    margin-right: auto;
+    background: #3299BB;
+    width: 80px; }
+    @media screen and (max-width: 768px) {
+      div.form-wrapper.page-form form div.button-wrapper button {
+        margin-left: 0;
+        margin-right: auto; } }
+    @media screen and (max-width: 425px) {
+      div.form-wrapper.page-form form div.button-wrapper button {
+        margin: 0 auto; } }
+
+button {
+  height: 36px;
+  border: none;
+  color: white;
+  border-radius: 5px; }
+
+button.auth {
+  position: relative;
+  width: 180px;
+  padding-left: 40px; }
+  button.auth span {
+    height: inherit;
+    position: absolute;
+    width: 40px;
+    top: 0px;
+    left: 0px;
+    border-radius: inherit;
+    line-height: 2.55; }
+
+.twitter-auth {
+  background-color: #1DA1F2; }
+  .twitter-auth span {
+    background-color: #0d8cda;
+    height: 100%; }
 
 /*helper classes*/
 .float-right {
@@ -245,36 +306,53 @@ footer {
   height: 200px;
   width: 200px; }
 
-#signup div.container #register-form h1 {
-  font-family: "Roboto", serif;
-  text-align: center;
-  font-size: 2.1em;
-  font-weight: 500; }
-  @media screen and (max-width: 768px) {
-    #signup div.container #register-form h1 {
-      font-size: 2.5em; } }
-  @media screen and (max-width: 374px) {
-    #signup div.container #register-form h1 {
-      font-size: 1.6em; } }
+@media screen and (max-width: 768px) {
+  #signup div.container div.form-wrapper h1 {
+    font-size: 1.5em; } }
 
-#signup div.container #register-form form {
+#signup div.container div.form-wrapper form {
+  height: 200px; }
+
+#login div.container div.form-wrapper div.button-wrapper {
+  width: 245px;
   margin: 0 auto;
-  height: 200px;
-  max-width: 400px;
-  padding-top: 20px; }
-  #signup div.container #register-form form input {
-    margin-bottom: 10px; }
-  #signup div.container #register-form form button {
-    display: block;
-    margin-left: 80px;
-    margin-right: auto;
-    color: white;
-    background: #3299BB;
-    border: none;
-    width: 80px;
-    height: 36px; }
-    @media screen and (max-width: 768px) {
-      #signup div.container #register-form form button {
-        margin-left: 0; } }
+  position: relative;
+  height: 35px; }
+  @media screen and (max-width: 768px) {
+    #login div.container div.form-wrapper div.button-wrapper {
+      width: 200px; } }
+  #login div.container div.form-wrapper div.button-wrapper button {
+    position: absolute;
+    left: 0;
+    margin: 0;
+    display: inline; }
+  #login div.container div.form-wrapper div.button-wrapper a {
+    right: 0;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: absolute;
+    font-size: 1.1em; }
+
+#login div.container div.form-wrapper div.oauth-button-wrapper {
+  text-align: center; }
+
+#login div.container div.form-wrapper div.hr-wrapper {
+  text-align: center; }
+  #login div.container div.form-wrapper div.hr-wrapper span {
+    display: inline-block;
+    bottom: 16px;
+    margin: 15px;
+    font-family: "Roboto", serif;
+    position: relative;
+    font-weight: bold;
+    font-size: .8em; }
+  #login div.container div.form-wrapper div.hr-wrapper hr {
+    box-sizing: content-box;
+    height: 0;
+    width: 30%;
+    display: inline-block; }
 
 /*# sourceMappingURL=prefix-app.css.map */

@@ -1,39 +1,13 @@
 #signup {
 	div.container {
-		#register-form {
+		div.form-wrapper {
 			h1 {
-				font-family: $headerFont;
-			    text-align: center;
-			    font-size: 2.1em;
-			    font-weight: 500;
-			    @media screen and (max-width: 768px) {
-					font-size: 2.5em;
-				}
-				@media screen and (max-width: 374px) {
-					font-size: 1.6em;
+				@media screen and (max-width: $break-sm) {
+					font-size: 1.5em;
 				}
 			}
 			form {
-				margin: 0 auto;
 				height: 200px;
-				max-width: 400px;
-				padding-top: 20px;
-				input {
-				    margin-bottom: 10px;
-				}
-				button {
-					display: block;
-				    margin-left: 80px;
-				    margin-right: auto;
-				    color: white;
-				    background: $gameBlue;
-				    border: none;
-			        width: 80px;
-    				height: 36px;
-    				@media screen and (max-width: 768px) {
-						margin-left: 0;
-					}
-				}
 			}
 		}
 	}

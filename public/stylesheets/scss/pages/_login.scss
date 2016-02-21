@@ -1,0 +1,48 @@
+#login {
+	div.container {
+		div.form-wrapper {
+			div.button-wrapper {
+			    width: 245px;
+			    margin: 0 auto;
+			    position: relative;
+			    height: 35px;
+			    @media screen and (max-width: $break-sm) {
+			    	width: 200px;
+			    }
+			    button {
+			    	position: absolute;
+			    	left: 0;
+			    	margin: 0;
+			    	display: inline;
+			    }
+			    a {
+			    	right: 0;
+			    	@include vertical-align();
+			    	position: absolute;
+			    	font-size: 1.1em;
+			    }
+			}
+			div.oauth-button-wrapper {
+				text-align: center;
+			}
+			div.hr-wrapper {
+				text-align: center;
+				span {
+					display: inline-block;
+				    bottom: 16px;
+				    margin: 15px;
+				    font-family: $headerFont;
+				    position: relative;
+				    font-weight: bold;
+				    font-size: .8em;		
+				}
+				hr {
+					box-sizing: content-box;
+				    height: 0;
+				    width: 30%;
+				    display: inline-block;
+				}
+			}
+		}
+	}
+}

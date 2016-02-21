@@ -6,10 +6,17 @@
 $headerFont: 'Roboto', serif;
 $hind: 'Hind', Helvetica, sans-serif;
 
-// Palettes
+// Colors
 
 $vitaminC: #FF9900;
 $route66: #424242;
 $steadyGrey: #E9E9E9;
 $bc: #BCBCBC;
 $gameBlue: #3299BB;
+$twitterBlue: #1DA1F2;
+
+// Breakpoints
+$break-iphone6: 425px;
+$break-sm: 768px;
+$break-md: 992px;
+$break-lg: 1200px;

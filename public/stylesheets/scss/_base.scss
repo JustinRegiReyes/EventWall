@@ -20,28 +20,101 @@ html, body {
 	}
 }
 
+div.form-wrapper.page-form {
+	h1 {
+		font-family: $headerFont;
+	    text-align: center;
+	    font-size: 2.1em;
+	    font-weight: 500;
+	    @media screen and (max-width: $break-sm) {
+			font-size: 2.5em;
+		}
+		@media screen and (max-width: $break-iphone6) {
+			font-size: 1.5em;
+		}
+	}
+	form {
+		text-align: center;
+		margin: 0 auto;
+		max-width: 400px;
+		padding-top: 20px;
+		label {
+			min-width: 20px;
+			color: $vitaminC;
+		}
+		input {
+			font-family: $hind;
+			border: none;
+			background-color: $steadyGrey;
+			text-align: left;
+			width: 225px;
+			height: 30px;
+			border-radius: 3px;
+			padding-left: 10px;
+			font-size: 16px;
+			margin-bottom: 10px;
+		    //for iphone 5 and lower
+		    @media screen and (max-width: $break-sm) {
+				width: 175px;
+			}
+		}
+		textarea:focus, input:focus{
+			outline-color: $gameBlue;
+			background-color: white; 
+	    }
+	    div.button-wrapper {
+	    	@media screen and (max-width: $break-sm) {
+	    		//the width of the input plus avatar
+	    		//TODO: Refactor this to make it more versatile. Mixin maybe
+				width: 200px;
+				margin: 0 auto;
+			}
+	    	button {
+				display: block;
+			    margin-left: 80px;
+			    margin-right: auto;
+			    background: $gameBlue;
+		        width: 80px;
+				@media screen and (max-width: $break-sm) {
+					margin-left: 0;
+			    	margin-right: auto;
+				}
+				@media screen and (max-width: $break-iphone6) {
+					margin: 0 auto;
+				}
+			}
+	    }
+	}	
+}
 
-form {
-	text-align: center;
-	label {
-		min-width: 20px;
-		color: $vitaminC;
+button {
+	height: 36px;
+	border: none;
+	color: white;
+	border-radius: 5px; 
+}
+
+button.auth {
+	position: relative;
+	width: 180px;
+	padding-left: 40px; 
+	span {
+		height: inherit;
+	    position: absolute;
+	    width: 40px;
+	    top: 0px;
+	    left: 0px;
+	    border-radius: inherit;
+	    line-height: 2.55;
 	}
-	input {
-		font-family: $hind;
-		border: none;
-		background-color: $steadyGrey;
-		text-align: left;
-		width: 225px;
-		height: 30px;
-		border-radius: 3px;
-		padding-left: 10px;
-		font-size: 16px;
+}
+
+.twitter-auth {
+	background-color: $twitterBlue;
+	span {
+		background-color: darken($twitterBlue, 8%);
+		height: 100%;
 	}
-	textarea:focus, input:focus{
-		outline-color: $gameBlue;
-		background-color: white; 
-    }		
 }
 
 

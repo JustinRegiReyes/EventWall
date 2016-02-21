@@ -1,6 +1,6 @@
 <div id="login" class="authtemplate">
   <div class="container">
-      <div class="form-wrapper">
+      <div class="form-wrapper page-form">
           <h1>Login</h2>
         <%if(!!flashMessages.noTwitter && (flashMessages.noTwitter.length > 0)) {%>
           <div class="alert alert-danger text-center">
@@ -10,18 +10,26 @@
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
         <form class="form" ng-submit="login()">
           <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
+            <label><i class="fa fa-user"></i></label>
+            <input type="text" name="username" ng-model="loginForm.username" required>
           </div>
           <div class="form-group">
-            <label>Password</label>
-              <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
+            <label><i class="fa fa-lock"></i></label>
+              <input type="password" name="password" ng-model="loginForm.password" required>
             </div>
-            <div>
-              <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
+            <div class="button-wrapper">
+              <button type="submit" ng-disabled="disabled">Login</button>
+              <a href="/sign-up">Sign Up</a>
             </div>
         </form>
-        <a href="/auth/twitter" target="_self" class="btn btn-primary">Log in with Twitter</a>
+        <div class="hr-wrapper">
+          <hr>
+          <span>OR</span>
+          <hr>
+        </div>
+        <div class="oauth-button-wrapper">
+          <a href="/auth/twitter" target="_self"><button class="auth twitter-auth"><span><i class="fa fa-twitter fa-lg"></i></span>Login with Twitter</button></a>
+        </div>
       </div>
   </div>
 </div>
