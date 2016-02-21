@@ -2,29 +2,40 @@
     display: block;
     width: 100%;
     text-align: center;
-    background: url('http://placehold.it/1900x500') no-repeat center center scroll;
+    background: linear-gradient(rgba(0, 0, 0, .40), rgba(0, 0, 0, .40)), url('http://placehold.it/1900x500') no-repeat center center scroll;
     background-size: cover;
 }
 
 .headline {
     padding: 120px 0;
-	h2 {
-	    font-size: 77px;
-	    background: #fff;
-	    background: rgba(255,255,255,0.9);
-	    @media screen and (max-width: 768px) {
-		    font-size: 40px;
+    .container {
+		h2 {
+		    font-size: 77px;
+		    background: #fff;
+		    background: linear-gradient(to right, rgba(255, 255, 255, .0), rgba(255, 255, 255, .15),
+		    							rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), 
+		    							rgba(255, 255, 255, .15), rgba(255, 255, 255, .0));
+		    @media screen and (max-width: 768px) {
+			    font-size: 40px;
+			}
 		}
-	}
+		button {
+			width: 100px; 
+		}
+		button#login-front {
+			background-color: $gameBlue;
+		}
+
+		button#signup-front {
+			background-color: $vitaminC;
+		}
+    }
 }
 
 #about-section {
 	// height: 400px;
 	div.row {
 		margin: 60px 0;
-		&.col-sm-4.col-sm-offset-1 {
-			margin-right: 30px;
-		}
 		h1 {
 			margin: 0 auto;
 			text-align: center;
@@ -100,9 +111,12 @@
 		  						padding: 1em;
 		  						vertical-align: middle;
 		  						height: 250px;
+		  						i {
+		  							margin-bottom: 10px;	
+		  						}
 		  						h2 {
 									text-align: center;
-									margin: 0 auto 10px;
+									margin: 0 auto 5px;
 								}
 								p {
 									display: block;
@@ -175,5 +189,4 @@
 
 footer {
     margin: 50px 0;
-    background: red;
 }

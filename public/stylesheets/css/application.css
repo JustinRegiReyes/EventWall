@@ -101,15 +101,6 @@ button.auth {
     height: 100%; }
 
 /*helper classes*/
-.float-right {
-  float: right; }
-
-.float-left {
-  float: left; }
-
-.display-block {
-  display: block; }
-
 #yourEW {
   margin-top: 3px;
   font-weight: 500;
@@ -135,23 +126,27 @@ button.auth {
   display: block;
   width: 100%;
   text-align: center;
-  background: url("http://placehold.it/1900x500") no-repeat center center scroll;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("http://placehold.it/1900x500") no-repeat center center scroll;
   background-size: cover; }
 
 .headline {
   padding: 120px 0; }
-  .headline h2 {
+  .headline .container h2 {
     font-size: 77px;
     background: #fff;
-    background: rgba(255, 255, 255, 0.9); }
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15), white, white, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)); }
     @media screen and (max-width: 768px) {
-      .headline h2 {
+      .headline .container h2 {
         font-size: 40px; } }
+  .headline .container button {
+    width: 100px; }
+  .headline .container button#login-front {
+    background-color: #3299BB; }
+  .headline .container button#signup-front {
+    background-color: #FF9900; }
 
 #about-section div.row {
   margin: 60px 0; }
-  #about-section div.row.col-sm-4.col-sm-offset-1 {
-    margin-right: 30px; }
   #about-section div.row h1 {
     margin: 0 auto;
     text-align: center;
@@ -218,9 +213,11 @@ button.auth {
             padding: 1em;
             vertical-align: middle;
             height: 250px; }
+            #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content i {
+              margin-bottom: 10px; }
             #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content h2 {
               text-align: center;
-              margin: 0 auto 10px; }
+              margin: 0 auto 5px; }
             #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content p {
               display: block;
               height: 125px;
@@ -263,8 +260,7 @@ button.auth {
   margin: 0 auto; }
 
 footer {
-  margin: 50px 0;
-  background: red; }
+  margin: 50px 0; }
 
 #eventWallFeed {
   height: 100vh;
