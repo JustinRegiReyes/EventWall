@@ -39,7 +39,7 @@ module.exports.create = function(req, res) {
 
 module.exports.get = function(req, res) {
 	var eventWallUrl = req.query.eventWallUrl;
-	// console.log('eventWallUrl', eventWallUrl);
+	console.log('eventWallUrl', eventWallUrl);
 
 	EventWall.findByUrl(eventWallUrl, function(err, eventWall) {
 		if(err) {
@@ -68,7 +68,7 @@ module.exports.feed = function(req, res) {
 		}
 
 		if(eventWall === null) {
-			return res.status(404).json({err: 'An event with this Url does not exist.'});
+			return res.status(404).json({err: 'An event with this Url does not exist!'});
 		}
 
 		//quickfix for advanced OR queries

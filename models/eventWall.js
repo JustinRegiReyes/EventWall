@@ -2,6 +2,22 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     User = require('./user.js');
 
+function unique(modelName, field, caseSensitive) {
+  return function(value, respond) {
+    if(value && value.length) {
+      var query = mongoose.model(modelName).where(field, new RegExp('^'+value+'$', caseSensitive ? 'i' : undefined));
+      if(!this.isNew)
+        query = query.where('_id').ne(this._id);
+      query.count(function(err, n) {
+        respond(n<1);
+      });
+      console.log('hello');
+    }
+    else
+      respond(false);
+  };
+}
+
 var EventWallSchema = new Schema({
   // an array containing posts made by 'Posters', non tweeters
   posts: {
@@ -12,7 +28,7 @@ var EventWallSchema = new Schema({
   name: String,
   url: {
   	type: String,
-  	unique: true
+    validate: [unique('EventWall', 'url', true), 'unique']
   },
   icon: String,
   background: String,
@@ -40,13 +56,13 @@ EventWallSchema.methods.addToUser = function(user, cb) {
 };
 
 EventWallSchema.statics.findByUrl = function(url, cb) {
-	this.findOne({url: url}, function(err, eventWall) {
+	this.findOne({url: { $regex: url, $options: 'i' }}, function(err, eventWall) {
 		if(err) {return cb(err, null)};
 
 		cb(null, eventWall);
 	})
 }
 
-var eventWall = mongoose.model('eventWall', EventWallSchema);
+var EventWall = mongoose.model('EventWall', EventWallSchema);
 
-module.exports = eventWall;
+module.exports = EventWall;
