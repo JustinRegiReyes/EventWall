@@ -1,0 +1,30 @@
+nav {
+	background-color: $route66;
+	margin-bottom: 30px;
+	font-family: $hind;
+	a.navbar-brand {
+		font-family: $headerFont;
+		color: white;
+		font-size: 2em;
+		font-weight: bold;
+		text-shadow: -1px -2px 2px #3299BB;
+	}
+	.nav>li>a:hover {
+		background-color: white;
+		color: black;
+		i {
+			color: $vitaminC;
+		}
+	}
+	li{
+		&:first-child {
+		}
+		a {
+			font-size: 1.1em;
+			color: white;
+			i {
+				padding-right: 10px;
+			}
+		}
+	}
+}
