@@ -2,7 +2,7 @@ html, body {
 	height: 100%;
 }
 
-.form-wrapper {
+div.form-wrapper {
 	background: white;
     max-width: 615px;
     padding: 35px;
@@ -11,7 +11,7 @@ html, body {
 	@include vertical-align();
 }
 
-.authtemplate {
+div.authtemplate {
 	height: 100vh;
 	width: 100vw;
 	background: linear-gradient(rgba(0, 0, 0, .40), rgba(0, 0, 0, .40)), $gameBlue; //add image

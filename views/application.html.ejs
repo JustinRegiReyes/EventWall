@@ -21,7 +21,7 @@
 
 </head>
 <body ng-controller="mainCtrl">
-      <header ng-controller="navCtrl" ng-hide="hideNav()" ng-include="'/static/templates/navbar.html'"></header>
+      <div ng-controller="navCtrl" ng-hide="hideNav()" ng-include="'/static/templates/navbar.html'"></div>
 
 	<div ng-view>
     
@@ -35,15 +35,15 @@
 	<script type="text/javascript" src="static/javascripts/application/app.js"></script>
 
   <!-- - - - cdns - - - -->
-  <!-- // <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> 
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> 
    <script>
-  //   UPLOADCARE_LOCALE = "en";
-  //   UPLOADCARE_TABS = "file url gdrive instagram flickr box";
-  //   UPLOADCARE_LIVE = false;
-  //   UPLOADCARE_PUBLIC_KEY = "bbc9cb9a180d7bb6d56c";
+    UPLOADCARE_LOCALE = "en";
+    UPLOADCARE_TABS = "file url gdrive instagram flickr box";
+    UPLOADCARE_LIVE = false;
+    UPLOADCARE_PUBLIC_KEY = "bbc9cb9a180d7bb6d56c";
    </script>
   <script charset="utf-8" src="//ucarecdn.com/widget/2.6.0/uploadcare/uploadcare.full.min.js"></script>
-  -->
+ 
 
 </body>
 </html>

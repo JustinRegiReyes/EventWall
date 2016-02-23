@@ -3,7 +3,7 @@
 html, body {
   height: 100%; }
 
-.form-wrapper {
+div.form-wrapper {
   background: white;
   max-width: 615px;
   padding: 35px;
@@ -13,11 +13,11 @@ html, body {
   top: 50%;
   transform: translateY(-50%); }
 
-.authtemplate {
+div.authtemplate {
   height: 100vh;
   width: 100vw;
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), #3299BB; }
-  .authtemplate div.container {
+  div.authtemplate div.container {
     height: inherit; }
 
 div.form-wrapper.page-form h1 {
@@ -101,26 +101,92 @@ button.auth {
     height: 100%; }
 
 /*helper classes*/
-#yourEW {
-  margin-top: 3px;
-  font-weight: 500;
-  font-size: 20px; }
-  @media screen and (max-width: 768px) {
-    #yourEW {
-      font-size: 18px; } }
-
-.eventWall-list {
-  margin: 10px 0;
-  background-color: #EFEFEF;
-  border-radius: 5px;
-  padding: 20px 0px; }
-  .eventWall-list:hover {
-    background-color: #D4D4D4;
-    cursor: pointer; }
-  .eventWall-list a:hover {
-    text-decoration: none; }
-  .eventWall-list a {
+nav {
+  background-color: #424242;
+  margin-bottom: 15px;
+  font-family: "Hind", Helvetica, sans-serif; }
+  nav a.navbar-brand {
+    font-family: "Roboto", serif;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: -1px -2px 2px #3299BB; }
+  nav .nav > li > a:hover {
+    background-color: white;
     color: black; }
+    nav .nav > li > a:hover i {
+      color: #FF9900; }
+  nav li a {
+    font-size: 1.1em;
+    color: white; }
+    nav li a i {
+      padding-right: 10px; }
+
+#home {
+  min-height: 1200px;
+  background-color: #3299BB; }
+  #home section.home {
+    padding: 0 15px 10px;
+    display: block;
+    height: 1px;
+    min-height: 50px;
+    border-bottom: 1px solid #E9E9E9;
+    background: white; }
+    #home section.home h2 {
+      margin: 0;
+      float: left;
+      font-family: "Roboto", serif;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+      @media screen and (max-width: 768px) {
+        #home section.home h2 {
+          font-size: 18px; } }
+    #home section.home button {
+      float: right;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+    #home section.home hr {
+      margin-bottom: 0; }
+  #home div.list-container {
+    display: block; }
+    #home div.list-container div.list-wrapper {
+      width: 930px;
+      min-height: 660px;
+      max-height: 880px;
+      overflow-y: scroll;
+      margin: 0 auto;
+      background-color: white;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px; }
+      #home div.list-container div.list-wrapper > div {
+        width: 855px;
+        display: table;
+        margin: 0 auto; }
+        #home div.list-container div.list-wrapper > div div.eventWall-block {
+          float: left;
+          background-color: #E9E9E9;
+          background-size: cover;
+          border-radius: 5px;
+          padding: 20px 10px;
+          height: 200px;
+          width: 275px;
+          margin: 10px 5px;
+          font-family: "Hind", Helvetica, sans-serif; }
+          #home div.list-container div.list-wrapper > div div.eventWall-block:hover {
+            background-color: #D4D4D4;
+            cursor: pointer; }
+          #home div.list-container div.list-wrapper > div div.eventWall-block a:hover {
+            text-decoration: none; }
+          #home div.list-container div.list-wrapper > div div.eventWall-block a {
+            color: black; }
+            #home div.list-container div.list-wrapper > div div.eventWall-block a h4 {
+              text-align: center; }
+            #home div.list-container div.list-wrapper > div div.eventWall-block a span {
+              text-align: center; }
+            #home div.list-container div.list-wrapper > div div.eventWall-block a > div > div {
+              padding: 0 10px; }
 
 .header-image {
   display: block;
@@ -131,12 +197,12 @@ button.auth {
 
 .headline {
   padding: 120px 0; }
-  .headline .container h2 {
+  .headline .container h1 {
     font-size: 77px;
-    background: #fff;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15), white, white, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)); }
+    color: white;
+    text-shadow: -4px -4px 2px rgba(0, 0, 0, 0.5); }
     @media screen and (max-width: 768px) {
-      .headline .container h2 {
+      .headline .container h1 {
         font-size: 40px; } }
   .headline .container button {
     width: 100px; }
@@ -178,7 +244,7 @@ button.auth {
   width: 100%;
   display: table;
   table-layout: fixed;
-  background: green; }
+  background: #3299BB; }
   #marketing-points div.row {
     display: table-cell;
     vertical-align: middle;
@@ -195,7 +261,7 @@ button.auth {
         height: 100%;
         width: 100%;
         border-radius: 50%;
-        background-color: #ddd;
+        background-color: #fff;
         content: ""; }
       #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle {
         position: absolute;
@@ -214,7 +280,8 @@ button.auth {
             vertical-align: middle;
             height: 250px; }
             #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content i {
-              margin-bottom: 10px; }
+              margin-bottom: 10px;
+              color: #FF9900; }
             #marketing-points div.row div.circle-container div.circle-col .point-circle .inner-circle .circle-wrapper .circle-content h2 {
               text-align: center;
               margin: 0 auto 5px; }
@@ -260,7 +327,9 @@ button.auth {
   margin: 0 auto; }
 
 footer {
-  margin: 50px 0; }
+  margin: 50px 0 0; }
+  footer p {
+    padding-left: 10px; }
 
 #eventWallFeed {
   height: 100vh;

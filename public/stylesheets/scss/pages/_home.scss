@@ -1,25 +1,82 @@
-#yourEW {
-	margin-top: 3px;
-    font-weight: 500;
-    font-size: 20px;
-    @media screen and (max-width: 768px) {
-	    font-size: 18px;
-	}
+#home {
+    min-height: 1200px;
+    background-color: $gameBlue;
+    section.home {
+        padding: 0 15px 10px;
+        display: block;
+        height: 1px;
+        min-height: 50px;
+        border-bottom: 1px solid $steadyGrey;
+        background: white;
+        h2 {
+            margin: 0;
+            float: left;
+            font-family: $headerFont;
+            @include vertical-align();
+            @media screen and (max-width: 768px) {
+                font-size: 18px;
+            }
+        }
+        button {
+            float: right;
+            @include vertical-align();
+        }
+        hr {
+            margin-bottom: 0;
+        }
+    }
+    div.list-container {
+        display: block;
+        div.list-wrapper {
+            width: 930px;
+            min-height: 660px;
+            max-height: 880px;
+            overflow-y: scroll; 
+            margin: 0 auto;
+            background-color: white;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            &>div {
+                width: 855px;
+                display: table;
+                margin: 0 auto;
+                @media screen and (max-width: $break-md) {
+
+                }
+                div.eventWall-block {
+                    float: left;
+                    background-color: $steadyGrey;
+                    background-size: cover;
+                    border-radius: 5px;
+                    padding: 20px 10px;
+                    height: 200px;
+                    width: 275px;
+                    margin: 10px 5px;
+                    font-family: $hind; 
+                    &:hover {
+                        background-color: #D4D4D4;
+                        cursor: pointer;
+                    }
+                    a:hover {
+                        text-decoration: none;
+                    }
+                    a {
+                        color: black;
+                        h4 {
+                            text-align: center;
+                        }
+                        span {
+                            text-align: center;
+                        }
+                        & > div > div{
+                            padding: 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-.eventWall-list {
-	margin: 10px 0;
-    background-color: #EFEFEF;
-    border-radius: 5px;
-    padding: 20px 0px;
-    &:hover {
-    	background-color: #D4D4D4;
-    	cursor: pointer;
-    }
-    a:hover {
-    	text-decoration: none;
-    }
-    a {
-    	color: black;
-    }
-}
+
+
