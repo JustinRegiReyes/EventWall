@@ -182,6 +182,8 @@ nav {
           #home div.list-container div.list-wrapper > div div.eventWall-block a {
             color: black; }
             #home div.list-container div.list-wrapper > div div.eventWall-block a h4 {
+              color: white;
+              text-shadow: -1px -1px 1px black;
               text-align: center; }
             #home div.list-container div.list-wrapper > div div.eventWall-block a span {
               text-align: center; }

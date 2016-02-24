@@ -7,7 +7,7 @@
 	<div class="list-container">
 		<div class="list-wrapper">
 			<div>
-				<div class="eventWall-block" ng-repeat="eventWall in user.eventWalls" data="{{eventWall._id}}">
+				<div class="eventWall-block" ng-repeat="eventWall in user.eventWalls" style="{{eventWall.style}}">
 					<a href="/feed/{{eventWall.url}}"><div>
 						<h4>{{eventWall.name}}</h4>
 						<div>
