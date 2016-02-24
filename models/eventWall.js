@@ -11,7 +11,6 @@ function unique(modelName, field, caseSensitive) {
       query.count(function(err, n) {
         respond(n<1);
       });
-      console.log('hello');
     }
     else
       respond(false);
@@ -32,6 +31,10 @@ var EventWallSchema = new Schema({
   },
   icon: String,
   background: String,
+  //to check to see if the Event Wall background is a solid color or image
+  backgroundColor: {
+    type: Boolean
+  },
   hashtagicon: String,
   //an array of tweets that have been banned. containing id and text
   bannedTweets: {
