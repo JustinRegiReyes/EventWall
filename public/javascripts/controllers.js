@@ -218,6 +218,12 @@ appCtrlMod.controller('eventWallCreateController',
     var widgets = uploadcare.initialize();
 
   	$scope.eventWallForm = {};
+    $scope.urlAbout = $scope.eventWallForm.url && $scope.eventWallForm.url.length > 0 ? $scope.eventWallForm.url : "UrlYouInputBelow";
+
+    // watches urlAbout variable for when 
+    $scope.$watch("eventWallForm.url", function(newValue, oldValue) {
+      $scope.urlAbout = $scope.eventWallForm.url && $scope.eventWallForm.url.length > 0 ? $scope.eventWallForm.url : "UrlYouInputBelow";
+    });
 
   	$scope.create = function() {
       // console.log($scope.eventWallForm);
