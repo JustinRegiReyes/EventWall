@@ -1,0 +1,125 @@
+div#eventWall-New {
+	background: $gameBlue;
+	min-height: 1400px;
+	h1 {
+		margin: 0 auto;
+		padding-top: 70px;
+		font-family: $headerFont;
+		text-align: center;
+		font-size: 3em;
+		color: white;
+		text-shadow: 0 1px 1px $route66;
+	}
+	div.container {
+		width: 100%;
+		& > div.eventWallForm-wrapper {
+			width: 500px;
+			margin: 50px auto 0;
+			border-radius: 20px;
+			form {
+				div.form-group {
+					width: 100%;
+					background: white;
+					padding: 40px;
+					border-radius: 5px;
+					h4 {
+						font-size: 24px;
+						font-family: $headerFont;
+					}
+					div.background-type-wrapper {
+						height: 196px;
+						width: 300px;
+						margin: 0 auto;
+					}
+					div.form-section {
+						padding: 10px 0 10px 30px;
+						width: 300px;
+						margin: 0 auto;
+						&.style-info {
+							& > div.style-options {
+								padding-left: 20px;
+							}
+						}
+						&#backgroundTypeColor {
+							    width: 100%;
+							    height: 196px;
+							    margin-left: auto;
+							    position: relative;
+							    margin-right: auto;
+							    display: block;
+							    padding: 0;
+							input#color {
+								@include vertical-align();
+								width: 100px;
+							}
+							#colorpicker {
+								display: block;
+							    position: absolute;
+							    height: auto;
+							    top: 0px;
+    							right: 0;
+							}
+						}
+						&#backgroundTypeImage {
+							@include vertical-align();
+							display: none;
+						}
+						label {
+							font-family: $headerFont;
+							width: 210px;
+							font-size: 15px;
+							&.radio-label {
+								display: inline-block;
+							    vertical-align: top;
+							    width: auto;
+							    height: 20px;
+							    font-family: $hind;  
+							}
+							span {
+								color: red;
+							}
+							i {
+								padding-top: 2px;
+								float: right;
+								&.style-help {
+									padding-left: 10px;
+									float: none;
+									font-size: 10px;
+								}
+							}
+						}
+						input {
+							width: 225px;
+							height: 30px;
+							font-family: $hind;
+							border: none;
+							background-color: $steadyGrey;
+							text-align: left;
+							border-radius: 3px;
+							padding-left: 10px;
+							font-size: 16px;
+							margin-bottom: 10px;
+							color: black;
+							&.radio {
+							    width: 20px;
+							    display: inline-block;
+							    vertical-align: top;
+							    height: 20px;
+							    margin-top: 1px;
+							}
+						    //for iphone 5 and lower
+						    @media screen and (max-width: $break-sm) {
+								width: 175px;
+							}
+						}
+						textarea:focus, input:focus{
+							outline-color: $vitaminC;
+							background-color: white; 
+					    }
+					}
+				}
+				
+			}
+		}
+	}
+}

@@ -213,22 +213,45 @@ appCtrlMod.controller('eventWallCreateController',
   		$location.path('/login');
   	}
 
-    // Instantiate Uploadcare Widgets
-    var widgets = uploadcare.initialize('#my-form');
-    var widgets = uploadcare.initialize();
-
   	$scope.eventWallForm = {};
     $scope.urlAbout = $scope.eventWallForm.url && $scope.eventWallForm.url.length > 0 ? $scope.eventWallForm.url : "UrlYouInputBelow";
-
     // watches urlAbout variable for when 
     $scope.$watch("eventWallForm.url", function(newValue, oldValue) {
       $scope.urlAbout = $scope.eventWallForm.url && $scope.eventWallForm.url.length > 0 ? $scope.eventWallForm.url : "UrlYouInputBelow";
     });
 
+    $scope.$watch("eventWallForm.backgroundColored", function(newValue, oldValue) {
+      if(newValue === true) {
+        $("#backgroundTypeImage").fadeOut(100, function() {
+            $("#backgroundTypeColor").fadeIn(100, function() {
+              // animation complete
+            });
+        });
+      }
+      if(newValue === false) {
+        $("#backgroundTypeColor").fadeOut(100, function() {
+            $("#backgroundTypeImage").fadeIn(100, function() {
+              // animation complete
+            });
+        });
+        
+        
+      }
+    });
+
+    $(document).ready(function() {
+      // instantiates farbtastic color wheel in form
+      $('#colorpicker').farbtastic('#color');
+      // instantiates uploadcare widgets
+      var widgets = uploadcare.initialize('#eventWallCreateForm');
+      //adds caret to upload care buttons
+      $('.uploadcare-widget-button-open').append('&nbsp; <i class="fa fa-caret-down" style="color: #FFF;"></i>');
+    });
+
   	$scope.create = function() {
       // console.log($scope.eventWallForm);
       var icon = $('#eventWallIcon').val();
-      var hashtagicon = $('#eventWallHashtagIcon').val();
+      // var hashtagicon = $('#eventWallHashtagIcon').val();
       var background = $('#eventWallBackground').val();
       // console.log(icon, hashtagicon, background);
   		eventWallService.create(
@@ -236,7 +259,7 @@ appCtrlMod.controller('eventWallCreateController',
   			$scope.eventWallForm.hashtag,
   			$scope.eventWallForm.url.toLowerCase(),
   			icon,
-        hashtagicon,
+        // hashtagicon,
   			background
   			)
         // handle success

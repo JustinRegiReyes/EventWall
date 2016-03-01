@@ -101,9 +101,11 @@ button.auth {
     height: 100%; }
 
 /*helper classes*/
+.uploadcare-widget-button-open {
+  background-color: #FF9900; }
+
 nav {
   background-color: #424242;
-  margin-bottom: 15px;
   font-family: "Hind", Helvetica, sans-serif; }
   nav a.navbar-brand {
     font-family: "Roboto", serif;
@@ -207,7 +209,7 @@ nav {
       .headline .container h1 {
         font-size: 40px; } }
   .headline .container button {
-    width: 100px; }
+    width: 150px; }
   .headline .container button#login-front {
     background-color: #3299BB; }
   .headline .container button#signup-front {
@@ -417,3 +419,106 @@ footer {
     height: 0;
     width: 30%;
     display: inline-block; }
+
+div#eventWall-New {
+  background: #3299BB;
+  min-height: 1400px; }
+  div#eventWall-New h1 {
+    margin: 0 auto;
+    padding-top: 70px;
+    font-family: "Roboto", serif;
+    text-align: center;
+    font-size: 3em;
+    color: white;
+    text-shadow: 0 1px 1px #424242; }
+  div#eventWall-New div.container {
+    width: 100%; }
+    div#eventWall-New div.container > div.eventWallForm-wrapper {
+      width: 500px;
+      margin: 50px auto 0;
+      border-radius: 20px; }
+      div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group {
+        width: 100%;
+        background: white;
+        padding: 40px;
+        border-radius: 5px; }
+        div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group h4 {
+          font-size: 24px;
+          font-family: "Roboto", serif; }
+        div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.background-type-wrapper {
+          height: 196px;
+          width: 300px;
+          margin: 0 auto; }
+        div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section {
+          padding: 10px 0 10px 30px;
+          width: 300px;
+          margin: 0 auto; }
+          div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section.style-info > div.style-options {
+            padding-left: 20px; }
+          div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section#backgroundTypeColor {
+            width: 100%;
+            height: 196px;
+            margin-left: auto;
+            position: relative;
+            margin-right: auto;
+            display: block;
+            padding: 0; }
+            div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section#backgroundTypeColor input#color {
+              position: relative;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 100px; }
+            div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section#backgroundTypeColor #colorpicker {
+              display: block;
+              position: absolute;
+              height: auto;
+              top: 0px;
+              right: 0; }
+          div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section#backgroundTypeImage {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none; }
+          div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section label {
+            font-family: "Roboto", serif;
+            width: 210px;
+            font-size: 15px; }
+            div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section label.radio-label {
+              display: inline-block;
+              vertical-align: top;
+              width: auto;
+              height: 20px;
+              font-family: "Hind", Helvetica, sans-serif; }
+            div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section label span {
+              color: red; }
+            div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section label i {
+              padding-top: 2px;
+              float: right; }
+              div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section label i.style-help {
+                padding-left: 10px;
+                float: none;
+                font-size: 10px; }
+          div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section input {
+            width: 225px;
+            height: 30px;
+            font-family: "Hind", Helvetica, sans-serif;
+            border: none;
+            background-color: #E9E9E9;
+            text-align: left;
+            border-radius: 3px;
+            padding-left: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: black; }
+            div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section input.radio {
+              width: 20px;
+              display: inline-block;
+              vertical-align: top;
+              height: 20px;
+              margin-top: 1px; }
+            @media screen and (max-width: 768px) {
+              div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section input {
+                width: 175px; } }
+          div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section textarea:focus, div#eventWall-New div.container > div.eventWallForm-wrapper form div.form-group div.form-section input:focus {
+            outline-color: #FF9900;
+            background-color: white; }

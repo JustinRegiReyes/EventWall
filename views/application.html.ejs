@@ -9,10 +9,12 @@
     <meta name="keywords" content="">
 
 	<!-- - - - stylesheets - - - -->
+  <link rel="stylesheet" type="text/css" href="/vendor/farbtastic/farbtastic.css"/>
 	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/static/stylesheets/css/normalize.css">
   <link rel="stylesheet" type="text/css" href="/static/stylesheets/css/prefix-app.css">
+
 
     <!--Embedding The User Object-->
     <script type="text/javascript">
@@ -31,8 +33,11 @@
     
     
 
+
+
 	<!-- - - - javascripts - - - -->
 	<script type="text/javascript" src="static/javascripts/application/app.js"></script>
+  <script type="text/javascript" src="/vendor/farbtastic/farbtastic.js"></script>
 
   <!-- - - - cdns - - - -->
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> 
@@ -41,6 +46,18 @@
     UPLOADCARE_TABS = "file url gdrive instagram flickr box";
     UPLOADCARE_LIVE = false;
     UPLOADCARE_PUBLIC_KEY = "bbc9cb9a180d7bb6d56c";
+    UPLOADCARE_LOCALE_TRANSLATIONS = {
+      buttons: {
+        cancel: 'Cancel',
+        remove: 'Remove',
+        choose: {
+          images: {
+            one: 'Choose An Image',
+            other: 'Choose images'
+          }
+        }
+      }
+    };
    </script>
   <script charset="utf-8" src="//ucarecdn.com/widget/2.6.0/uploadcare/uploadcare.full.min.js"></script>
  

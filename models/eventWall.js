@@ -32,7 +32,7 @@ var EventWallSchema = new Schema({
   icon: String,
   background: String,
   //to check to see if the Event Wall background is a solid color or image
-  backgroundColor: {
+  backgroundColored: {
     type: Boolean
   },
   hashtagicon: String,

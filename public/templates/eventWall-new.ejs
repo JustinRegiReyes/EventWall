@@ -1,48 +1,75 @@
-<h4 class="text-center">Create a new event to save media memories for!</h4>
-<div ng-show="error" class="alert alert-danger text-center">{{errorMessage}}</div>
-<div class="col-sm-6 col-sm-offset-3">
+<div id="eventWall-New">
+  <div ng-show="error" class="alert alert-danger text-center">{{errorMessage}}</div>
+  <h1>Create your Event Wall</h1>
+  <div class="container">
+    <div class="eventWallForm-wrapper">
+      <form id="eventWallCreateForm" ng-submit="create()">
+        <div class="form-group">
+          <h4>General Information</h4>
+          <div class="form-section">
+            <label>Event Wall Name <span>*</span></label>
+            <input type="text" name="username" ng-model="eventWallForm.name" placeholder="{{user.username}}'s Event Wall #{{user.eventWalls.length}}" required/>
+          </div>
+          <div class="form-section">
+            <label>Twitter Hashtag Tracker</label>
+            <input type="text" name="hashtag" ng-model="eventWallForm.hashtag" placeholder="#bacon"/>
+          </div>
+          <div class="form-section">
+            <label>Url Of Event Wall <span>*</span> <i class="fa fa-question" title="This Event Wall can be vistited at EventWall.online/feed/{{urlAbout}}"></i></label>
+            <input type="text" name="url" ng-model="eventWallForm.url" placeholder="{{user.username}}EventWall{{user.eventWalls.length}}" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4>Event Wall Styling</h4>
+          <div class="form-section style-info">
+            <label>Icon <i class="fa fa-question style-help" title="An icon that displays at the top of your Event Wall feed"></i></label><br>
+             
+             <div class="style-options">
+               <input id="eventWallIcon" ng-model="eventWallForm.asd" type="hidden" role="uploadcare-uploader" data-crop="1:1" data-images-only="true"/><br><br>
+             </div>
+              
+            <label>Type of Background</label><br>
+            <div class="style-options">
+              <input class="radio" type="radio" name="backgroundType" ng-model="eventWallForm.backgroundColored"
+              value="true" ng-value="true" ng-checked="true" />
+              <label class="radio-label">Solid Color</label><br>
+              <input class="radio" type="radio" name="backgroundType" ng-model="eventWallForm.backgroundColored" value="false" ng-value="false"/>
+              <label class="radio-label">Image</label>
+              <br>
+            </div>
+
+            
+
+          </div>
+            <!-- div.form-section -->
+          <div class="background-type-wrapper">
+            <div id="backgroundTypeColor" class="form-section style-info">
+              <label>Background Color</label><br><br>
+              <input type="text" id="color" name="color" value="#FF001C" />
+              <div id="colorpicker"></div>
+            </div>
+            <div id="backgroundTypeImage" class="form-section style-info">
+              <label>Background Image</label><br>
+              <div class="style-options">
+                <input id="eventWallBackground" ng-model="eventWallForm.asd" type="hidden" role="uploadcare-uploader" data-crop="16:9" data-images-only="true"/><br>
+                <span>1920x1080 is optimal size</span>
+              </div>
+
+            </div>
+          </div>
+            <!-- div.background-type-wrapper -->
+                    
+        </div>
+          <!-- div.form-group -->
+        <div>
+            <button type="submit" class="btn btn-default" ng-disabled="disabled">Submit</button>
+        </div>
+      </form>
+    </div>
+      <!-- div.eventWallForm-wrapper -->
+  </div>
+    <!-- container -->
   
-  <form class="form" ng-submit="create()">
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" class="form-control" name="username" ng-model="eventWallForm.name" required>
-    </div>
-    <div class="form-group">
-      <label>Hashtag</label>
-        <input type="text" class="form-control" name="hashtag" ng-model="eventWallForm.hashtag" placeholder="#bacon"required>
-      </div>
-      <div>
-    </div>
-    <div class="form-group">
-      <label>Url</label>
-        <input type="text" class="form-control" name="url" ng-model="eventWallForm.url" required>
-    </div>
-    <div class="form-group">
-      <label>Icon</label><br>
-      <input id="eventWallIcon" type="hidden" role="uploadcare-uploader"
-       data-crop="1:1"
-       data-images-only="true" />
-    </div>
-    <div class="form-group">
-      <label>Hashtag Icon</label><br>
-      <input id="eventWallHashtagIcon" type="hidden" role="uploadcare-uploader"
-      data-crop="free"
-       data-images-only="true"/>
-    </div>
-    <div class="form-group">
-      <label>Background</label><br>
-      <div>1920x1080 is the optimal background size.</div>
-      <input id="eventWallBackground" type="hidden" role="uploadcare-uploader"
-       data-crop="16:9"
-       data-images-only="true"/>
-    </div>
-    
-    <div>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">Submit</button>
-    </div>
-  </form>
-
-
 </div>
-
 <!-- name, hashtag, url, icon, background -->

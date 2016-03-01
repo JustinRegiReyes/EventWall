@@ -2,6 +2,11 @@ html, body {
 	height: 100%;
 }
 
+body {
+	//for navbar
+	// padding-top: 60px;
+}
+
 div.form-wrapper {
 	background: white;
     max-width: 615px;
@@ -119,5 +124,8 @@ button.auth {
 
 
 /*helper classes*/
-
+.uploadcare-widget-button-open {
+	background-color: $vitaminC;
+	
+}
 
