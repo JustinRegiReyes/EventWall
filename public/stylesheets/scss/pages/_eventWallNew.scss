@@ -9,6 +9,9 @@ div#eventWall-New {
 		font-size: 3em;
 		color: white;
 		text-shadow: 0 1px 1px $route66;
+		@media screen and (max-width: $break-iphone6) {
+			font-size: 2.5em;
+		}
 	}
 	div.container {
 		width: 100%;
@@ -16,6 +19,9 @@ div#eventWall-New {
 			width: 500px;
 			margin: 50px auto 0;
 			border-radius: 20px;
+			@media screen and (max-width: $break-sm) {
+				width: 99%;
+			}
 			form {
 				div.form-group {
 					width: 100%;
@@ -35,6 +41,13 @@ div#eventWall-New {
 						padding: 10px 0 10px 30px;
 						width: 300px;
 						margin: 0 auto;
+						@media screen and (max-width: $break-sm) {
+							width: 285px;
+							padding-left: 0;
+						}
+						@media screen and (max-width: $break-iphone6) {
+							width: 99%;
+						}
 						&.style-info {
 							& > div.style-options {
 								padding-left: 20px;
@@ -100,16 +113,19 @@ div#eventWall-New {
 							font-size: 16px;
 							margin-bottom: 10px;
 							color: black;
+						    @media screen and (max-width: $break-sm) {
+								width: 100%;
+								height: 35px;
+							}
+							@media screen and (max-width: $break-iphone6) {
+								width: 100%;
+							}
 							&.radio {
 							    width: 20px;
 							    display: inline-block;
 							    vertical-align: top;
 							    height: 20px;
 							    margin-top: 1px;
-							}
-						    //for iphone 5 and lower
-						    @media screen and (max-width: $break-sm) {
-								width: 175px;
 							}
 						}
 						textarea:focus, input:focus{
