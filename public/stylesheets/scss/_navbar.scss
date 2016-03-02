@@ -1,6 +1,12 @@
 nav {
 	background-color: $route66;
 	font-family: $hind;
+	button.navbar-toggle {
+		border: 1px solid #E9E9E9;
+		span.icon-bar {
+			background-color: white;
+		}
+	}
 	a.navbar-brand {
 		font-family: $headerFont;
 		color: white;
