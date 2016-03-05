@@ -31347,7 +31347,7 @@ appDirMod.directive('feedInterface', [
   }
 ]);
 
-appDirMod.directive('showPost', [
+appDirMod.directive('sitePost', [
 	'$document',
   '$rootScope',
   '$window', 
@@ -31356,8 +31356,8 @@ appDirMod.directive('showPost', [
             restrict: 'AE',
             replace: 'true',
             scope: true,
-            template: '<div class="feedPost">' + 
-            			'<div class="{{post.type}}Post feedContent">{{post.text}}' +
+            template: '<div class="feedContent sitePost">' + 
+            			'{{post.text}}' +
             		  '</div></div>'
         };
 }]);

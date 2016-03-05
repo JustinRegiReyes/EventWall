@@ -2,10 +2,10 @@
     min-height: 1200px;
     background-color: $gameBlue;
     section.home {
-        padding: 0 15px 10px;
+        padding: 10px 15px;
         display: block;
         height: 1px;
-        min-height: 50px;
+        min-height: 70px;
         border-bottom: 1px solid $steadyGrey;
         background: white;
         h2 {
@@ -21,16 +21,12 @@
             float: right;
             @include vertical-align();
         }
-        hr {
-            margin-bottom: 0;
-        }
     }
     div.list-container {
         display: block;
         div.list-wrapper {
             width: 930px;
             min-height: 660px;
-            max-height: 880px;
             overflow-y: scroll; 
             margin: 0 auto;
             background-color: white;
@@ -40,6 +36,7 @@
                 width: 855px;
                 display: table;
                 margin: 0 auto;
+                padding-top: 20px;
                 @media screen and (max-width: $break-md) {
 
                 }
@@ -51,7 +48,7 @@
                     padding: 20px 10px;
                     height: 200px;
                     width: 275px;
-                    margin: 10px 5px;
+                    margin: 0px 5px 20px;
                     font-family: $hind; 
                     &:hover {
                         background-color: #D4D4D4;

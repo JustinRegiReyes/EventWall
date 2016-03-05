@@ -2,15 +2,14 @@
 	<div id="eventWallFeed">
 		<div class="text-center" ng-show="error">{{errorMessage}}</div>
 		<div class="feedPost"> 
-        	<div ng-if="!!post.picture === false" class="{{post.type}}Post feedContent">
-        		{{post.text}}
+        	<div ng-if="post.type === 'sitePost'">
+        		<div data-site-post>
+
+                        </div>
         	</div>
-        	<div ng-if="!!post.picture === true" class="picturePost feedContent">
+        	<div ng-if="post.type !== 'sitePost'" class="twitterPost feedContent">
         		<div>
-        			{{post.text}}
-        		</div>
-        		<div>
-        			<img class="feed-picture" ng-src="{{post.picture}}">
+        			not a sitepost!
         		</div>
         	</div>
         </div>

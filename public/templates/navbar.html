@@ -14,7 +14,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul ng-controller="loginController" class="nav navbar-nav navbar-right">
-        <li><a ng-show="isLoggedIn()" href="#">{{user().username}}</a></li>
+        <li><a ng-show="isLoggedIn()" href="/home">{{user().username}}</a></li>
         <li ng-show='isLoggedIn()'><a href="/settings"><i class="fa fa-cogs"></i>Settings</a></li>
         <li role="separator" class="divider"></li>
         <li ng-controller="logoutController">

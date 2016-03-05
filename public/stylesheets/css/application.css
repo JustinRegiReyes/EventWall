@@ -108,10 +108,10 @@ button.auth {
   min-height: 1200px;
   background-color: #3299BB; }
   #home section.home {
-    padding: 0 15px 10px;
+    padding: 10px 15px;
     display: block;
     height: 1px;
-    min-height: 50px;
+    min-height: 70px;
     border-bottom: 1px solid #E9E9E9;
     background: white; }
     #home section.home h2 {
@@ -129,14 +129,11 @@ button.auth {
       position: relative;
       top: 50%;
       transform: translateY(-50%); }
-    #home section.home hr {
-      margin-bottom: 0; }
   #home div.list-container {
     display: block; }
     #home div.list-container div.list-wrapper {
       width: 930px;
       min-height: 660px;
-      max-height: 880px;
       overflow-y: scroll;
       margin: 0 auto;
       background-color: white;
@@ -145,7 +142,8 @@ button.auth {
       #home div.list-container div.list-wrapper > div {
         width: 855px;
         display: table;
-        margin: 0 auto; }
+        margin: 0 auto;
+        padding-top: 20px; }
         #home div.list-container div.list-wrapper > div div.eventWall-block {
           float: left;
           background-color: #E9E9E9;
@@ -154,7 +152,7 @@ button.auth {
           padding: 20px 10px;
           height: 200px;
           width: 275px;
-          margin: 10px 5px;
+          margin: 0px 5px 20px;
           font-family: "Hind", Helvetica, sans-serif; }
           #home div.list-container div.list-wrapper > div div.eventWall-block:hover {
             background-color: #D4D4D4;
