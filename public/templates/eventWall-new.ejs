@@ -8,7 +8,7 @@
           <h4>General Information</h4>
           <div class="form-section">
             <label>Event Wall Name <span>*</span></label>
-            <input type="text" name="username" ng-model="eventWallForm.name" placeholder="{{user.username}}'s Event Wall #{{user.eventWalls.length}}" required/>
+            <input type="text" name="username" ng-model="eventWallForm.name" placeholder="{{user.username}}'s Event Wall #{{user.eventWalls.length + 1}}" required/>
           </div>
           <div class="form-section">
             <label>Twitter Hashtag Tracker</label>
@@ -16,7 +16,7 @@
           </div>
           <div class="form-section">
             <label>Url Of Event Wall <span>*</span> <i class="fa fa-question" title="This Event Wall can be vistited at EventWall.online/feed/{{urlAbout}}"></i></label>
-            <input type="text" name="url" ng-model="eventWallForm.url" placeholder="{{user.username}}EventWall{{user.eventWalls.length}}" required/>
+            <input type="text" name="url" ng-model="eventWallForm.url" placeholder="{{user.username}}EventWall{{user.eventWalls.length + 1}}" required/>
           </div>
         </div>
 
