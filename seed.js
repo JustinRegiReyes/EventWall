@@ -28,14 +28,13 @@ var post = {text: 'test3'};
 // 	});
 // });
 
-// db.EventWall.update({url: 'lisafoundthejuan'}, {url: 'LisaFoundTheJuan'},
-// function(err, eventWall) {
-// 	db.EventWall.findOne({url: 'lisafoundthejuan'}, function(err, neweventWall) {
-// 		if(err) {return console.log(err)}	
-// 		console.log(neweventWall);
-// 		process.exit();
-// 	});
-// });
+db.User.update({username: 'Jstn'}, {eventWalls: new Array},
+function(err, user) {
+	db.User.findOne({username: 'Jstn'}, function(err, newUser) {
+		if(err) {return console.log(err)}	
+		console.log(newUser);
+	});
+});
 
 // db.EventWall.findOne({url: { $regex: 'theflashtv', $options: 'i' }}, function(err, eventWall) {
 // 	console.log(eventWall);
@@ -54,6 +53,6 @@ var post = {text: 'test3'};
 // 	process.exit();
 // });
 
-// db.EventWall.collection.drop(function() {
-// 	process.exit();
-// })
+db.EventWall.collection.drop(function() {
+	process.exit();
+});

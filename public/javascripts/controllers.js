@@ -113,25 +113,25 @@ appCtrlMod.controller('homeController',
   ['$scope', '$location', 'AuthService', "$window",
   function ($scope, $location, AuthService, $window) {
     // var user = AuthService.getUserStatus();
-    $scope.user = { 
-      eventWalls: 
-         [ "56bda6eee28cb22519832b94",
-           "56be44e0d657389451ae241a",
-           "56be45218a978151520a5337",
-           "56be459d6be255fa5245370b",
-           "56be5196e95b42e0618271a6",
-           "56be92e23bac4290b6066824",
-           "56be93b43bac4290b6066825",
-           "56cbaca3708159bb19b24c72",
-           "56cbad02708159bb19b24c73",
-           "56cbfcb427eb6439258aca9a" ],
-      twitterToken: '2694541230-FqQmbhi0N2hcWlvbAIlnECrCPa7lqL0duNDSHUm',
-      twitterSecret: 'oGcDSQNQfHGWWOYWYxAXFJEVNwDtKwOofb60HvsHMjpjF',
-      twitterId: '2694541230',
-      __v: 10,
-      username: 'Jstn',
-      _id: "56bd72602c29d02f0a56546a" 
-    };
+    // $scope.user = { 
+    //   eventWalls: 
+    //      [ "56bda6eee28cb22519832b94",
+    //        "56be44e0d657389451ae241a",
+    //        "56be45218a978151520a5337",
+    //        "56be459d6be255fa5245370b",
+    //        "56be5196e95b42e0618271a6",
+    //        "56be92e23bac4290b6066824",
+    //        "56be93b43bac4290b6066825",
+    //        "56cbaca3708159bb19b24c72",
+    //        "56cbad02708159bb19b24c73",
+    //        "56cbfcb427eb6439258aca9a" ],
+    //   twitterToken: '2694541230-FqQmbhi0N2hcWlvbAIlnECrCPa7lqL0duNDSHUm',
+    //   twitterSecret: 'oGcDSQNQfHGWWOYWYxAXFJEVNwDtKwOofb60HvsHMjpjF',
+    //   twitterId: '2694541230',
+    //   __v: 10,
+    //   username: 'Jstn',
+    //   _id: "56bd72602c29d02f0a56546a" 
+    // };
 
   
 
@@ -145,23 +145,25 @@ appCtrlMod.controller('homeController',
     //   $location.path('/');
     // }
 
-    if(AuthService.isLoggedIn() === false) {
+    if(AuthService.isLoggedIn() === true) {
+      console.log('so this is running?');
       AuthService.getEventWalls($scope.user.eventWalls)
       // handle success
         .then(function (data) {
-          $scope.user.eventWalls = blockBackground(data);
+          console.log('fetched eventWalls', new Date);
+          $scope.eventWalls = blockBackground(data);
           $window.user = $scope.user;          
         })
         // handle error
         .catch(function (res) {
-          $scope.error = true;
-          $scope.errorMessage = "Could not retrieve your Event Walls. Please try again.";
+          
         });
     }
-    
     //sets background of Event Wall blocks on home page
     function blockBackground(eventWalls) {
+      console.log(eventWalls.length);
       eventWalls.forEach(function(eventWall) {
+        // console.log(eventWall.name);
         eventWall.style = 'background: linear-gradient(rgba(0, 0, 0, .20), rgba(0, 0, 0, .25), rgba(0, 0, 0, .30)), url(' + eventWall.background + ');' +
                           'background-size: cover;';
       });

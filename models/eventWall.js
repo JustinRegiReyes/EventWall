@@ -43,11 +43,6 @@ var EventWallSchema = new Schema({
   //an array of posts that have been banned. containing id and text
   bannedPosts: {
     type: Array
-  },
-  style: {
-    type: String,
-    default: 'background: linear-gradient(rgba(0, 0, 0, .20), rgba(0, 0, 0, .25), rgba(0, 0, 0, .30)), url(' + this.background + ');' +
-                          'background-size: cover;'
   }
 });
 

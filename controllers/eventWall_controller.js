@@ -18,6 +18,8 @@ var stream;
 module.exports.create = function(req, res) {
 	var eventWallData = req.body;
 
+	
+
 	//find logged in user to edit in DB
 	req.currentUser(function(err, user) {
 		if(err) {return console.log(err)};
@@ -29,7 +31,7 @@ module.exports.create = function(req, res) {
 			eventWall.addToUser(user, function(user) {
 				req.login(user, function(err) {
 					// console.log('updated logged in user!');
-					res.status(200).json({data: eventWall});
+					return res.status(200).json({data: eventWall});
 				})
 			});
 		})
@@ -215,10 +217,17 @@ module.exports.banSitePost = function(req, res) {
 module.exports.userCreated = function(req, res) {
 	var eventWallIds = req.query.eventWallIds;
 
+	// console.log(eventWallIds.length);
+
 	EventWall.find({_id: {$in: eventWallIds}},
 		function(err, eventWalls) {
-			if(err) { return res.status(500);}
+			
+			if(err) { 
+				console.log(err); 
+				return res.status(500).json({err: 'An error has occured. Please refresh the page.'});
+			}
 
+			// console.log(eventWalls);
 			return res.status(200).json({data: eventWalls});
 		})
 }

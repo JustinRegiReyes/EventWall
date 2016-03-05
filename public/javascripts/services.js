@@ -145,6 +145,7 @@ appServMod.factory('AuthService', ['$q', '$timeout', '$http', '$window', functio
   }
 
   function getEventWalls(eventWallIds) {
+  	console.log('getEventWalls ran at least')
   		// create a new instance of deferred
    		var deferred = $q.defer();
 
@@ -166,6 +167,7 @@ appServMod.factory('AuthService', ['$q', '$timeout', '$http', '$window', functio
 	      })
 	      // handle error
 	      .error(function (res) {
+	      	console.log('error???')
 	        deferred.reject(res.err);
 	      });
 
