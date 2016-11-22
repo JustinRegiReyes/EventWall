@@ -154,6 +154,8 @@ button.auth {
           width: 275px;
           margin: 0px 5px 20px;
           font-family: "Hind", Helvetica, sans-serif; }
+          #home div.list-container div.list-wrapper > div div.eventWall-block div {
+            color: white; }
           #home div.list-container div.list-wrapper > div div.eventWall-block:hover {
             background-color: #D4D4D4;
             cursor: pointer; }
@@ -174,7 +176,7 @@ button.auth {
   display: block;
   width: 100%;
   text-align: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("http://placehold.it/1900x500") no-repeat center center scroll;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5)), url("/static/images/event3.jpg") no-repeat center center scroll;
   background-size: cover; }
 
 .headline {
@@ -529,11 +531,11 @@ nav {
     font-family: "Roboto", serif;
     color: white;
     font-size: 2em;
-    font-weight: bold;
-    text-shadow: -1px -2px 2px #3299BB; }
+    font-weight: bold; }
   nav .nav > li > a:hover {
     background-color: white;
-    color: black; }
+    color: black;
+    cursor: pointer; }
     nav .nav > li > a:hover i {
       color: #FF9900; }
   nav li a {

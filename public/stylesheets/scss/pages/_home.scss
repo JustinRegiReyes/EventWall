@@ -50,6 +50,9 @@
                     width: 275px;
                     margin: 0px 5px 20px;
                     font-family: $hind; 
+                    div {
+                        color: white;
+                    }
                     &:hover {
                         background-color: #D4D4D4;
                         cursor: pointer;

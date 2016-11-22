@@ -31370,8 +31370,6 @@ appCtrlMod.controller('mainCtrl', ['$scope', '$location', '$http', '$window', 'A
   function($scope, $location, $http, $window, AuthService) {
   $scope.user = $window.user;
   $scope.isLoggedIn = AuthService.isLoggedIn();
-
-
 }]);
 
 appCtrlMod.controller('navCtrl', ['$scope', '$location', '$http', '$window', 'AuthService', 'NavService',
@@ -31529,8 +31527,10 @@ appCtrlMod.controller('homeController',
       console.log(eventWalls.length);
       eventWalls.forEach(function(eventWall) {
         // console.log(eventWall.name);
-        eventWall.style = 'background: linear-gradient(rgba(0, 0, 0, .20), rgba(0, 0, 0, .25), rgba(0, 0, 0, .30)), url(' + eventWall.background + ');' +
+        eventWall.style = 'background: linear-gradient(rgba(0, 0, 0, .60), rgba(0, 0, 0, .60), rgba(0, 0, 0, .60)), url(' + eventWall.background + ');' +
                           'background-size: cover;';
+        // eventWall.style = 'background: rgba(0, 0, 0, 0.60), url(' + eventWall.background + ');' +
+        //                   'background-size: cover;';
       });
       return eventWalls;
     }

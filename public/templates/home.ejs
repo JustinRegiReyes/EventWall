@@ -11,6 +11,7 @@
 					You have not created any event walls yet! Create your first one <a href="/eventWall/new">here!</a>
 				</div>
 				<div class="eventWall-block" ng-repeat="eventWall in eventWalls" style="{{eventWall.style}}">
+					<!-- {{eventWall.background}} -->
 					<a href="/feed/{{eventWall.url}}"><div>
 						<h4>{{eventWall.name}}</h4>
 
